@@ -10,7 +10,7 @@ CivicAI transforms civic engagement by using AI to convert citizen-reported prob
 
 - 🤖 **AI-Powered Proposals:** Convert problems into structured civic solutions
 - 🗳️ **Blockchain Voting:** Transparent, wallet-based voting system
-- 💰 **ICC Integration:** Island Community Coin reward system
+- 💰 **I₵C Integration:** Infinita City Credits reward system
 - 📱 **Mobile-First:** Responsive design for all devices
 - 🌐 **Web3 Ready:** WalletConnect integration for identity
 
