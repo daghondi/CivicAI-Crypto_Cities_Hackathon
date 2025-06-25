@@ -101,7 +101,7 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 ## 🙌 Acknowledgements
 - Hosted by [Infinita City](https://www.infinita.city/) , [Odeiea](https://www.odisea.xyz/) , and [TAIKAI](https://taikai.network/)
 - Inspired by the needs of island governance and digital democracy.
-- Powered by  [Supabase](https://supabase.com/), [OpenAI](https://openai.com/), and the Web3 ecosystem.
+- Powered by  [Próspera](https://www.prospera.co/), [Supabase](https://supabase.com/), [OpenAI](https://openai.com/), and the Web3 ecosystem.
 
 ## 📫 Contact
 
