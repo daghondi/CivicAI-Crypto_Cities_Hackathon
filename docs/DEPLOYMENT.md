@@ -44,14 +44,13 @@ OPENAI_API_KEY=your_openai_api_key
 ANTHROPIC_API_KEY=your_anthropic_api_key
 
 # Web3 Configuration
-NEXT_PUBLIC_THIRDWEB_CLIENT_ID=your_thirdweb_client_id
 NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
+NEXT_PUBLIC_THIRDWEB_CLIENT_ID=your_thirdweb_client_id
 
 # App Configuration
 NEXT_PUBLIC_APP_URL=https://your-domain.com
 NEXT_PUBLIC_APP_NAME=CivicAI
 NEXT_PUBLIC_NETWORK_NAME=Próspera
-NEXT_PUBLIC_ENVIRONMENT=production
 
 # Feature Flags
 NEXT_PUBLIC_ENABLE_AI=true
@@ -68,8 +67,6 @@ RATE_LIMIT_VOTING_REQUESTS=10
 RATE_LIMIT_VOTING_WINDOW=60
 RATE_LIMIT_PROPOSAL_REQUESTS=3
 RATE_LIMIT_PROPOSAL_WINDOW=3600
-NEXT_PUBLIC_APP_NAME=CivicAI
-NEXT_PUBLIC_NETWORK_NAME=Próspera
 ```
 
 ## 🚀 Deployment Steps
@@ -170,6 +167,59 @@ NEXT_PUBLIC_NETWORK_NAME=Próspera
 - Never commit `.env.local` to version control
 - Use different API keys for different environments
 - Enable 2FA on all service accounts
+
+## 🔧 Advanced Configuration
+
+### Wallet Integration Setup
+
+1. **Thirdweb Configuration**
+   ```bash
+   # Get your Thirdweb Client ID from dashboard.thirdweb.com
+   NEXT_PUBLIC_THIRDWEB_CLIENT_ID=your_thirdweb_client_id
+   ```
+
+2. **WalletConnect Setup (Optional)**
+   ```bash
+   # Get Project ID from cloud.walletconnect.com
+   NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
+   ```
+
+3. **Network Configuration**
+   ```bash
+   # Default: Optimism Sepolia Testnet
+   # For mainnet, update contract addresses
+   NEXT_PUBLIC_ICC_TOKEN_ADDRESS=0x...
+   NEXT_PUBLIC_GOVERNANCE_ADDRESS=0x...
+   ```
+
+### Database Migration Setup
+
+1. **Run Initial Migrations**
+   ```bash
+   # Set up database schema
+   npm run setup-db
+   
+   # Run wallet integration migration
+   npx supabase migration up
+   ```
+
+2. **Seed Database (Optional)**
+   ```bash
+   # Add sample proposals and users
+   node scripts/seed-data.js
+   ```
+
+### Security Features Configuration
+
+1. **API Middleware**
+   - Rate limiting automatically configured
+   - Wallet signature verification enabled
+   - CORS policies applied
+
+2. **Authentication Flow**
+   - Wallet-based authentication (no passwords)
+   - Cryptographic signature verification
+   - Session management with JWT-style tokens
 
 ## 📊 Monitoring & Analytics
 
