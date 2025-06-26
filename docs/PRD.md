@@ -25,6 +25,7 @@ Civic Technology, AI Development, Blockchain Integration, Web3 Governance
 ### Milestone 1: AI-Powered Proposal Generation Engine
 
 #### Core AI Features:
+
 - **Problem Intake System**: 
   - User-friendly form for citizens to submit civic issues
   - **Pre-filled prompt suggestions** including:
