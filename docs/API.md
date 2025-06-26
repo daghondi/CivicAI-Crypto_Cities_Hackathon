@@ -1,6 +1,6 @@
-# CivicAI API Documentation
+# CivicAI API Documentation v2.0
 
-This document outlines the REST API endpoints for the CivicAI platform, an AI-powered civic engagement platform for crypto cities and island communities.
+This document outlines the comprehensive REST API endpoints for the CivicAI platform - an advanced Web3 governance platform for crypto cities and island communities.
 
 ## Base URL
 ```
@@ -9,21 +9,117 @@ https://your-domain.com/api (production)
 ```
 
 ## Authentication
-The API currently uses client-side wallet authentication. Future versions will implement JWT tokens and wallet signature verification.
 
-## Error Responses
-All endpoints return consistent error responses:
+### Wallet-Based Authentication
+The API uses cryptographic signature-based authentication for secure Web3 integration:
+
+```http
+Authorization: Bearer <base64_encoded_session_token>
+```
+
+**Session Token Structure:**
 ```json
 {
-  "error": "Error message description"
+  "address": "0x...",
+  "timestamp": 1672531200000,
+  "nonce": "random_string"
 }
 ```
 
-Common HTTP status codes:
+### Rate Limiting
+- **Voting**: 10 requests per minute per wallet
+- **Proposal Creation**: 3 requests per hour per wallet  
+- **General API**: 100 requests per minute per IP
+
+## Error Responses
+All endpoints return consistent error responses with detailed information:
+
+```json
+{
+  "success": false,
+  "error": "Detailed error message",
+  "code": "ERROR_CODE",
+  "timestamp": "2024-01-01T00:00:00Z"
+}
+```
+
+**Common HTTP Status Codes:**
 - `200` - Success
 - `201` - Created successfully  
 - `400` - Bad request (validation error)
+- `401` - Unauthorized (authentication required)
+- `403` - Forbidden (insufficient permissions)
+- `404` - Resource not found
+- `429` - Rate limit exceeded
 - `500` - Internal server error
+
+---
+
+## 🔐 Authentication Endpoints
+
+### Login with Wallet
+Authenticate user with wallet signature.
+
+**Endpoint:** `POST /api/auth`
+
+**Request Body:**
+```json
+{
+  "address": "0x1234567890abcdef1234567890abcdef12345678",
+  "signature": "0x...",
+  "message": "Login message with nonce",
+  "nonce": "random_nonce_string"
+}
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "user": {
+    "id": "uuid",
+    "wallet_address": "0x...",
+    "display_name": "User 0x1234...5678",
+    "reputation_score": 150,
+    "is_verified": true,
+    "ens_name": "user.eth"
+  },
+  "session_token": "base64_encoded_token"
+}
+```
+
+### Verify Session
+Verify current session token.
+
+**Endpoint:** `GET /api/auth`
+**Headers:** `Authorization: Bearer <session_token>`
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "user": {
+    "id": "uuid",
+    "wallet_address": "0x...",
+    "display_name": "User Name",
+    "reputation_score": 150,
+    "is_verified": true
+  }
+}
+```
+
+### Logout
+Invalidate current session.
+
+**Endpoint:** `DELETE /api/auth`
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "message": "Logged out successfully"
+}
+```
 
 ---
 
@@ -262,54 +358,364 @@ GET /api/votes?proposal_id=abc123-def456-ghi789
 
 ---
 
-## Data Models
+## 👤 User Management Endpoints
 
-### Proposal Categories
-- `transportation` - Traffic, public transit, mobility
-- `infrastructure` - Utilities, buildings, maintenance  
-- `environment` - Sustainability, conservation, green initiatives
-- `governance` - Policy, regulations, community management
-- `social` - Community programs, healthcare, education
-- `economic` - Business development, taxation, incentives
+### Get User Profile
+Retrieve user profile by wallet address.
 
-### Vote Types
-- `for` - Support the proposal
-- `against` - Oppose the proposal  
-- `abstain` - Neither support nor oppose
+**Endpoint:** `GET /api/users/[address]`
 
-### Proposal Status
-- `draft` - Initial proposal, can be edited
-- `active` - Open for voting
-- `completed` - Voting finished, passed
-- `rejected` - Voting finished, failed
+**Parameters:**
+- `address` - Ethereum wallet address
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "user": {
+    "id": "uuid",
+    "wallet_address": "0x...",
+    "display_name": "User Name",
+    "ens_name": "user.eth",
+    "reputation_score": 150,
+    "is_verified": true,
+    "badges": [
+      {
+        "id": "uuid",
+        "badge_type": "first_vote",
+        "earned_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "vote_count": 25,
+    "proposal_count": 3,
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  "voting_history": [
+    {
+      "proposal_id": "uuid",
+      "vote_type": "for",
+      "reasoning": "This proposal addresses critical infrastructure needs",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  ]
+}
+```
+
+### Update User Profile
+Update user profile information.
+
+**Endpoint:** `PUT /api/users/[address]`
+**Headers:** `Authorization: Bearer <session_token>`
+
+**Request Body:**
+```json
+{
+  "display_name": "New Display Name",
+  "bio": "User biography"
+}
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "user": {
+    "id": "uuid",
+    "wallet_address": "0x...",
+    "display_name": "New Display Name",
+    "bio": "User biography",
+    "updated_at": "2024-01-01T00:00:00Z"
+  }
+}
+```
 
 ---
 
-## Rate Limiting
-API endpoints are currently not rate limited but will implement the following limits in production:
+## 🏛️ Proposal Management Endpoints
 
-- `/api/ai/generate`: 10 requests per minute per IP
-- `/api/proposals`: 100 requests per minute per IP  
-- `/api/votes`: 50 requests per minute per IP
+### Get All Proposals
+Retrieve paginated list of proposals with filtering options.
+
+**Endpoint:** `GET /api/proposals`
+
+**Query Parameters:**
+- `page` (optional) - Page number (default: 1)
+- `limit` (optional) - Items per page (default: 10, max: 100)
+- `category` (optional) - Filter by category
+- `status` (optional) - Filter by status
+- `search` (optional) - Search in title and description
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "proposals": [
+    {
+      "id": "uuid",
+      "title": "Improve Public Transportation",
+      "description": "Detailed proposal description...",
+      "category": "infrastructure",
+      "status": "active",
+      "impact_score": 85,
+      "cost_estimate": 50000,
+      "timeline": "6-12 months",
+      "feasibility_score": 92,
+      "votes_for": 150,
+      "votes_against": 25,
+      "votes_abstain": 10,
+      "total_votes": 185,
+      "creator_address": "0x...",
+      "created_at": "2024-01-01T00:00:00Z",
+      "voting_deadline": "2024-01-15T00:00:00Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 45,
+    "pages": 5
+  }
+}
+```
+
+### Get Single Proposal
+Retrieve detailed information about a specific proposal.
+
+**Endpoint:** `GET /api/proposals/[id]`
+
+**Parameters:**
+- `id` - Proposal UUID
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "proposal": {
+    "id": "uuid",
+    "title": "Improve Public Transportation",
+    "description": "Detailed proposal description...",
+    "category": "infrastructure",
+    "status": "active",
+    "impact_score": 85,
+    "cost_estimate": 50000,
+    "timeline": "6-12 months",
+    "feasibility_score": 92,
+    "potential_risks": [
+      "Budget overruns",
+      "Implementation delays"
+    ],
+    "recommendations": [
+      "Phased implementation approach",
+      "Regular stakeholder consultations"
+    ],
+    "icc_incentives": "500 ICC tokens for successful implementation",
+    "votes_for": 150,
+    "votes_against": 25,
+    "votes_abstain": 10,
+    "total_votes": 185,
+    "creator": {
+      "wallet_address": "0x...",
+      "display_name": "Proposal Creator",
+      "ens_name": "creator.eth"
+    },
+    "created_at": "2024-01-01T00:00:00Z",
+    "voting_deadline": "2024-01-15T00:00:00Z"
+  }
+}
+```
+
+### Create New Proposal
+Create a new governance proposal.
+
+**Endpoint:** `POST /api/proposals`
+**Headers:** `Authorization: Bearer <session_token>`
+
+**Request Body:**
+```json
+{
+  "title": "Proposal Title",
+  "description": "Detailed proposal description",
+  "category": "infrastructure",
+  "impact_score": 85,
+  "cost_estimate": 50000,
+  "timeline": "6-12 months",
+  "feasibility_score": 92,
+  "potential_risks": ["Risk 1", "Risk 2"],
+  "recommendations": ["Recommendation 1", "Recommendation 2"],
+  "icc_incentives": "Reward description"
+}
+```
+
+**Success Response (201):**
+```json
+{
+  "success": true,
+  "proposal": {
+    "id": "uuid",
+    "title": "Proposal Title",
+    "status": "active",
+    "created_at": "2024-01-01T00:00:00Z",
+    "voting_deadline": "2024-01-15T00:00:00Z"
+  }
+}
+```
+
+### Update Proposal
+Update an existing proposal (creator only).
+
+**Endpoint:** `PUT /api/proposals/[id]`
+**Headers:** `Authorization: Bearer <session_token>`
+
+**Request Body:**
+```json
+{
+  "title": "Updated Title",
+  "description": "Updated description",
+  "status": "active"
+}
+```
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "proposal": {
+    "id": "uuid",
+    "title": "Updated Title",
+    "updated_at": "2024-01-01T00:00:00Z"
+  },
+  "message": "Proposal updated successfully"
+}
+```
+
+### Delete Proposal
+Delete a proposal (creator only, no votes cast).
+
+**Endpoint:** `DELETE /api/proposals/[id]`
+**Headers:** `Authorization: Bearer <session_token>`
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "message": "Proposal deleted successfully"
+}
+```
 
 ---
 
-## Future Enhancements
+## 🗳️ Voting Endpoints
 
-### Planned Features
-1. **Authentication**: JWT tokens with wallet signature verification
-2. **Pagination**: Cursor-based pagination for large datasets
-3. **Real-time Updates**: WebSocket support for live vote counts
-4. **File Uploads**: Support for proposal attachments and images
-5. **Advanced Filtering**: Full-text search and complex filters
-6. **Analytics**: Detailed proposal performance metrics
+### Cast Vote
+Submit a cryptographically-signed vote on a proposal.
 
-### Webhook Support
-Future versions will support webhooks for:
-- New proposal submissions
-- Vote milestones reached
-- Proposal status changes
-- AI analysis completion
+**Endpoint:** `POST /api/votes`
+**Headers:** `Authorization: Bearer <session_token>`
+
+**Request Body:**
+```json
+{
+  "proposal_id": "uuid",
+  "vote_type": "for",
+  "reasoning": "This proposal addresses critical infrastructure needs",
+  "signature": "0x...",
+  "message_hash": "0x...",
+  "timestamp": 1672531200000
+}
+```
+
+**Success Response (201):**
+```json
+{
+  "success": true,
+  "vote": {
+    "id": "uuid",
+    "proposal_id": "uuid",
+    "vote_type": "for",
+    "wallet_address": "0x...",
+    "created_at": "2024-01-01T00:00:00Z"
+  },
+  "message": "Vote recorded successfully"
+}
+```
+
+### Get Proposal Votes
+Retrieve all votes for a specific proposal.
+
+**Endpoint:** `GET /api/votes?proposal_id=[id]`
+
+**Query Parameters:**
+- `proposal_id` - Proposal UUID
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "votes": [
+    {
+      "id": "uuid",
+      "proposal_id": "uuid",
+      "vote_type": "for",
+      "reasoning": "Supporting this initiative",
+      "wallet_address": "0x...",
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  ],
+  "statistics": {
+    "total_votes": 185,
+    "votes_for": 150,
+    "votes_against": 25,
+    "votes_abstain": 10,
+    "for_percentage": 81,
+    "against_percentage": 14,
+    "abstain_percentage": 5
+  }
+}
+```
+
+---
+
+## 📊 Analytics Endpoints
+
+### Platform Statistics
+Get overall platform usage statistics.
+
+**Endpoint:** `GET /api/analytics/stats`
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "stats": {
+    "total_proposals": 156,
+    "active_proposals": 12,
+    "total_votes": 2847,
+    "unique_voters": 421,
+    "total_users": 856,
+    "verified_users": 234
+  }
+}
+```
+
+### User Analytics
+Get analytics for a specific user.
+
+**Endpoint:** `GET /api/analytics/users/[address]`
+
+**Success Response (200):**
+```json
+{
+  "success": true,
+  "analytics": {
+    "votes_cast": 25,
+    "proposals_created": 3,
+    "reputation_score": 150,
+    "badges_earned": 4,
+    "voting_streak": 12,
+    "participation_rate": 0.85
+  }
+}
+```
 
 ---
 
