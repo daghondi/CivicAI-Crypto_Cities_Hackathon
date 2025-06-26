@@ -10,24 +10,38 @@ async function main() {
   console.log("Deploying contracts with account:", deployer.address);
   console.log("Account balance:", ethers.utils.formatEther(await deployer.getBalance()));
 
-  // Deploy I₵CToken (Civic Coin) first
-  console.log("\n💰 Deploying I₵CToken (Civic Coin)...");
-  const ICCToken = await ethers.getContractFactory("I₵CToken");
-  const iccToken = await ICCToken.deploy();
+  // Deploy ICCToken (I₵C Civic Coin) first
+  console.log("\n💰 Deploying ICCToken (Infinita City Credits)...");
+  const ICCToken = await ethers.getContractFactory("ICCToken");
+  const iccToken = await ICCToken.deploy(
+    deployer.address, // initial owner
+    deployer.address  // reward distributor (can be changed later)
+  );
   await iccToken.deployed();
-  console.log("✅ I₵CToken deployed to:", iccToken.address);
+  console.log("✅ ICCToken deployed to:", iccToken.address);
 
   // Deploy ProposalGovernance contract
-  console.log("\n📋 Deploying ProposalGovernance...");
+  console.log("\n🏛️ Deploying ProposalGovernance...");
   const ProposalGovernance = await ethers.getContractFactory("ProposalGovernance");
-  const proposalGovernance = await ProposalGovernance.deploy();
+  const proposalGovernance = await ProposalGovernance.deploy(
+    iccToken.address,  // ICC token address
+    deployer.address   // initial owner
+  );
   await proposalGovernance.deployed();
   console.log("✅ ProposalGovernance deployed to:", proposalGovernance.address);
 
   // Setup initial configurations
   console.log("\n⚙️ Setting up initial configurations...");
   
-  // Authorize ProposalGovernance contract to mint ICC tokens for rewards
+  // Set the governance contract address in the ICC token
+  console.log("Setting governance contract in ICC token...");
+  await iccToken.setGovernanceContract(proposalGovernance.address);
+  console.log("✅ Governance contract authorized in ICC token");
+
+  // Optional: Set the governance as reward distributor as well
+  console.log("Setting governance contract as reward distributor...");
+  await iccToken.setRewardDistributor(proposalGovernance.address);
+  console.log("✅ Governance contract set as reward distributor");
   await iccToken.authorizeMinter(proposalGovernance.address, true);
   console.log("✅ ProposalGovernance authorized as ICC minter");
   
