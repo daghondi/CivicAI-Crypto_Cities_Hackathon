@@ -1,142 +1,133 @@
-# CivicAI Production Demo Guide v2.0
+# CivicAI Demo Guide
 
-Welcome to CivicAI - the most advanced Web3 governance platform for crypto cities and island communities! This comprehensive guide demonstrates our production-ready features and user experience flows.
+Welcome to CivicAI - an AI-powered civic engagement platform for crypto cities and island communities! This guide walks you through the key features and user experience.
 
 ## 🚀 Live Demo
 
 **Demo URL:** `http://localhost:3000` (development)
-**Production URL:** `https://civicai.vercel.app` (coming soon)
 
-## ✨ Production-Ready Features
+## ✨ Key Features Implemented
 
-### 🤖 **Advanced AI-Powered Proposal Generation**
-- **Intelligent Problem Analysis**: Natural language processing for civic issue classification
-- **Context-Aware Prompts**: Smart suggestions based on community type and location
-- **Multi-Provider AI**: Dual integration with OpenAI GPT-4 and Anthropic Claude
-- **Comprehensive Output**: Detailed proposals with impact scores, budgets, timelines, and risk assessments
-- **Real-Time Generation**: Sub-10 second proposal creation with streaming responses
+### 🤖 Advanced AI-Powered Proposal Generation
+- **Smart Problem Analysis**: Submit civic issues in natural language
+- **Multi-step Creation Wizard**: Guided flow from problem to proposal
+- **Pre-filled Prompts**: Quick start with common civic categories
+- **Comprehensive AI Output**: Impact scores, cost estimates, timelines, and risk assessments
+- **Custom Prompt Engineering**: Optimized for civic governance use cases
 
-### 🗳️ **Cryptographically-Secure Voting System**
-- **Signature-Based Authentication**: Every vote cryptographically signed with user's wallet
-- **One-Vote-Per-Wallet**: Ironclad duplicate prevention with server-side verification
-- **Multi-Wallet Support**: MetaMask, WalletConnect, Coinbase Wallet, and more
-- **Real-Time Results**: Live vote counting with WebSocket updates
-- **Tamper-Proof Recording**: Immutable vote storage with signature verification
+### 🗳️ Cryptographic Voting System
+- **Multi-Wallet Support**: MetaMask, Coinbase Wallet, WalletConnect, and more via Thirdweb
+- **Signature-Based Voting**: Each vote cryptographically signed for authenticity
+- **One Vote Per Wallet**: Prevents vote manipulation while maintaining privacy
+- **Real-time Results**: Live vote counting with detailed statistics and percentages
+- **Vote Verification**: Server-side signature validation for security
 
-### 👤 **Advanced User Profiles & Reputation**
-- **Wallet Integration**: ENS resolution with custom avatar and display names
-- **Dynamic Reputation System**: Multi-factor scoring based on participation quality
-- **Achievement Badges**: Gamified engagement with 7+ badge types
-- **Comprehensive Analytics**: Vote history, proposal impact, and community standing
-- **Privacy-First Design**: Opt-in data sharing with granular privacy controls
+### 👤 Advanced User Profiles & Reputation
+- **Wallet Integration**: ENS resolution and user-friendly address display
+- **Comprehensive Reputation System**: Track civic engagement across all activities
+- **Achievement Badge System**: Earn badges for milestones ("First Vote", "Active Participant", etc.)
+- **Complete Vote History**: View all past votes with reasoning and timestamps
+- **User Statistics**: Track personal impact and community participation
 
-### 🏛️ **Professional Governance Infrastructure**
-- **Complete Proposal Lifecycle**: Draft → Active → Voting → Implementation tracking
-- **Configurable Parameters**: Adjustable voting periods, quorum requirements, and thresholds
-- **Advanced Analytics**: Participation metrics, engagement trends, and impact assessment
-- **Multi-Category Support**: Infrastructure, Environment, Economic, Healthcare, and more
-- **Time-Bound Governance**: Automatic deadline enforcement with notification systems
+### 🏛️ Professional Governance Features
+- **Complete Proposal Lifecycle**: From creation through voting to implementation
+- **Configurable Voting Periods**: Time-bound voting with automatic expiration
+- **Quorum Requirements**: Minimum participation thresholds for proposal validity
+- **Advanced Analytics**: Community engagement metrics and participation insights
+- **Proposal Management**: Edit, delete, and track proposal status
 
-### 🎨 **Premium User Experience**
-- **Progressive Web App**: Offline-capable with service worker implementation
-- **Mobile-First Design**: Responsive interface optimized for all devices
-- **Professional UI Components**: Loading states, skeletons, toasts, and micro-interactions
-- **Accessibility Compliant**: WCAG 2.1 AA standards with screen reader support
-- **Performance Optimized**: Sub-3 second load times with efficient caching
+### 💰 Incentive & Reward System
+- **I₵C Token Integration**: Infinita City Credits for community participation
+- **Engagement Rewards**: Earn tokens for voting, creating proposals, and active participation
+- **Transparent Tracking**: Clear record of all earned rewards and contributions
+- **Gamification Elements**: Badges and achievements to encourage participation
 
-## 🎯 Comprehensive Demo Flows
+### 🔒 Enterprise-Grade Security
+- **Cryptographic Authentication**: No passwords, only wallet signatures
+- **Anti-fraud Protection**: Signature verification prevents vote manipulation
+- **Rate Limiting**: API protection against abuse and spam
+- **Input Validation**: Comprehensive sanitization and validation
+- **Audit Trail**: Complete history of all governance actions
 
-### 1. **Advanced Wallet Connection & Authentication**
+### 🎨 Professional UI/UX
+- **Mobile-First Design**: Fully responsive interface optimized for all devices
+- **Loading States**: Professional skeleton loaders and progress indicators
+- **Toast Notifications**: Real-time feedback for all user actions
+- **Accessibility**: WCAG-compliant design with keyboard navigation
+- **Error Handling**: User-friendly error messages and recovery options
+
+## 🎯 Demo Flow
+
+## 🎯 Demo Flow
+
+### 1. Connect Your Wallet
 ```
-Landing Page → "Connect Wallet" → Provider Selection → Signature Request → Profile Creation
+Home Page → "Connect Wallet" → Select Provider → Approve Connection
 ```
-- **Supported Wallets**: MetaMask, WalletConnect (50+ wallets), Coinbase Wallet, Rainbow, etc.
-- **ENS Integration**: Automatic ENS name resolution and display
-- **Security Features**: Cryptographic signature verification for account creation
-- **Profile Setup**: Custom display names, avatar selection, and bio creation
+- **Multi-wallet Support**: MetaMask, Coinbase Wallet, WalletConnect-compatible wallets
+- **ENS Resolution**: Shows ENS names when available (e.g., alice.eth)
+- **Connection Status**: Persistent connection state with address display
+- **Network Validation**: Automatically switches to Optimism Sepolia if needed
 
-### 2. **AI-Powered Proposal Creation Wizard**
+### 2. Create a Civic Proposal
 ```
-Dashboard → "Create Proposal" → Problem Description → AI Generation → Review & Refine → Submit
-```
-
-**Enhanced Problem Submission Examples:**
-
-**Infrastructure Challenge:**
-```
-Problem: "Traffic congestion at the main intersection during rush hours causes 30-minute delays"
-Location: "Próspera, Roatán"
-Category: "Infrastructure" 
-Urgency: "High"
-```
-
-**Environmental Issue:**
-```
-Problem: "Beach erosion threatening coastal properties and marine ecosystem"
-Location: "West Bay Beach, Roatán"
-Category: "Environment"
-Urgency: "Medium"
+Dashboard → "Create Proposal" → Problem Submission → AI Generation → Review & Submit
 ```
 
-**Economic Development:**
-```
-Problem: "Limited internet connectivity hindering remote work opportunities"
-Location: "Coxen Hole, Roatán"
-Category: "Economic"
-Urgency: "High"
-```
+**Demo Problem Example:**
+*"The main road connecting Pristine Bay to Coxen Hole has heavy traffic during rush hours, making it difficult for residents to commute to work and access essential services."*
 
-**AI Enhancement Features:**
-- **Smart Context Analysis**: AI understands local geography and constraints
-- **Multi-Language Support**: Proposals generated in English and Spanish
-- **Cost-Benefit Analysis**: Detailed financial projections with ROI calculations
-- **Stakeholder Identification**: Automatic mapping of affected parties and decision makers
-- **Implementation Roadmaps**: Step-by-step execution plans with milestones
+**AI-Generated Output:**
+- **Title**: "Implement Smart Traffic Management System for Main Road"
+- **Cost Estimate**: $75,000 - $125,000
+- **Impact Score**: 85/100
+- **Timeline**: 4-6 months implementation
+- **Feasibility**: 78/100
+- **Risks**: Budget overruns, weather delays, coordination challenges
+- **I₵C Incentives**: 1,000 tokens for successful implementation
 
-### 3. **Cryptographically-Secure Voting Experience**
+### 3. Vote on Proposals
 ```
-Proposal View → Connect Wallet → Review Details → Cast Vote → Sign Message → Vote Recorded
+Proposals Page → Select Proposal → Review Details → Connect Wallet → Sign Vote → Confirm
 ```
 
-**Voting Interface Features:**
-- **Detailed Proposal Analysis**: Impact scores, cost estimates, timeline projections
-- **Community Discussion**: Threaded comments with reputation-based visibility
-- **Vote Reasoning**: Optional explanations that influence community discourse
-- **Real-Time Updates**: Live vote counts with animated progress bars
-- **Vote Verification**: Public signature verification for transparency
+**Voting Process:**
+1. **Browse Proposals**: Filter by category, status, or search terms
+2. **Review Details**: Read full proposal with AI analysis
+3. **Check Voting History**: See if you've already voted
+4. **Cast Vote**: Choose "For", "Against", or "Abstain"
+5. **Add Reasoning**: Optional explanation for your vote
+6. **Sign with Wallet**: Cryptographic signature for verification
+7. **Receive Confirmation**: Instant feedback with badge rewards
 
-### 4. **Advanced User Profile & Reputation System**
+### 4. Track Your Impact
 ```
-Profile Icon → View Profile → Voting History → Badges & Achievements → Reputation Details
-```
-
-**Reputation Scoring Algorithm:**
-- **Base Score**: 100 points for verified wallet connection
-- **Voting Participation**: +10 points per vote cast
-- **Proposal Creation**: +50 points per proposal submitted
-- **Community Engagement**: +5 points per meaningful comment
-- **Quality Multiplier**: Bonus points for high-impact proposals and thoughtful votes
-
-**Achievement Badge System:**
-- 🗳️ **First Vote**: "Welcome to Democracy" - Cast your first vote
-- 🎯 **Active Participant**: "Civic Champion" - Vote on 10+ proposals
-- 💡 **Proposal Creator**: "Solution Architect" - Submit your first proposal
-- 🏛️ **Governance Expert**: "Democracy Advocate" - 50+ governance activities
-- 👑 **Community Leader**: "Próspera Pioneer" - Top 10% reputation score
-- 🚀 **Early Adopter**: "Platform Founder" - First 100 platform users
-- ✅ **Verified Citizen**: "Trusted Member" - Complete identity verification
-
-### 5. **Governance Analytics Dashboard**
-```
-Dashboard → Analytics Tab → Participation Metrics → Proposal Impact → Community Health
+Profile → View Statistics → Check Badges → Review Vote History
 ```
 
-**Analytics Features:**
-- **Participation Trends**: Voter turnout over time with engagement predictions
-- **Proposal Success Rates**: Category-based approval statistics
-- **Community Growth**: User acquisition and retention metrics
-- **Impact Assessment**: Real-world outcomes from implemented proposals
-- **Network Effects**: Relationship mapping between active participants
+**Profile Features:**
+- **Reputation Score**: Based on voting frequency and proposal quality
+- **Badge Collection**: Visual achievements for milestones
+- **Vote History**: Complete record with timestamps and reasoning
+- **Proposal History**: Track created proposals and their outcomes
+- **I₵C Balance**: Current token balance and earning history
+
+### 5. Advanced Features Demo
+
+#### Real-time Voting Updates
+- **Live Results**: Vote counts update immediately
+- **Percentage Calculations**: Visual progress bars show support levels
+- **Vote Statistics**: Detailed breakdown of voting patterns
+
+#### Mobile Experience
+- **Responsive Design**: Optimized for mobile devices
+- **Touch Interface**: Large buttons and intuitive gestures
+- **Mobile Wallets**: Native mobile wallet integration
+
+#### Security Features
+- **Signature Verification**: Each vote cryptographically verified
+- **One Vote Enforcement**: Impossible to vote twice on same proposal
+- **Rate Limiting**: Protection against spam and abuse
 > "Traffic congestion during school pickup/dropoff times is causing safety issues and air pollution in our downtown area."
 
 **AI Generated Proposal:**

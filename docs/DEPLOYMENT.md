@@ -1,198 +1,73 @@
-# 🚀 CivicAI Production Deployment Guide v2.0
+# 🚀 CivicAI Deployment Guide
 
 ## Overview
-This comprehensive guide covers production deployment of the CivicAI Web3 governance platform across multiple environments with enterprise-grade security, scalability, and reliability.
+This guide covers deployment of the CivicAI platform across different environments and platforms.
 
-## 🌐 Recommended Platform Options
+## 🌐 Platform Options
 
-### 1. **Vercel (Primary Recommendation)**
-- **Best for**: Production deployment with global edge network
-- **Cost**: Free tier (hobby), Pro ($20/month), Enterprise (custom)
-- **Features**: 
-  - Edge Functions with 100ms cold start
-  - Automatic HTTPS with custom domains
-  - Global CDN with 70+ regions
-  - Built-in analytics and monitoring
-  - Optimized for Next.js applications
+### 1. Vercel (Recommended)
+- **Best for**: Production deployment with automatic CI/CD
+- **Cost**: Free tier available
+- **Features**: Edge functions, automatic HTTPS, global CDN
 
-### 2. **Netlify (Alternative)**
-- **Best for**: JAMstack deployment with integrated CI/CD
-- **Cost**: Free tier available, Pro ($19/month)
-- **Features**: 
-  - Serverless functions with 1000 invocations/month (free)
-  - Form handling and identity management
-  - Split testing and feature flags
-  - Integrated Git workflow
+### 2. Netlify
+- **Best for**: Static site hosting with serverless functions
+- **Cost**: Free tier available
+- **Features**: Form handling, split testing
 
-### 3. **Railway (Full-Stack Option)**
-- **Best for**: Complete infrastructure with managed database
-- **Cost**: $5/month minimum, usage-based pricing
-- **Features**: 
-  - Managed PostgreSQL included
-  - Automatic scaling and monitoring
-  - Docker container support
-  - Integrated metrics and logging
+### 3. Railway
+- **Best for**: Full-stack deployment with database
+- **Cost**: $5/month minimum
+- **Features**: PostgreSQL included, automatic scaling
 
-### 4. **AWS/Google Cloud/Azure (Enterprise)**
-- **Best for**: Large-scale enterprise deployments
-- **Cost**: Variable based on usage
-- **Features**: 
-  - Full infrastructure control
-  - Advanced security and compliance
-  - Global load balancing
-  - Kubernetes orchestration
-
-## 🔧 Production Environment Setup
+## 🔧 Environment Setup
 
 ### Prerequisites
-- **Node.js 18+** with npm/yarn package manager
-- **Git repository** with proper branching strategy
-- **Supabase Pro account** for production database
-- **OpenAI API key** with sufficient credits
-- **Thirdweb account** with production app configured
-- **WalletConnect Project ID** for Web3 integration
-- **Domain name** with SSL certificate
-- **CDN setup** for global asset distribution
+- Node.js 18+
+- Git repository
+- Supabase account
+- OpenAI API key
+- Thirdweb Client ID
+- WalletConnect Project ID (optional)
 
-### Critical Environment Variables
-
-**Copy `.env.local.example` to `.env.local` and configure all required variables:**
+### Environment Variables
+Copy `.env.local.example` to `.env.local` and configure:
 
 ```bash
-# Core Database Configuration
-NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=eyJ...your_anon_key
-SUPABASE_SERVICE_ROLE_KEY=eyJ...your_service_role_key
+# Supabase Configuration
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
-# AI Provider Configuration
-OPENAI_API_KEY=sk-...your_openai_key
-ANTHROPIC_API_KEY=sk-ant-...your_anthropic_key
+# AI Configuration
+OPENAI_API_KEY=your_openai_api_key
+ANTHROPIC_API_KEY=your_anthropic_api_key
 
-# Web3 Infrastructure
-NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_id
+# Web3 Configuration
 NEXT_PUBLIC_THIRDWEB_CLIENT_ID=your_thirdweb_client_id
+NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
 
-# Application Configuration
-NEXT_PUBLIC_APP_URL=https://your-production-domain.com
+# App Configuration
+NEXT_PUBLIC_APP_URL=https://your-domain.com
 NEXT_PUBLIC_APP_NAME=CivicAI
 NEXT_PUBLIC_NETWORK_NAME=Próspera
 NEXT_PUBLIC_ENVIRONMENT=production
 
-# Feature Flags (Production Optimized)
+# Feature Flags
 NEXT_PUBLIC_ENABLE_AI=true
 NEXT_PUBLIC_ENABLE_ENS=true
 NEXT_PUBLIC_ENABLE_BADGES=true
 NEXT_PUBLIC_ENABLE_REPUTATION=true
 
-# Blockchain Configuration (Optimism Sepolia Testnet)
-NEXT_PUBLIC_ICC_TOKEN_ADDRESS=0x...deployed_contract_address
-NEXT_PUBLIC_GOVERNANCE_ADDRESS=0x...governance_contract_address
+# Contract Addresses (Optimism Sepolia Testnet)
+NEXT_PUBLIC_ICC_TOKEN_ADDRESS=0x...
+NEXT_PUBLIC_GOVERNANCE_ADDRESS=0x...
 
-# Security & Rate Limiting
+# Rate Limiting
 RATE_LIMIT_VOTING_REQUESTS=10
 RATE_LIMIT_VOTING_WINDOW=60
 RATE_LIMIT_PROPOSAL_REQUESTS=3
 RATE_LIMIT_PROPOSAL_WINDOW=3600
-
-# Performance Monitoring
-NEXT_PUBLIC_ANALYTICS_ID=your_analytics_id
-SENTRY_DSN=your_sentry_dsn
-VERCEL_ANALYTICS_ID=your_vercel_analytics_id
-```
-
-## 🚦 Deployment Process
-
-### **1. Pre-Deployment Checklist**
-
-**Code Quality:**
-- [ ] All TypeScript errors resolved
-- [ ] ESLint warnings addressed
-- [ ] Unit tests passing (>90% coverage)
-- [ ] Integration tests validated
-- [ ] Performance benchmarks met
-
-**Security Audit:**
-- [ ] Environment variables secured
-- [ ] API endpoints protected
-- [ ] Rate limiting configured
-- [ ] CORS policies implemented
-- [ ] Security headers configured
-
-**Database Preparation:**
-- [ ] Production database provisioned
-- [ ] Migrations applied
-- [ ] Indexes optimized
-- [ ] Backup strategy implemented
-- [ ] Row Level Security policies active
-
-### **2. Vercel Deployment (Recommended)**
-
-**Automatic Deployment:**
-```bash
-# Connect to Vercel
-npx vercel login
-npx vercel link
-
-# Deploy to production
-npx vercel --prod
-
-# Set environment variables
-npx vercel env add NEXT_PUBLIC_SUPABASE_URL
-npx vercel env add SUPABASE_SERVICE_ROLE_KEY
-npx vercel env add OPENAI_API_KEY
-# ... (repeat for all environment variables)
-```
-
-**Manual Deployment via Dashboard:**
-1. Connect GitHub repository to Vercel
-2. Configure build settings:
-   - Framework: Next.js
-   - Build Command: `npm run build`
-   - Output Directory: `.next`
-   - Install Command: `npm install`
-3. Add all environment variables in Vercel dashboard
-4. Configure custom domain and SSL
-5. Enable Vercel Analytics and monitoring
-
-### **3. Database Migration & Setup**
-
-```bash
-# Run production migrations
-npm run db:migrate:prod
-
-# Seed initial data (if needed)
-npm run db:seed:prod
-
-# Verify database health
-npm run db:health-check
-```
-
-### **4. Post-Deployment Verification**
-
-**Functional Testing:**
-```bash
-# Run automated test suite
-npm run test:e2e:prod
-
-# Manual verification checklist:
-# - Wallet connection works
-# - AI proposal generation functional
-# - Voting system operational
-# - User profiles loading correctly
-# - Real-time updates working
-```
-
-**Performance Testing:**
-```bash
-# Load testing with Artillery
-npm run test:load
-
-# Lighthouse audit
-npm run audit:lighthouse
-
-# Core Web Vitals check
-npm run audit:cwv
-```
 NEXT_PUBLIC_APP_NAME=CivicAI
 NEXT_PUBLIC_NETWORK_NAME=Próspera
 ```

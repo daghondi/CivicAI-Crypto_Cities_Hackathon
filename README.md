@@ -1,78 +1,88 @@
-# CivicAI: Advanced Web3 Governance Platform for Crypto Cities
+# CivicAI: Smart Proposal Engine for Island Governance
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/daghondi/CivicAI-Crypto_Cities_Hackathon)
 
 ## 🚀 Overview
 
-CivicAI revolutionizes civic engagement by combining AI-powered proposal generation with Web3 governance infrastructure. Built for crypto cities and island communities like Próspera/Roatán, it enables citizens to transform problems into actionable proposals through cryptographically-verified voting systems.
+CivicAI transforms civic engagement by using AI to convert citizen-reported problems into structured, actionable governance proposals. Built for island communities like Próspera/Roatán, it bridges the gap between community needs and effective local governance.
 
-## ✨ Key Features
+## ✨ Features
 
-### 🤖 **AI-Powered Civic Intelligence**
-- **Smart Proposal Generation**: Convert citizen problems into structured governance proposals
-- **Impact Assessment**: AI-driven feasibility scoring and risk analysis
-- **Cost Estimation**: Automated budget calculations with ICC incentive structures
-- **Multi-Language Support**: Natural language processing for diverse communities
+### 🤖 AI-Powered Governance
+- **Smart Proposal Generation:** Convert civic problems into structured, actionable proposals
+- **Comprehensive Analysis:** AI-generated feasibility scores, cost estimates, and risk assessments
+- **Multi-step Creation Wizard:** Guided proposal creation with problem analysis and solution refinement
 
-### 🗳️ **Advanced Web3 Governance**
-- **Cryptographic Voting**: Wallet signature-based voting with one-vote-per-user enforcement
-- **Real-Time Verification**: Server-side signature validation and tamper-proof vote recording
-- **Optimism Sepolia Integration**: Built for Layer 2 scalability and cost efficiency
-- **Governance Analytics**: Comprehensive voting statistics and participation tracking
+### 🗳️ Advanced Voting System
+- **Wallet-Based Authentication:** Secure voting with cryptographic signatures
+- **One Vote Per Wallet:** Prevents manipulation while maintaining privacy
+- **Real-time Results:** Live vote counting with detailed statistics
+- **Voting History:** Complete audit trail of all votes cast
 
-### 👤 **Decentralized Identity & Reputation**
-- **Wallet-Based Profiles**: ENS resolution with personalized user badges
-- **Reputation System**: Dynamic scoring based on civic engagement and voting history
-- **Achievement Badges**: Gamified participation rewards (First Vote, Active Participant, etc.)
-- **Transparent History**: Public voting records with privacy-preserving design
+### 👤 User Profiles & Reputation
+- **Advanced User Profiles:** Wallet integration with ENS resolution
+- **Reputation System:** Track civic engagement and voting participation
+- **Achievement Badges:** Earn badges for active community participation
+- **Vote Statistics:** Personal voting history and impact tracking
 
-### �️ **Democratic Infrastructure**
-- **Proposal Lifecycle**: Complete workflow from creation to implementation
-- **Quorum Management**: Configurable voting thresholds and participation requirements
-- **Time-Bound Governance**: Automatic voting periods with deadline enforcement
-- **Multi-Category Support**: Infrastructure, environment, economy, healthcare, and more
+### 🏛️ Governance Infrastructure
+- **Proposal Lifecycle Management:** From creation to implementation tracking
+- **Quorum Requirements:** Configurable voting thresholds for proposal validity
+- **Time-bound Voting:** Automatic voting periods with deadline enforcement
+- **Community Analytics:** Engagement metrics and participation insights
+
+### 💰 Incentive System
+- **I₵C Integration:** Infinita City Credits reward system for participation
+- **Engagement Rewards:** Earn credits for voting, creating proposals, and community involvement
+- **Transparent Tracking:** Clear record of all earned rewards and contributions
+
+### 🔒 Security & Trust
+- **Cryptographic Verification:** All votes signed and verified on-chain simulation
+- **Anti-fraud Measures:** One vote per wallet enforcement with signature validation
+- **Transparent Process:** Public voting records while maintaining voter privacy
+- **Audit Trail:** Complete history of all governance actions
 
 ## 🛠 Tech Stack
 
-### **Frontend & UI**
-- **Next.js 14**: App Router with React Server Components
-- **TypeScript**: Full type safety and enhanced developer experience
-- **Tailwind CSS**: Utility-first styling with custom design system
-- **Lucide Icons**: Modern icon library with consistent styling
+### Frontend
+- **Framework:** Next.js 14 with App Router
+- **UI Library:** React 18 with TypeScript
+- **Styling:** Tailwind CSS with custom components
+- **Icons:** Lucide React icon library
 
-### **Backend & Database**
-- **Supabase**: PostgreSQL with real-time subscriptions
-- **REST APIs**: Next.js API routes with middleware protection
-- **Database Migrations**: Version-controlled schema management
-- **Row Level Security**: Fine-grained data access control
+### Backend & Database
+- **Database:** Supabase (PostgreSQL)
+- **Authentication:** Wallet-based auth with signature verification
+- **Real-time:** Supabase real-time subscriptions
+- **Storage:** Supabase storage for files and assets
 
-### **AI & Machine Learning**
-- **OpenAI GPT-4**: Advanced proposal generation and analysis
-- **Anthropic Claude**: Alternative AI provider for redundancy
-- **Structured Prompts**: Optimized templates for civic use cases
-- **Cost Optimization**: Efficient token usage and caching
+### AI Integration
+- **Primary:** OpenAI GPT-4o for proposal generation
+- **Alternative:** Claude API support
+- **Processing:** Custom prompt engineering for civic proposals
 
-### **Web3 & Blockchain**
-- **Thirdweb SDK**: Simplified Web3 integration and wallet management
-- **Ethers.js**: Ethereum library for signature verification
-- **Optimism Sepolia**: Layer 2 testnet for scalable governance
-- **ENS Integration**: Decentralized name resolution for user identity
+### Web3 & Blockchain
+- **Wallet Integration:** Thirdweb SDK with multi-wallet support
+- **Signature Verification:** Ethers.js for cryptographic operations
+- **Network:** Optimism Sepolia testnet for development
+- **ENS Support:** Ethereum Name Service resolution
 
-### **Security & Performance**
-- **Cryptographic Signatures**: Message signing for vote authentication
-- **Rate Limiting**: API protection against abuse
-- **Server-Side Validation**: Secure signature verification
-- **CORS Protection**: Cross-origin request security
+### Deployment & DevOps
+- **Hosting:** Vercel with edge functions
+- **CI/CD:** GitHub Actions integration
+- **Monitoring:** Built-in error tracking and analytics
+- **Security:** API middleware with rate limiting
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- **Node.js 18+** with npm or yarn
-- **Supabase account** for database and authentication
-- **OpenAI API key** for AI proposal generation
-- **Thirdweb account** for Web3 SDK integration
-- **WalletConnect Project ID** for wallet connections
+- Node.js 18+
+- npm or yarn
+- Supabase account
+- OpenAI API key
+- Thirdweb Client ID
+- WalletConnect Project ID (optional)
 
 ### Installation
 
@@ -90,41 +100,39 @@ CivicAI revolutionizes civic engagement by combining AI-powered proposal generat
     ```
 
 3. **Configure environment variables**
-    Copy `.env.local.example` to `.env.local` and configure all required variables:
+    Copy `.env.local.example` to `.env.local` and fill in your configuration:
 
     ```bash
     cp .env.local.example .env.local
     ```
 
-    **Required Environment Variables:**
+    Required environment variables:
     ```bash
     # Supabase Configuration
-    NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+    NEXT_PUBLIC_SUPABASE_URL=https://your-project-id.supabase.co
     NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
     SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 
     # AI Configuration
     OPENAI_API_KEY=sk-your-openai-api-key
-    ANTHROPIC_API_KEY=sk-ant-your-anthropic-api-key
 
     # Web3 Configuration
-    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
     NEXT_PUBLIC_THIRDWEB_CLIENT_ID=your_thirdweb_client_id
+    NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID=your_walletconnect_project_id
 
     # Feature Flags
     NEXT_PUBLIC_ENABLE_AI=true
     NEXT_PUBLIC_ENABLE_ENS=true
     NEXT_PUBLIC_ENABLE_BADGES=true
-    NEXT_PUBLIC_ENABLE_REPUTATION=true
     ```
 
-4. **Set up database**
+4. **Set up the database**
     ```bash
-    # Run database migrations
-    npm run db:migrate
+    # Run Supabase migrations
+    npx supabase db reset
     
     # Seed with sample data (optional)
-    npm run db:seed
+    node scripts/seed-data.js
     ```
 
 5. **Run the development server**
@@ -134,119 +142,45 @@ CivicAI revolutionizes civic engagement by combining AI-powered proposal generat
     yarn dev
     ```
 
-6. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
+6. **Open [http://localhost:3000](http://localhost:3000) in your browser**
 
-    Copy `.env.example` to `.env` and fill in your configuration details:
+## 🎯 Usage
 
-    ```bash
-    cp .env.example .env
-    ```
+### For Citizens
+1. **Connect Your Wallet:** Use MetaMask, Coinbase Wallet, or any WalletConnect-compatible wallet
+2. **Submit Problems:** Report civic issues through the intuitive problem submission form
+3. **Review AI Proposals:** See how AI transforms your problem into actionable proposals
+4. **Vote on Proposals:** Cast your vote using wallet signatures for security
+5. **Track Impact:** Monitor proposal progress and your civic engagement
 
-    In your `.env` file, set up:
-    - Your Supabase project URL and anon/public keys
-    - Your OpenAI API key
+### For Administrators
+1. **Governance Dashboard:** Monitor all proposals and voting activity
+2. **User Management:** View community engagement and reputation metrics
+3. **Analytics:** Track platform usage and democratic participation
+4. **Moderation:** Review and manage proposal submissions
 
-4. **Run the app locally**
-    ```bash
-    npm run dev
-    # or
-    yarn dev
-    ```
+### Key Workflows
 
-5. **Open [http://localhost:3000](http://localhost:3000) in your browser.**
-
-## 🧑‍💻 Usage Guide
-
-### **For Citizens:**
-1. **Connect Your Wallet**: Use MetaMask, WalletConnect, or Coinbase Wallet
-2. **Submit Civic Issues**: Report problems using the guided form interface
-3. **AI-Generated Proposals**: Review AI-created structured solutions
-4. **Participate in Voting**: Cast cryptographically-signed votes on proposals
-5. **Track Your Impact**: View your voting history and reputation score
-
-### **For Governance:**
-1. **Monitor Proposals**: Review community-submitted governance proposals
-2. **Analyze Participation**: Track voting patterns and community engagement
-3. **Implement Solutions**: Use vote results to guide policy decisions
-4. **Manage Reputation**: Award badges and recognition for active participants
-
-### **Key User Flows:**
-
-#### **Proposal Creation Workflow**
+#### Creating Proposals
 ```
-Problem Report → AI Analysis → Proposal Generation → Community Review → Voting
+Connect Wallet → Submit Problem → AI Generation → Review & Edit → Publish
 ```
 
-#### **Voting Process**
+#### Voting Process
 ```
-Connect Wallet → Review Proposal → Cast Vote → Sign Transaction → Vote Recorded
-```
-
-#### **Reputation Building**
-```
-First Vote Badge → Active Participant → Proposal Creator → Community Leader
+Browse Proposals → Review Details → Connect Wallet → Sign Vote → Confirm Submission
 ```
 
-### **Demo Features:**
-- **Real-time voting results** with live updates
-- **Comprehensive user profiles** with ENS integration
-- **Proposal analytics** and participation metrics
-- **Mobile-responsive design** for accessibility
-- **Offline proposal viewing** for better UX
+#### Profile Management
+```
+Connect Wallet → View Profile → Check Badges → Review Vote History → Update Settings
+```
 
-## ⚙️ Configuration & Customization
+## ⚙️ Configuration
 
-### **Environment Configuration**
-- All configuration is managed through environment variables
-- Feature flags allow enabling/disabling specific functionality
-- Database settings configured through Supabase dashboard
-- AI providers can be switched between OpenAI and Anthropic
-
-### **Blockchain Configuration**
-- Default network: Optimism Sepolia (testnet)
-- Configurable for other EVM-compatible networks
-- Contract addresses set via environment variables
-- Gas optimization for Layer 2 scaling
-
-### **AI Configuration**
-- Customizable prompt templates for proposal generation
-- Adjustable AI model parameters for different use cases
-- Multi-provider failover for reliability
-- Cost monitoring and usage analytics
-
-### **Governance Parameters**
-- Configurable voting periods and quorum requirements
-- Adjustable reputation scoring algorithms
-- Customizable badge criteria and rewards
-- Flexible proposal categories and workflows
-
-## 🏗️ Architecture Overview
-
-### **Frontend Architecture**
-- **App Router**: Next.js 14 with React Server Components
-- **Component Library**: Reusable UI components with TypeScript
-- **State Management**: React Context for Web3 and user state
-- **Responsive Design**: Mobile-first with Tailwind CSS
-
-### **Backend Architecture**
-- **API Layer**: Next.js API routes with middleware protection
-- **Database**: Supabase PostgreSQL with Row Level Security
-- **Authentication**: Wallet-based auth with signature verification
-- **Real-time**: Supabase subscriptions for live updates
-
-### **Security Architecture**
-- **Client-Side**: Wallet signature generation and verification
-- **Server-Side**: Cryptographic signature validation
-- **Database**: RLS policies for data access control
-- **API**: Rate limiting and CORS protection
-
-## 📊 Performance & Scalability
-
-- **Database Optimization**: Indexed queries and efficient schemas
-- **API Caching**: Response caching for improved performance
-- **Image Optimization**: Next.js automatic image optimization
-- **Bundle Optimization**: Code splitting and lazy loading
-- **CDN Integration**: Vercel Edge Network for global distribution
+- Set all required environment variables in the `.env` file.
+- Refer to the `.env.example` file for the required keys.
+- Ensure your Supabase instance is set up with the appropriate schema (see `/supabase` or `/docs` if present).
 
 ## 🤝 Contributing
 
@@ -274,3 +208,65 @@ This project is licensed under the MIT License. See [LICENSE](LICENSE) for detai
 For questions, feedback, or support, please open an issue or contact [@daghondi](https://github.com/daghondi).
 
 ---
+
+## 🔧 API Endpoints
+
+### Core Endpoints
+- `POST /api/ai/generate` - Generate AI proposals from problems
+- `GET /api/proposals` - List all proposals with pagination
+- `POST /api/proposals` - Create new proposals
+- `GET /api/proposals/[id]` - Get specific proposal details
+- `POST /api/votes` - Submit votes with wallet signatures
+- `GET /api/users/[address]` - Get user profile and voting history
+- `POST /api/auth` - Wallet-based authentication
+
+### Features
+- **Wallet Authentication:** Secure signature-based login
+- **Real-time Updates:** Live voting results and proposal status
+- **Comprehensive Validation:** Input validation and error handling
+- **Rate Limiting:** API protection against abuse
+
+## 🧪 Testing
+
+### Run Tests
+```bash
+# Run all tests
+npm test
+
+# Run with coverage
+npm run test:coverage
+
+# Run specific test suites
+npm run test:api
+npm run test:components
+```
+
+### Test Advanced Features
+```bash
+# Test wallet integration and voting
+npm run test:wallet
+
+# Test AI proposal generation
+npm run test:ai
+
+# Test governance features
+npm run test:governance
+```
+
+## 📱 Mobile Support
+
+CivicAI is fully responsive and optimized for mobile devices:
+- **Touch-friendly Interface:** Large buttons and intuitive gestures
+- **Responsive Design:** Adapts to all screen sizes
+- **Mobile Wallet Integration:** Native mobile wallet support
+- **Offline Capability:** View proposals without internet connection
+- **Progressive Web App:** Install on mobile home screen
+
+## 🔐 Security Features
+
+- **Wallet-based Authentication:** No passwords, just cryptographic signatures
+- **Vote Verification:** All votes cryptographically signed and verified
+- **Anti-fraud Protection:** One vote per wallet enforcement
+- **Rate Limiting:** API protection against abuse
+- **Input Validation:** Comprehensive validation on all user inputs
+- **SQL Injection Prevention:** Parameterized queries and ORM protection
