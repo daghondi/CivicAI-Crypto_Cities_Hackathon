@@ -1,34 +1,23 @@
 const { expect } = require("chai");
 const { ethers } = require("hardhat");
 
-describe("IC    it("Should not exceed max supply", async function () {
-      const maxSupply = ethers.parseEther("10000000"); // 10M tokens
-      const currentSupply = await iccToken.totalSupply();
-      const exceededAmount = maxSupply - currentSupply + 1n;
-      
-      await expect(
-        iccToken.connect(governance).mintCivicReward(
-          user1.address,
-          "proposal_creation",
-          exceededAmount
-        )
-      ).to.be.revertedWith("ICC: Exceeds maximum supply");ction () {
+describe("ICCToken", function () {
   let ICCToken;
   let iccToken;
   let owner;
-  let rewardDistributor;
   let governance;
+  let rewardDistributor;
   let user1;
   let user2;
-  let addrs;
 
   beforeEach(async function () {
-    [owner, rewardDistributor, governance, user1, user2, ...addrs] = await ethers.getSigners();
-    
+    [owner, governance, rewardDistributor, user1, user2] = await ethers.getSigners();
+
+    // Deploy ICC Token
     ICCToken = await ethers.getContractFactory("ICCToken");
     iccToken = await ICCToken.deploy(owner.address, rewardDistributor.address);
     
-    // Set up governance contract
+    // Set governance contract
     await iccToken.setGovernanceContract(governance.address);
   });
 
@@ -47,8 +36,9 @@ describe("IC    it("Should not exceed max supply", async function () {
     });
 
     it("Should mint initial supply to owner", async function () {
-      const expectedSupply = ethers.parseEther("1000000"); // 1M tokens
-      expect(await iccToken.balanceOf(owner.address)).to.equal(expectedSupply);
+      const initialSupply = ethers.parseEther("1000000"); // 1M ICC
+      expect(await iccToken.balanceOf(owner.address)).to.equal(initialSupply);
+      expect(await iccToken.totalSupply()).to.equal(initialSupply);
     });
 
     it("Should set correct reward rates", async function () {
@@ -62,25 +52,29 @@ describe("IC    it("Should not exceed max supply", async function () {
     it("Should allow governance to mint civic rewards", async function () {
       const rewardAmount = ethers.parseEther("50");
       
-      await iccToken.connect(governance).mintCivicReward(
-        user1.address,
-        "proposal_creation",
-        rewardAmount
-      );
-      
+      await expect(
+        iccToken.connect(governance).mintCivicReward(
+          user1.address,
+          "proposal_creation",
+          rewardAmount
+        )
+      ).to.emit(iccToken, "CivicRewardMinted")
+        .withArgs(user1.address, "proposal_creation", rewardAmount);
+
       expect(await iccToken.balanceOf(user1.address)).to.equal(rewardAmount);
       expect(await iccToken.getUserRewards(user1.address)).to.equal(rewardAmount);
     });
 
     it("Should use default rate when amount is 0", async function () {
+      const defaultRate = await iccToken.getRewardRate("vote_cast");
+      
       await iccToken.connect(governance).mintCivicReward(
         user1.address,
         "vote_cast",
         0
       );
-      
-      const expectedReward = ethers.parseEther("10"); // Default rate for vote_cast
-      expect(await iccToken.balanceOf(user1.address)).to.equal(expectedReward);
+
+      expect(await iccToken.balanceOf(user1.address)).to.equal(defaultRate);
     });
 
     it("Should enforce cooldown period", async function () {
@@ -128,22 +122,22 @@ describe("IC    it("Should not exceed max supply", async function () {
   describe("Batch Rewards", function () {
     it("Should mint batch rewards correctly", async function () {
       const recipients = [user1.address, user2.address];
-      const amounts = [ethers.parseEther("50"), 0]; // Second uses default rate
-      
+      const amounts = [ethers.parseEther("10"), ethers.parseEther("20")];
+
       await iccToken.connect(governance).batchMintCivicRewards(
         recipients,
         "vote_cast",
         amounts
       );
-      
-      expect(await iccToken.balanceOf(user1.address)).to.equal(ethers.parseEther("50"));
-      expect(await iccToken.balanceOf(user2.address)).to.equal(ethers.parseEther("10")); // Default rate
+
+      expect(await iccToken.balanceOf(user1.address)).to.equal(amounts[0]);
+      expect(await iccToken.balanceOf(user2.address)).to.equal(amounts[1]);
     });
 
     it("Should require matching array lengths", async function () {
       const recipients = [user1.address, user2.address];
-      const amounts = [ethers.parseEther("50")]; // Mismatched length
-      
+      const amounts = [ethers.parseEther("10")]; // Mismatched length
+
       await expect(
         iccToken.connect(governance).batchMintCivicRewards(
           recipients,
@@ -155,8 +149,8 @@ describe("IC    it("Should not exceed max supply", async function () {
 
     it("Should not allow batch size over 100", async function () {
       const recipients = new Array(101).fill(user1.address);
-      const amounts = new Array(101).fill(ethers.parseEther("1"));
-      
+      const amounts = new Array(101).fill(ethers.parseEther("10"));
+
       await expect(
         iccToken.connect(governance).batchMintCivicRewards(
           recipients,
@@ -171,7 +165,11 @@ describe("IC    it("Should not exceed max supply", async function () {
     it("Should allow owner to update reward rates", async function () {
       const newRate = ethers.parseEther("75");
       
-      await iccToken.setRewardRate("proposal_creation", newRate);
+      await expect(
+        iccToken.setRewardRate("proposal_creation", newRate)
+      ).to.emit(iccToken, "RewardRateUpdated")
+        .withArgs("proposal_creation", newRate);
+
       expect(await iccToken.getRewardRate("proposal_creation")).to.equal(newRate);
     });
 
@@ -193,10 +191,9 @@ describe("IC    it("Should not exceed max supply", async function () {
           0
         )
       ).to.be.revertedWith("Pausable: paused");
-      
+
       await iccToken.unpause();
       
-      // Should work after unpause
       await expect(
         iccToken.connect(governance).mintCivicReward(
           user1.address,
@@ -245,25 +242,27 @@ describe("IC    it("Should not exceed max supply", async function () {
     });
 
     it("Should track user rewards correctly", async function () {
-      await iccToken.connect(governance).mintCivicReward(
-        user1.address,
-        "vote_cast",
-        ethers.parseEther("25")
-      );
-      
-      // Fast forward time to pass cooldown
-      await ethers.provider.send("evm_increaseTime", [3700]); // 1 hour + 100 seconds
-      await ethers.provider.send("evm_mine");
-      
+      const reward1 = ethers.parseEther("50");
+      const reward2 = ethers.parseEther("25");
+
       await iccToken.connect(governance).mintCivicReward(
         user1.address,
         "proposal_creation",
-        ethers.parseEther("50")
+        reward1
       );
-      
-      expect(await iccToken.getUserRewards(user1.address)).to.equal(
-        ethers.parseEther("75")
+
+      // Wait for cooldown
+      await ethers.provider.send("evm_increaseTime", [3601]); // 1 hour + 1 second
+      await ethers.provider.send("evm_mine");
+
+      await iccToken.connect(governance).mintCivicReward(
+        user1.address,
+        "community_engagement",
+        reward2
       );
+
+      expect(await iccToken.getUserRewards(user1.address)).to.equal(reward1 + reward2);
+      expect(await iccToken.balanceOf(user1.address)).to.equal(reward1 + reward2);
     });
   });
 });

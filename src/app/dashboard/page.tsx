@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import UserBadge from '@/components/wallet/UserBadge'
 import ProposalList from '@/components/proposals/ProposalList'
+import SmartContractStatus from '@/components/contracts/SmartContractStatus'
 import Link from 'next/link'
 
 export default function DashboardPage() {
@@ -191,6 +192,9 @@ export default function DashboardPage() {
                 View Transaction History
               </Button>
             </Card>
+
+            {/* Smart Contract Status */}
+            <SmartContractStatus />
 
             {/* Community Rank */}
             <Card className="p-6">

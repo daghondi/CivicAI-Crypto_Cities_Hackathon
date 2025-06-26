@@ -19,28 +19,26 @@ describe("ProposalGovernance", function () {
     // Deploy ICC Token first
     ICCToken = await ethers.getContractFactory("ICCToken");
     iccToken = await ICCToken.deploy(owner.address, owner.address);
-    await iccToken.waitForDeployment();
     
     // Deploy Governance contract
     ProposalGovernance = await ethers.getContractFactory("ProposalGovernance");
-    governance = await ProposalGovernance.deploy(await iccToken.getAddress(), owner.address);
-    await governance.waitForDeployment();
+    governance = await ProposalGovernance.deploy(iccToken.target, owner.address);
     
     // Set governance contract in ICC token
-    await iccToken.setGovernanceContract(await governance.getAddress());
+    await iccToken.setGovernanceContract(governance.target);
     
     // Give proposer enough ICC tokens to create proposals (100 ICC required)
-    await iccToken.transfer(proposer.address, ethers.utils.parseEther("1000"));
+    await iccToken.transfer(proposer.address, ethers.parseEther("1000"));
     
-    // Give voters some ICC tokens
-    await iccToken.transfer(voter1.address, ethers.utils.parseEther("100"));
-    await iccToken.transfer(voter2.address, ethers.utils.parseEther("100"));
-    await iccToken.transfer(voter3.address, ethers.utils.parseEther("100"));
+    // Give voters some ICC tokens (voter1 gets less than minimum for proposal creation test)
+    await iccToken.transfer(voter1.address, ethers.parseEther("50"));
+    await iccToken.transfer(voter2.address, ethers.parseEther("100"));
+    await iccToken.transfer(voter3.address, ethers.parseEther("100"));
   });
 
   describe("Deployment", function () {
     it("Should set the correct ICC token address", async function () {
-      expect(await governance.iccToken()).to.equal(await iccToken.getAddress());
+      expect(await governance.iccToken()).to.equal(iccToken.target);
     });
 
     it("Should set the correct owner", async function () {
@@ -72,12 +70,12 @@ describe("ProposalGovernance", function () {
 
     it("Should not allow proposal creation without sufficient ICC", async function () {
       await expect(
-        governance.connect(voter1).createProposal( // voter1 has only 100 ICC, needs 100 minimum
+        governance.connect(voter1).createProposal( // voter1 has only 50 ICC, needs 100 minimum
           "Test Proposal",
           "Description",
           "infrastructure"
         )
-      ).to.be.revertedWith("Governance: Insufficient I₵C balance");
+      ).to.be.revertedWith("Governance: Insufficient ICC balance");
     });
 
     it("Should not allow empty title or description", async function () {

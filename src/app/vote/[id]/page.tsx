@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useWeb3 } from '@/components/providers/Web3Provider'
-import VotingInterface from '@/components/forms/VotingInterface'
+import EnhancedVotingInterface from '@/components/forms/EnhancedVotingInterface'
 import { ProposalDetails } from '@/components/proposals/ProposalDetails'
 import UserBadge from '@/components/wallet/UserBadge'
 import { Button } from '@/components/ui/Button'
@@ -195,7 +195,7 @@ export default function VotePage() {
                     </p>
                   </div>
                 ) : status === 'active' ? (
-                  <VotingInterface
+                  <EnhancedVotingInterface
                     proposal={proposal}
                     onVoteSubmitted={handleVoteSuccess}
                   />

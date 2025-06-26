@@ -58,6 +58,9 @@ export interface Proposal {
   total_votes?: number
   ai_analysis?: AIAnalysis
   attachments?: Attachment[]
+  on_chain_id?: string | null  // For tracking blockchain proposal ID
+  transaction_hash?: string      // Transaction hash of on-chain creation
+  is_on_chain?: boolean         // Whether proposal was created on-chain
 }
 
 export type ProposalCategory = 
@@ -94,6 +97,8 @@ export interface Vote {
   message_hash: string
   timestamp: number
   created_at: string
+  is_on_chain?: boolean         // Whether vote was cast on-chain
+  transaction_hash?: string     // Transaction hash of on-chain vote
 }
 
 export interface VoteStats {
@@ -160,6 +165,8 @@ export interface Web3ContextType {
   isConnected: boolean
   isConnecting: boolean
   chainId?: number
+  provider?: any
+  signer?: any
   connect: () => Promise<void>
   disconnect: () => void
   signMessage: (message: string) => Promise<string>

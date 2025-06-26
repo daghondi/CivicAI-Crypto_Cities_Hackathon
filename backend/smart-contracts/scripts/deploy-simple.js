@@ -36,56 +36,36 @@ async function main() {
   await iccToken.setGovernanceContract(proposalGovernance.target);
   console.log("✅ Governance contract authorized in ICC token");
 
-  // Optional: Set the governance as reward distributor as well
+  // Set the governance as reward distributor as well
   console.log("Setting governance contract as reward distributor...");
-  await iccToken.setRewardDistributor(proposalGovernance.address);
+  await iccToken.setRewardDistributor(proposalGovernance.target);
   console.log("✅ Governance contract set as reward distributor");
-  await iccToken.authorizeMinter(proposalGovernance.address, true);
-  console.log("✅ ProposalGovernance authorized as ICC minter");
-  
-  // Set ProposalGovernance as civic validator
-  await iccToken.setCivicValidator(proposalGovernance.address, true);
-  console.log("✅ ProposalGovernance set as civic validator");
-
-  // Grant initial voting power in ProposalGovernance based on ICC token holdings
-  const deployerBalance = await iccToken.balanceOf(deployer.address);
-  const votingPower = ethers.utils.formatUnits(deployerBalance, 18);
-  await proposalGovernance.setVotingPower(deployer.address, Math.floor(parseFloat(votingPower) / 1000)); // 1 vote per 1000 ICC
-  console.log("✅ Initial voting power set for deployer");
 
   // Verify deployments
   console.log("\n🔍 Verifying deployments...");
   const iccTotalSupply = await iccToken.totalSupply();
   const proposalCount = await proposalGovernance.getProposalCount();
   
-  console.log("ICC Token total supply:", ethers.utils.formatEther(iccTotalSupply));
+  console.log("ICC Token total supply:", ethers.formatEther(iccTotalSupply));
   console.log("Initial proposal count:", proposalCount.toString());
 
   // Save deployment addresses and ABI
   const deploymentInfo = {
     network: hre.network.name,
     chainId: hre.network.config.chainId,
+    timestamp: new Date().toISOString(),
     contracts: {
       ICCToken: {
-        address: iccToken.address,
+        address: iccToken.target,
         deployer: deployer.address,
-        deploymentBlock: iccToken.deployTransaction.blockNumber,
-        deploymentHash: iccToken.deployTransaction.hash,
-        totalSupply: ethers.utils.formatEther(iccTotalSupply)
+        totalSupply: ethers.formatEther(iccTotalSupply)
       },
       ProposalGovernance: {
-        address: proposalGovernance.address,
+        address: proposalGovernance.target,
         deployer: deployer.address,
-        deploymentBlock: proposalGovernance.deployTransaction.blockNumber,
-        deploymentHash: proposalGovernance.deployTransaction.hash
+        proposalCount: proposalCount.toString()
       }
-    },
-    configuration: {
-      iccTokenAuthorizedMinters: [deployer.address, proposalGovernance.address],
-      civicValidators: [deployer.address, proposalGovernance.address],
-      votingPowerRatio: "1 vote per 1000 ICC tokens"
-    },
-    timestamp: new Date().toISOString()
+    }
   };
 
   // Create deployments directory
@@ -107,13 +87,13 @@ async function main() {
   }
 
   // Copy ICC Token ABI
-  const iccTokenArtifact = require(path.join(artifactsDir, "I₵CToken.sol", "I₵CToken.json"));
+  const iccTokenArtifact = require(path.join(artifactsDir, "ICCToken.sol", "ICCToken.json"));
   fs.writeFileSync(
     path.join(frontendAbiDir, "ICCToken.json"),
     JSON.stringify({
       abi: iccTokenArtifact.abi,
-      address: iccToken.address,
-      contractName: "I₵CToken"
+      address: iccToken.target,
+      contractName: "ICCToken"
     }, null, 2)
   );
 
@@ -123,7 +103,7 @@ async function main() {
     path.join(frontendAbiDir, "ProposalGovernance.json"),
     JSON.stringify({
       abi: proposalGovernanceArtifact.abi,
-      address: proposalGovernance.address,
+      address: proposalGovernance.target,
       contractName: "ProposalGovernance"
     }, null, 2)
   );
@@ -136,11 +116,11 @@ async function main() {
   console.log("\n📊 Deployment Summary:");
   console.log("========================");
   console.log(`Network: ${hre.network.name}`);
-  console.log(`Chain ID: ${hre.network.config.chainId}`);
-  console.log(`I₵CToken: ${iccToken.address}`);
-  console.log(`ProposalGovernance: ${proposalGovernance.address}`);
+  console.log(`Chain ID: ${hre.network.config.chainId || 'Unknown'}`);
+  console.log(`ICCToken: ${iccToken.target}`);
+  console.log(`ProposalGovernance: ${proposalGovernance.target}`);
   console.log(`Deployer: ${deployer.address}`);
-  console.log(`ICC Total Supply: ${ethers.utils.formatEther(iccTotalSupply)} ICC`);
+  console.log(`ICC Total Supply: ${ethers.formatEther(iccTotalSupply)} ICC`);
 }
 
 main()
