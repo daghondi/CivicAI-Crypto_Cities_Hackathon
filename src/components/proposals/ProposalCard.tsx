@@ -38,8 +38,8 @@ export default function ProposalCard({ proposal, onVote, showVoting = true }: Pr
     return icons[category] || '📋'
   }
 
-  const supportPercentage = proposal.current_votes > 0 
-    ? Math.round((proposal.current_votes * 0.7) / proposal.current_votes * 100) // Mock calculation
+  const supportPercentage = (proposal.total_votes || 0) > 0 
+    ? Math.round(((proposal.votes_for || 0) / (proposal.total_votes || 1)) * 100)
     : 0
 
   return (
@@ -87,18 +87,18 @@ export default function ProposalCard({ proposal, onVote, showVoting = true }: Pr
         </div>
         <div className="text-center">
           <div className="font-bold text-lg text-blue-600">
-            {proposal.current_votes}/{proposal.required_votes}
+            {proposal.total_votes || 0}
           </div>
           <div className="text-gray-500">Votes</div>
         </div>
       </div>
 
       {/* Voting Progress */}
-      {proposal.status === 'voting' && (
+      {proposal.status === 'active' && (
         <div className="mb-4">
           <div className="flex justify-between text-sm text-gray-600 mb-1">
             <span>Support: {supportPercentage}%</span>
-            <span>{proposal.current_votes} of {proposal.required_votes} votes</span>
+            <span>{proposal.total_votes || 0} total votes</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div 
@@ -110,15 +110,15 @@ export default function ProposalCard({ proposal, onVote, showVoting = true }: Pr
       )}
 
       {/* Voting Ends */}
-      {proposal.voting_ends_at && proposal.status === 'voting' && (
+      {proposal.voting_deadline && proposal.status === 'active' && (
         <div className="text-sm text-gray-500 mb-4">
-          Voting ends: {new Date(proposal.voting_ends_at).toLocaleDateString()}
+          Voting ends: {new Date(proposal.voting_deadline).toLocaleDateString()}
         </div>
       )}
 
       {/* Action Buttons */}
       <div className="flex gap-3">
-        {showVoting && proposal.status === 'voting' && onVote && (
+        {showVoting && proposal.status === 'active' && onVote && (
           <>
             <Button
               size="sm"

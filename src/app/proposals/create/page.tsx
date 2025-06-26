@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useWeb3 } from '@/components/providers/Web3Provider'
-import { ProblemSubmissionForm } from '@/components/forms/ProblemSubmissionForm'
+import ProblemSubmissionForm from '@/components/forms/ProblemSubmissionForm'
 import { ProposalGenerator } from '@/components/proposals/ProposalGenerator'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -55,7 +55,7 @@ export default function CreateProposalPage() {
         {/* Header */}
         <div className="mb-8">
           <Button
-            variant="ghost"
+            variant="secondary"
             onClick={() => step === 'problem' ? router.back() : setStep('problem')}
             className="mb-4"
           >
@@ -129,7 +129,7 @@ export default function CreateProposalPage() {
                   the location, impact, and why this issue needs attention.
                 </p>
               </div>
-              <ProblemSubmissionForm onSubmit={handleProblemSubmit} />
+              <ProblemSubmissionForm onProposalGenerated={handleProblemSubmit} />
             </Card>
           )}
 
@@ -151,7 +151,6 @@ export default function CreateProposalPage() {
               <ProposalGenerator
                 problemData={problemData}
                 onProposalGenerated={handleProposalGenerated}
-                onProposalCreated={handleProposalCreated}
               />
             </Card>
           )}

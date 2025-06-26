@@ -62,6 +62,7 @@ export interface Proposal {
 
 export type ProposalCategory = 
   | 'infrastructure'
+  | 'transportation'
   | 'environment'
   | 'economic'
   | 'healthcare'

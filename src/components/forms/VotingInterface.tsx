@@ -178,7 +178,7 @@ export default function VotingInterface({ proposal, onVoteSubmitted }: VotingInt
       {/* Wallet Info */}
       <div className="bg-blue-50 p-3 rounded-lg mb-4">
         <p className="text-sm text-blue-600">
-          Voting as: {address.slice(0, 6)}...{address.slice(-4)}
+          Voting as: {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Loading...'}
         </p>
       </div>
 

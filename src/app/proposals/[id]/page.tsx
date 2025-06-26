@@ -33,13 +33,14 @@ The existing dirt road becomes impassable during heavy rains, forcing residents 
 - Enhanced economic connectivity between communities
 - Reduced vehicle maintenance costs for residents`,
       category: 'transportation',
-      status: 'voting',
+      status: 'active',
       created_by: 'user1',
       created_at: '2025-06-20T10:00:00Z',
       updated_at: '2025-06-25T15:30:00Z',
-      voting_ends_at: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
-      required_votes: 10,
-      current_votes: 7,
+      voting_deadline: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(),
+      total_votes: 7,
+      votes_for: 5,
+      votes_against: 2,
       impact_score: 85,
       ai_analysis: {
         id: '1',
@@ -106,12 +107,12 @@ export default async function ProposalPage({ params }: PageProps) {
     return icons[category] || '📋'
   }
 
-  const supportPercentage = proposal.current_votes > 0 
-    ? Math.round((proposal.current_votes * 0.7) / proposal.current_votes * 100)
+  const supportPercentage = (proposal.total_votes || 0) > 0 
+    ? Math.round(((proposal.votes_for || 0) / (proposal.total_votes || 1)) * 100)
     : 0
 
-  const votingDaysLeft = proposal.voting_ends_at 
-    ? Math.max(0, Math.ceil((new Date(proposal.voting_ends_at).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
+  const votingDaysLeft = proposal.voting_deadline 
+    ? Math.max(0, Math.ceil((new Date(proposal.voting_deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24)))
     : 0
 
   return (
@@ -230,7 +231,7 @@ export default async function ProposalPage({ params }: PageProps) {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Voting Card */}
-            {proposal.status === 'voting' && (
+            {proposal.status === 'active' && (
               <Card className="p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">
                   Cast Your Vote
@@ -239,7 +240,7 @@ export default async function ProposalPage({ params }: PageProps) {
                 <div className="mb-4">
                   <div className="flex justify-between text-sm text-gray-600 mb-2">
                     <span>Support: {supportPercentage}%</span>
-                    <span>{proposal.current_votes} of {proposal.required_votes} votes</span>
+                    <span>{proposal.total_votes || 0} total votes</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-3">
                     <div 
@@ -293,14 +294,14 @@ export default async function ProposalPage({ params }: PageProps) {
                   <span className="font-medium">{proposal.impact_score}/100</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Required Votes</span>
-                  <span className="font-medium">{proposal.required_votes}</span>
+                  <span className="text-gray-600">Total Votes</span>
+                  <span className="font-medium">{proposal.total_votes || 0}</span>
                 </div>
-                {proposal.voting_ends_at && (
+                {proposal.voting_deadline && (
                   <div className="flex justify-between">
                     <span className="text-gray-600">Voting Ends</span>
                     <span className="font-medium">
-                      {new Date(proposal.voting_ends_at).toLocaleDateString()}
+                      {new Date(proposal.voting_deadline).toLocaleDateString()}
                     </span>
                   </div>
                 )}

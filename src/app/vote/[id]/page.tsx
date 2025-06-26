@@ -3,29 +3,15 @@
 import { useState, useEffect } from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { useWeb3 } from '@/components/providers/Web3Provider'
-import { VotingInterface } from '@/components/forms/VotingInterface'
+import VotingInterface from '@/components/forms/VotingInterface'
 import { ProposalDetails } from '@/components/proposals/ProposalDetails'
-import { UserBadge } from '@/components/wallet/UserBadge'
+import UserBadge from '@/components/wallet/UserBadge'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
 import { ArrowLeft, Vote, Clock, Users, TrendingUp } from 'lucide-react'
 import { formatDate, getVotePercentage, getProposalStatus } from '@/lib/utils'
-
-interface Proposal {
-  id: string
-  title: string
-  description: string
-  category: string
-  created_at: string
-  voting_deadline: string
-  votes_for: number
-  votes_against: number
-  votes_abstain: number
-  total_votes: number
-  status: string
-  creator_address: string
-}
+import { Proposal } from '@/types'
 
 export default function VotePage() {
   const params = useParams()
@@ -112,15 +98,15 @@ export default function VotePage() {
   }
 
   const status = getProposalStatus(
-    proposal.votes_for,
-    proposal.votes_against,
-    proposal.votes_abstain,
+    proposal.votes_for || 0,
+    proposal.votes_against || 0,
+    proposal.votes_abstain || 0,
     proposal.voting_deadline
   )
 
-  const forPercentage = getVotePercentage(proposal.votes_for, proposal.total_votes)
-  const againstPercentage = getVotePercentage(proposal.votes_against, proposal.total_votes)
-  const abstainPercentage = getVotePercentage(proposal.votes_abstain, proposal.total_votes)
+  const forPercentage = getVotePercentage(proposal.votes_for || 0, proposal.total_votes || 0)
+  const againstPercentage = getVotePercentage(proposal.votes_against || 0, proposal.total_votes || 0)
+  const abstainPercentage = getVotePercentage(proposal.votes_abstain || 0, proposal.total_votes || 0)
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -128,7 +114,7 @@ export default function VotePage() {
         {/* Header */}
         <div className="mb-8">
           <Button
-            variant="ghost"
+            variant="secondary"
             onClick={() => router.back()}
             className="mb-4"
           >
@@ -156,7 +142,7 @@ export default function VotePage() {
             <Card className="p-6">
               <div className="mb-4">
                 <div className="flex items-center justify-between mb-3">
-                  <Badge variant="outline" className="capitalize">
+                  <Badge variant="secondary" className="capitalize">
                     {proposal.category}
                   </Badge>
                   <Badge className={`${
@@ -210,8 +196,8 @@ export default function VotePage() {
                   </div>
                 ) : status === 'active' ? (
                   <VotingInterface
-                    proposalId={proposalId}
-                    onVoteSuccess={handleVoteSuccess}
+                    proposal={proposal}
+                    onVoteSubmitted={handleVoteSuccess}
                   />
                 ) : (
                   <div className="text-center py-8">
@@ -292,7 +278,7 @@ export default function VotePage() {
             {/* Proposal Creator */}
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Proposal Creator</h3>
-              <UserBadge address={proposal.creator_address} showFullProfile={false} />
+              <UserBadge address={proposal.creator_address} />
             </Card>
 
             {/* Voting Info */}

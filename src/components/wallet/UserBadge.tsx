@@ -1,6 +1,6 @@
 'use client'
 
-import { useAccount } from 'wagmi'
+import { useWeb3 } from '@/components/providers/Web3Provider'
 import { Badge } from '@/components/ui/Badge'
 import { useState, useEffect } from 'react'
 
@@ -22,7 +22,7 @@ export default function UserBadge({
   showReputation = true, 
   showVerified = true 
 }: UserBadgeProps) {
-  const { address: connectedAddress } = useAccount()
+  const { address: connectedAddress } = useWeb3()
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null)
   
   const walletAddress = address || connectedAddress
