@@ -122,3 +122,4 @@ wheels/
 
 # Supabase
 supabase/.env
+node_modules
