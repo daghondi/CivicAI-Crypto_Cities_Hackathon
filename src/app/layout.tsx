@@ -1,10 +1,7 @@
 import './globals.css'
-import { Inter } from 'next/font/google'
 import type { Metadata } from 'next'
 import Header from '@/components/layout/Header'
 import Web3Provider from '@/components/providers/Web3Provider'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'CivicAI - AI-Powered Civic Engagement',
@@ -18,7 +15,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className="font-sans">
         <Web3Provider>
           <div id="root">
             <Header />

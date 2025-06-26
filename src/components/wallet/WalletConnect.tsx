@@ -1,18 +1,12 @@
 'use client'
 
-import { useWeb3Modal } from '@web3modal/wagmi/react'
-import { useAccount, useDisconnect } from 'wagmi'
+import { useWeb3 } from '@/components/providers/Web3Provider'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
+import { formatAddress } from '@/lib/thirdweb'
 
 export default function WalletConnect() {
-  const { open } = useWeb3Modal()
-  const { address, isConnected, isConnecting } = useAccount()
-  const { disconnect } = useDisconnect()
-
-  const formatAddress = (addr: string) => {
-    return `${addr.slice(0, 6)}...${addr.slice(-4)}`
-  }
+  const { address, ensName, isConnected, isConnecting, connect, disconnect } = useWeb3()
 
   if (isConnecting) {
     return (
@@ -33,12 +27,12 @@ export default function WalletConnect() {
           <span className="text-sm text-gray-600">Connected</span>
         </div>
         <Badge variant="primary" className="font-mono">
-          {formatAddress(address)}
+          {ensName || formatAddress(address)}
         </Badge>
         <Button 
           variant="outline" 
           size="sm"
-          onClick={() => disconnect()}
+          onClick={disconnect}
           className="hidden sm:flex"
         >
           Disconnect
@@ -49,7 +43,7 @@ export default function WalletConnect() {
 
   return (
     <Button 
-      onClick={() => open()} 
+      onClick={connect} 
       variant="outline" 
       size="sm"
     >
