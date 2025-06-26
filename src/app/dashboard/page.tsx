@@ -1,6 +1,6 @@
 'use client'
 
-import { useAccount } from 'wagmi'
+import { useWeb3 } from '@/components/providers/Web3Provider'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
@@ -9,7 +9,7 @@ import ProposalList from '@/components/proposals/ProposalList'
 import Link from 'next/link'
 
 export default function DashboardPage() {
-  const { address, isConnected } = useAccount()
+  const { address, isConnected } = useWeb3()
 
   if (!isConnected) {
     return (
@@ -48,7 +48,7 @@ export default function DashboardPage() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             Welcome to Your Dashboard
           </h1>
-          <UserBadge address={address} showReputation={true} showVerified={true} />
+          <UserBadge address={address || undefined} showReputation={true} showVerified={true} />
         </div>
 
         {/* Stats Cards */}

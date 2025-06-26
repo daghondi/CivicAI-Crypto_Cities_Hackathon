@@ -84,8 +84,10 @@ export default function ProposalList({
           created_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
           updated_at: new Date().toISOString(),
           voting_deadline: new Date(Date.now() + 5 * 24 * 60 * 60 * 1000).toISOString(),
-          required_votes: 15,
-          current_votes: 12,
+          votes_for: 8,
+          votes_against: 3,
+          votes_abstain: 1,
+          total_votes: 12,
           impact_score: 78,
           ai_analysis: {
             id: '2',
@@ -110,8 +112,10 @@ export default function ProposalList({
           created_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
           updated_at: new Date().toISOString(),
           voting_deadline: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(), // Past date for passed proposal
-          required_votes: 8,
-          current_votes: 10,
+          votes_for: 7,
+          votes_against: 2,
+          votes_abstain: 1,
+          total_votes: 10,
           impact_score: 65,
           ai_analysis: {
             id: '3',
@@ -152,7 +156,7 @@ export default function ProposalList({
         case 'newest':
           return new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
         case 'votes':
-          return b.current_votes - a.current_votes
+          return (b.total_votes || 0) - (a.total_votes || 0)
         case 'impact':
           return b.impact_score - a.impact_score
         default:
@@ -176,7 +180,7 @@ export default function ProposalList({
       // Optimistically update the vote count
       setProposals(prev => prev.map(p => 
         p.id === proposalId 
-          ? { ...p, current_votes: p.current_votes + 1 }
+          ? { ...p, total_votes: (p.total_votes || 0) + 1 }
           : p
       ))
     } catch (error) {
@@ -206,6 +210,7 @@ export default function ProposalList({
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
+                aria-label="Filter proposals by status"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
               >
                 {FILTER_OPTIONS.map(option => (
@@ -223,6 +228,7 @@ export default function ProposalList({
               <select
                 value={categoryFilter}
                 onChange={(e) => setCategoryFilter(e.target.value)}
+                aria-label="Filter proposals by category"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
               >
                 {CATEGORY_OPTIONS.map(option => (
@@ -240,6 +246,7 @@ export default function ProposalList({
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value as any)}
+                aria-label="Sort proposals by"
                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
               >
                 <option value="newest">Newest</option>
