@@ -14,23 +14,33 @@ Welcome to CivicAI - an AI-powered civic engagement platform for crypto cities a
 - **Comprehensive Proposals**: AI generates detailed proposals with impact scores, cost estimates, and timelines
 - **Risk Assessment**: Automatic analysis of potential risks and recommendations
 
-### 🗳️ Decentralized Voting System
-- **Wallet-Based Authentication**: Connect with MetaMask, WalletConnect, or Coinbase Wallet
-- **Cryptographic Signatures**: Each vote is signed by the user's wallet for authenticity
-- **One Vote Per Wallet**: Prevents vote manipulation while maintaining privacy
-- **Real-time Results**: Live vote counting with support percentages
+### 🗳️ Advanced Voting System
+- **Wallet-Based Authentication**: Connect with MetaMask, Coinbase Wallet, or any Thirdweb-supported wallet
+- **Cryptographic Signatures**: Each vote is signed by the user's wallet for authenticity and non-repudiation
+- **One Vote Per Wallet**: Prevents vote manipulation while maintaining privacy through blockchain verification
+- **Real-time Results**: Live vote counting with detailed statistics and percentage breakdowns
+- **Vote Verification**: Server-side signature verification ensures vote integrity
 
-### 👤 Advanced User Profiles
-- **Wallet Integration**: Link Ethereum addresses to user profiles
-- **Reputation System**: Track civic engagement and voting history
-- **Voter Badges**: Earn badges for active participation ("Active Citizen", "Proposal Creator")
-- **Vote History**: View all past votes and reasoning
+### 👤 Professional User Profiles
+- **Advanced Wallet Integration**: Seamless connection with ENS name resolution and multi-wallet support
+- **Reputation System**: Dynamic scoring based on civic engagement, voting frequency, and community participation
+- **Achievement Badges**: Earn verified badges including "First Vote", "Active Participant", "Proposal Creator", and "Community Leader"
+- **Comprehensive Vote History**: Complete audit trail of all votes with reasoning and timestamps
+- **Profile Customization**: Display names, ENS integration, and verification status
 
-### 🏛️ Governance Features
-- **Proposal Lifecycle**: Draft → Active → Completed/Rejected
-- **Minimum Vote Thresholds**: Configurable quorum requirements
-- **Time-bound Voting**: Automatic voting periods with expiration
-- **Vote Weight**: Future support for stake-weighted voting
+### 🏛️ Sophisticated Governance Features
+- **Complete Proposal Lifecycle**: Seamless flow from draft → active → voting → completed/rejected with status tracking
+- **Configurable Voting Parameters**: Adjustable quorum requirements, voting periods, and approval thresholds
+- **Time-bound Voting**: Automatic voting period management with deadline enforcement and grace periods
+- **Multi-category Support**: Organized proposal categories (Infrastructure, Environment, Economic, etc.)
+- **Advanced Analytics**: Participation metrics, engagement trends, and community insights
+
+### 🔒 Security & Trust Infrastructure
+- **Multi-layer Authentication**: Wallet signatures, session management, and secure token handling
+- **Anti-fraud Protection**: Sophisticated vote validation, duplicate prevention, and signature verification
+- **Audit Trail**: Immutable record of all governance actions with cryptographic proofs
+- **Rate Limiting**: API protection against abuse with intelligent throttling
+- **Privacy Protection**: Vote privacy while maintaining transparency and verifiability
 
 ## 🎯 Demo Flow
 
@@ -57,32 +67,49 @@ Home Page → "Submit a Problem" → Fill Form → "Generate with AI" → Review
 - **Impact Score**: 85/100
 - **Feasibility**: 92/100
 
-### 3. Browse and Vote on Proposals
+### 3. Advanced Proposal Creation
 ```
-Dashboard → View Proposals → Select Proposal → Read Details → Cast Vote + Reasoning
+Home Page → "Create Proposal" → Multi-step Wizard → AI Generation → Review & Submit
 ```
 
-**Voting Options:**
-- ✅ **For**: Support the proposal
-- ❌ **Against**: Oppose the proposal  
-- ⏸️ **Abstain**: Neither support nor oppose
+**Enhanced Workflow:**
+1. **Problem Definition**: Describe civic issue with location and urgency tagging
+2. **AI Analysis**: Advanced prompt engineering generates comprehensive proposals
+3. **Review & Customization**: Edit AI-generated content with structured fields
+4. **Wallet Verification**: Sign proposal creation with wallet for authenticity
+5. **Publication**: Proposal goes live with automatic voting period activation
 
-**Vote Verification:**
-- Wallet signature required for each vote
-- One vote per wallet address per proposal
-- Vote reasoning recorded on-chain (Supabase)
+**AI-Generated Fields:**
+- Title, description, and detailed implementation plan
+- Cost estimates and feasibility scoring (1-100)
+- Impact predictions and affected population analysis
+- Risk assessment with mitigation strategies
+- ICC token incentives and reward structure
+- Timeline projections and milestone planning
 
-### 4. Track Your Civic Engagement
+### 4. Secure Voting Process
 ```
-Dashboard → User Profile → View Voting History → Check Reputation Score
+Browse Proposals → Review Details → Connect Wallet → Cast Vote → Cryptographic Signing
+```
+
+**Voting Features:**
+- **Signature-based Voting**: Each vote cryptographically signed with wallet
+- **One Vote Enforcement**: Blockchain-level prevention of duplicate voting
+- **Reasoning Capture**: Optional explanations for vote decisions
+- **Real-time Updates**: Live vote tallies with percentage breakdowns
+- **Vote History**: Complete audit trail with timestamps and signatures
+
+### 5. Profile & Reputation Management
+```
+Connect Wallet → View Profile → Check Achievements → Review History → Earn Badges
 ```
 
 **Profile Features:**
-- Wallet address and ENS resolution
-- Total proposals created
-- Total votes cast
-- Reputation score (based on engagement)
-- Earned badges and achievements
+- **ENS Integration**: Display readable names instead of wallet addresses
+- **Reputation Scoring**: Dynamic scoring based on civic engagement
+- **Badge System**: Earn verified achievements for community participation
+- **Vote Analytics**: Personal statistics and impact tracking
+- **Community Standing**: Ranking within the civic community
 
 ## 🛠️ Technical Implementation
 
