@@ -358,6 +358,167 @@ GET /api/votes?proposal_id=abc123-def456-ghi789
 
 ---
 
+## Voting Endpoints
+
+### Submit Vote
+Submit a cryptographically signed vote for a proposal.
+
+**Endpoint:** `POST /api/votes`
+
+**Authentication:** Required (Bearer Token)
+
+**Request Body:**
+```json
+{
+  "proposal_id": "proposal_uuid",
+  "vote_type": "for",
+  "reasoning": "This proposal addresses a critical infrastructure need",
+  "signature": "0x...",
+  "message_hash": "0x...",
+  "timestamp": 1672531200000
+}
+```
+
+**Response:**
+```json
+{
+  "success": true,
+  "vote": {
+    "id": "vote_uuid",
+    "proposal_id": "proposal_uuid",
+    "wallet_address": "0x742d35cc6bb1966c1e55afe012b47063c12c9",
+    "vote_type": "for",
+    "reasoning": "This proposal addresses a critical need",
+    "created_at": "2023-01-01T00:00:00.000Z"
+  },
+  "badge_earned": {
+    "type": "first_vote",
+    "name": "First Vote",
+    "description": "Cast your first vote on a proposal"
+  }
+}
+```
+
+### Get Votes for Proposal
+Retrieve all votes for a specific proposal.
+
+**Endpoint:** `GET /api/votes?proposal_id={proposal_id}`
+
+**Response:**
+```json
+{
+  "success": true,
+  "votes": [
+    {
+      "id": "vote_uuid",
+      "wallet_address": "0x742d35cc6bb1966c1e55afe012b47063c12c9",
+      "vote_type": "for",
+      "reasoning": "Great idea!",
+      "created_at": "2023-01-01T00:00:00.000Z"
+    }
+  ],
+  "statistics": {
+    "total_votes": 45,
+    "votes_for": 32,
+    "votes_against": 8,
+    "votes_abstain": 5,
+    "for_percentage": 71
+  }
+}
+```
+
+---
+
+## Proposal Endpoints
+
+### Get All Proposals
+Retrieve paginated list of all proposals.
+
+**Endpoint:** `GET /api/proposals`
+
+**Query Parameters:**
+- `page` (number, optional) - Page number (default: 1)
+- `limit` (number, optional) - Items per page (default: 10)
+- `category` (string, optional) - Filter by category
+- `status` (string, optional) - Filter by status
+
+**Response:**
+```json
+{
+  "success": true,
+  "proposals": [
+    {
+      "id": "proposal_uuid",
+      "title": "Improve Public Transportation",
+      "description": "Comprehensive plan to enhance bus routes",
+      "category": "infrastructure",
+      "status": "active",
+      "created_at": "2023-01-01T00:00:00.000Z",
+      "voting_deadline": "2023-01-15T00:00:00.000Z",
+      "votes_for": 32,
+      "votes_against": 8,
+      "total_votes": 45
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "limit": 10,
+    "total": 156
+  }
+}
+```
+
+### Get Single Proposal
+**Endpoint:** `GET /api/proposals/{id}`
+
+**Response:**
+```json
+{
+  "success": true,
+  "proposal": {
+    "id": "proposal_uuid",
+    "title": "Improve Public Transportation",
+    "description": "Comprehensive plan to enhance bus routes",
+    "category": "infrastructure",
+    "status": "active",
+    "impact_score": 85,
+    "cost_estimate": 50000,
+    "votes_for": 32,
+    "votes_against": 8,
+    "total_votes": 45
+  }
+}
+```
+
+---
+
+## User Endpoints
+
+### Get User Profile
+**Endpoint:** `GET /api/users/{address}`
+
+**Response:**
+```json
+{
+  "success": true,
+  "user": {
+    "wallet_address": "0x742d35cc6bb1966c1e55afe012b47063c12c9",
+    "display_name": "Alice",
+    "ens_name": "alice.eth",
+    "reputation_score": 150,
+    "vote_count": 23,
+    "badges": [
+      {
+        "badge_type": "first_vote",
+        "earned_at": "2023-01-01T00:00:00.000Z"
+      }
+    ]
+  }
+}
+```
+
+---
+
 ## Data Models
 
 ### Proposal Categories
