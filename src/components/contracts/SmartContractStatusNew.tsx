@@ -165,7 +165,7 @@ export default function SmartContractStatus() {
     } else if (status === 'deployed' && !verified) {
       return <Badge variant="warning">Deployed</Badge>
     } else if (status === 'error') {
-      return <Badge variant="danger">Error</Badge>
+      return <Badge variant="destructive">Error</Badge>
     } else {
       return <Badge variant="secondary">Not Deployed</Badge>
     }
@@ -274,7 +274,7 @@ export default function SmartContractStatus() {
                 
                 {contract.address && (
                   <Button
-                    variant="outline"
+                    variant="ghost"
                     size="sm"
                     onClick={() => window.open(
                       `${NETWORK_CONFIG.OPTIMISM_SEPOLIA.explorerUrl}/address/${contract.address}`,

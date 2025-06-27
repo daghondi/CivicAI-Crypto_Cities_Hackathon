@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { useWeb3 } from '@/components/providers/Web3Provider'
-import { useSmartContracts } from '@/hooks/useSmartContracts'
+import { useCivicAIContracts } from '@/hooks/useSmartContracts'
 import { signVoteMessage } from '@/lib/thirdweb'
 import { Proposal } from '@/types'
 import { ThumbsUp, ThumbsDown, Minus, Lock, Coins, Zap } from 'lucide-react'
@@ -23,7 +23,11 @@ export default function EnhancedVotingInterface({
   onVoteSubmitted 
 }: EnhancedVotingInterfaceProps) {
   const { address, signer, isConnected } = useWeb3()
-  const { castVote, hasUserVoted, iccBalance, loading } = useSmartContracts()
+  const { iccToken, governance } = useCivicAIContracts()
+  
+  // Extract values from hooks
+  const iccBalance = iccToken.balance || '0'
+  const loading = iccToken.isLoading || governance.isLoading
   
   const [selectedVote, setSelectedVote] = useState<VoteType | null>(null)
   const [reasoning, setReasoning] = useState('')
@@ -60,7 +64,7 @@ export default function EnhancedVotingInterface({
 
       // Check on-chain vote if it's an on-chain proposal
       if (isOnChainProposal && proposal.on_chain_id) {
-        const onChainVoted = await hasUserVoted(parseInt(proposal.on_chain_id))
+        const onChainVoted = await governance.checkUserVote(parseInt(proposal.on_chain_id), address)
         if (onChainVoted) {
           setHasVoted(true)
           setUserVote({ vote_type: 'on-chain', created_at: 'On blockchain' })
@@ -99,17 +103,18 @@ export default function EnhancedVotingInterface({
     if (!proposal.on_chain_id) throw new Error('No on-chain proposal ID')
 
     const voteTypeMapping = { 'against': 0, 'for': 1, 'abstain': 2 } as const
-    const result = await castVote(
+    const result = await governance.vote(
       parseInt(proposal.on_chain_id), 
-      voteTypeMapping[selectedVote!]
+      voteTypeMapping[selectedVote!],
+      reasoning
     )
 
-    if (!result.success) {
-      throw new Error(result.error || 'On-chain vote failed')
+    if (!result) {
+      throw new Error('On-chain vote failed')
     }
 
     // Also save to database for analytics
-    await saveVoteToDatabase(true, result.transactionHash)
+    await saveVoteToDatabase(true, result.hash)
   }
 
   const submitSignatureVote = async () => {

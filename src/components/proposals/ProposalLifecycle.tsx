@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import { useWeb3 } from '@/components/providers/Web3Provider'
-import { useSmartContracts } from '@/hooks/useSmartContracts'
+import { useProposalGovernance } from '@/hooks/useSmartContracts'
 import { Proposal } from '@/types'
 import { 
   Clock, 
@@ -40,7 +40,7 @@ export default function ProposalLifecycle({
   onProposalUpdate 
 }: ProposalLifecycleProps) {
   const { address, isConnected } = useWeb3()
-  const { executeProposal, cancelProposal, getProposalState, loading } = useSmartContracts()
+  const { executeProposal, cancelProposal, fetchProposalState, isLoading } = useProposalGovernance()
   
   const [currentPhase, setCurrentPhase] = useState<ProposalPhase>('draft')
   const [timeLeft, setTimeLeft] = useState<string>('')
@@ -148,12 +148,12 @@ export default function ProposalLifecycle({
     try {
       const result = await executeProposal(parseInt(proposal.on_chain_id))
       
-      if (result.success) {
+      if (result) {
         setSuccess('Proposal executed successfully!')
         setCurrentPhase('executed')
         onProposalUpdate?.()
       } else {
-        setError(result.error || 'Failed to execute proposal')
+        setError('Failed to execute proposal')
       }
     } catch (err: any) {
       setError(err.message || 'Execution failed')
@@ -175,12 +175,12 @@ export default function ProposalLifecycle({
     try {
       const result = await cancelProposal(parseInt(proposal.on_chain_id))
       
-      if (result.success) {
+      if (result) {
         setSuccess('Proposal cancelled successfully!')
         setCurrentPhase('cancelled')
         onProposalUpdate?.()
       } else {
-        setError(result.error || 'Failed to cancel proposal')
+        setError('Failed to cancel proposal')
       }
     } catch (err: any) {
       setError(err.message || 'Cancellation failed')
@@ -308,7 +308,7 @@ export default function ProposalLifecycle({
           {canExecute && (
             <Button
               onClick={handleExecuteProposal}
-              disabled={isProcessing || loading}
+              disabled={isProcessing || isLoading}
               className="w-full bg-green-600 hover:bg-green-700"
             >
               {isProcessing ? (
@@ -327,7 +327,7 @@ export default function ProposalLifecycle({
           
           {canCancel && (              <Button
                 onClick={handleCancelProposal}
-                disabled={isProcessing || loading}
+                disabled={isProcessing || isLoading}
                 variant="secondary"
                 className="w-full bg-red-100 hover:bg-red-200 text-red-800 border-red-300"
               >

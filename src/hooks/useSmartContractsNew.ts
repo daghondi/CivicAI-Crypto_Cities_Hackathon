@@ -22,7 +22,7 @@ export function useSmartContracts() {
 
   // Get provider from signer or create a default one
   const provider = signer?.provider || (typeof window !== 'undefined' && window.ethereum ? 
-    new ethers.providers.Web3Provider(window.ethereum) : null)
+    new ethers.BrowserProvider(window.ethereum) : null)
 
   // Initialize contracts when provider/signer changes
   useEffect(() => {
@@ -359,7 +359,7 @@ export function useBlockchainEvents() {
         type: 'CivicRewardMinted',
         recipient,
         action,
-        amount: ethers.utils.formatEther(amount),
+        amount: ethers.formatEther(amount),
         timestamp: Date.now()
       }])
     }

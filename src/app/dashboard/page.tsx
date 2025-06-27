@@ -1,6 +1,7 @@
 'use client'
 
 import { useWeb3 } from '@/components/providers/Web3Provider'
+import { useCivicAIContracts } from '@/hooks/useSmartContracts'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
@@ -27,6 +28,11 @@ import {
 
 export default function DashboardPage() {
   const { address, isConnected } = useWeb3()
+  const { iccToken, governance, events } = useCivicAIContracts()
+
+  // Real-time ICC balance and contract data
+  const iccBalance = iccToken.balance || '0'
+  const totalRewards = iccToken.totalRewards || '0'
 
   if (!isConnected) {
     return (
@@ -141,7 +147,7 @@ export default function DashboardPage() {
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Link href="/proposals/create">
-                  <Button className="w-full" size="lg" variant="default">
+                  <Button className="w-full" size="lg">
                     <Plus className="w-4 h-4 mr-2" />
                     Create Proposal (+50 I₵C)
                   </Button>

@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSmartContracts } from '@/hooks/useSmartContracts'
+import { useProposalGovernance } from '@/hooks/useSmartContracts'
+import { useICCToken } from '@/hooks/useSmartContracts'
+import { useWeb3 } from '@/components/providers/Web3Provider'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { Badge } from '@/components/ui/Badge'
@@ -21,11 +23,14 @@ export default function ProposalSubmission({
   onProposalCreated 
 }: ProposalSubmissionProps) {
   const router = useRouter()
-  const { createProposal, isConnected, loading, iccBalance } = useSmartContracts()
+  const { isConnected } = useWeb3()
+  const { createProposal, isLoading: governanceLoading } = useProposalGovernance()
+  const { balance: iccBalance, isLoading: tokenLoading } = useICCToken()
   const [submitMode, setSubmitMode] = useState<'database' | 'contract'>('database')
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
+  const loading = governanceLoading || tokenLoading
   const hasEnoughICC = parseFloat(iccBalance) >= 100 // 100 I₵C required for on-chain proposals
 
   const handleSubmit = async () => {
@@ -41,14 +46,14 @@ export default function ProposalSubmission({
           proposalData.category
         )
         
-        if (result.success) {
-          console.log('Proposal created on-chain with ID:', result.proposalId)
-          console.log('Transaction hash:', result.transactionHash)
+        if (result) {
+          console.log('Proposal created on-chain')
+          console.log('Transaction hash:', result.hash)
           
           // Also save to database with on-chain reference
-          await saveToDatabase(true, result.proposalId, result.transactionHash)
+          await saveToDatabase(true, undefined, result.hash)
         } else {
-          throw new Error(result.error || 'Failed to create proposal on-chain')
+          throw new Error('Failed to create proposal on-chain')
         }
       } else {
         // Submit to database only

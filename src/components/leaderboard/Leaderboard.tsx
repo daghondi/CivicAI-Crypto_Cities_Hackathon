@@ -80,7 +80,7 @@ export default function Leaderboard({
     icon: React.ReactNode 
   }) => (
     <Button
-      variant={sortBy === field ? 'default' : 'ghost'}
+      variant={sortBy === field ? 'primary' : 'outline'}
       size="sm"
       onClick={() => {
         if (sortBy === field) {
@@ -116,7 +116,7 @@ export default function Leaderboard({
             {entry.displayName || `${entry.address.slice(0, 6)}...${entry.address.slice(-4)}`}
           </h4>
           {entry.ensName && (
-            <Badge variant="outline" className="text-xs">
+            <Badge variant="secondary" className="text-xs">
               {entry.ensName}
             </Badge>
           )}
@@ -130,12 +130,12 @@ export default function Leaderboard({
         {!compact && (
           <div className="flex flex-wrap gap-1 mb-2">
             {entry.badges.slice(0, 2).map((badge, index) => (
-              <Badge key={index} variant="outline" className="text-xs">
+              <Badge key={index} variant="secondary" className="text-xs">
                 {badge}
               </Badge>
             ))}
             {entry.badges.length > 2 && (
-              <Badge variant="outline" className="text-xs">
+              <Badge variant="secondary" className="text-xs">
                 +{entry.badges.length - 2}
               </Badge>
             )}
@@ -181,7 +181,7 @@ export default function Leaderboard({
             <Trophy className="w-4 h-4 text-yellow-500" />
             Top Contributors
           </h3>
-          <Badge variant="outline" className="text-xs">
+          <Badge variant="secondary" className="text-xs">
             {timeframe === 'week' ? 'This Week' : timeframe === 'month' ? 'This Month' : 'All Time'}
           </Badge>
         </div>
@@ -222,7 +222,7 @@ export default function Leaderboard({
       <div className="flex justify-center">
         <div className="bg-gray-100 rounded-lg p-1 flex gap-1">
           <Button
-            variant={timeframe === 'all' ? 'default' : 'ghost'}
+            variant={timeframe === 'all' ? 'primary' : 'secondary'}
             size="sm"
             className="text-sm"
           >
@@ -230,7 +230,7 @@ export default function Leaderboard({
             All Time
           </Button>
           <Button
-            variant={timeframe === 'month' ? 'default' : 'ghost'}
+            variant={timeframe === 'month' ? 'primary' : 'secondary'}
             size="sm"
             className="text-sm"
           >
@@ -238,7 +238,7 @@ export default function Leaderboard({
             This Month
           </Button>
           <Button
-            variant={timeframe === 'week' ? 'default' : 'ghost'}
+            variant={timeframe === 'week' ? 'primary' : 'secondary'}
             size="sm"
             className="text-sm"
           >

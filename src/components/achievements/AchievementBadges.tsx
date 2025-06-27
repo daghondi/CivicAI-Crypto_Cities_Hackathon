@@ -125,12 +125,11 @@ export default function AchievementBadges({
               {formatICC(achievement.reward)}
             </Badge>
           </div>
-        ))}
-        {unlockedAchievements.length > 6 && (
-          <Badge variant="outline" className="rounded-full">
-            +{unlockedAchievements.length - 6} more
-          </Badge>
-        )}
+        ))}              {unlockedAchievements.length > 6 && (
+                <Badge variant="secondary" className="rounded-full">
+                  +{unlockedAchievements.length - 6} more
+                </Badge>
+              )}
       </div>
     )
   }
@@ -162,7 +161,7 @@ export default function AchievementBadges({
       <div className="flex justify-center">
         <div className="bg-gray-100 rounded-lg p-1 flex gap-1">
           <Button
-            variant={activeTab === 'unlocked' ? 'default' : 'ghost'}
+            variant={activeTab === 'unlocked' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveTab('unlocked')}
             className="text-sm"
@@ -172,7 +171,7 @@ export default function AchievementBadges({
           </Button>
           {showProgress && (
             <Button
-              variant={activeTab === 'progress' ? 'default' : 'ghost'}
+              variant={activeTab === 'progress' ? 'primary' : 'outline'}
               size="sm"
               onClick={() => setActiveTab('progress')}
               className="text-sm"
@@ -182,7 +181,7 @@ export default function AchievementBadges({
             </Button>
           )}
           <Button
-            variant={activeTab === 'all' ? 'default' : 'ghost'}
+            variant={activeTab === 'all' ? 'primary' : 'outline'}
             size="sm"
             onClick={() => setActiveTab('all')}
             className="text-sm"

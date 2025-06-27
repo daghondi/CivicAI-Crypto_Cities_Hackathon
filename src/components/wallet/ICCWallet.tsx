@@ -107,7 +107,7 @@ export default function ICCWallet({
           </span>
         </div>
         <Badge 
-          variant="outline" 
+          variant="secondary" 
           className={`text-xs ${getActionColor(reward.action)}`}
         >
           {reward.action.replace(/_/g, ' ').toLowerCase()}
@@ -252,7 +252,7 @@ export default function ICCWallet({
               {/* Filter Buttons */}
               <div className="bg-gray-100 rounded-lg p-1 flex gap-1">
                 <Button
-                  variant={selectedFilter === 'all' ? 'default' : 'ghost'}
+                  variant={selectedFilter === 'all' ? 'primary' : 'secondary'}
                   size="sm"
                   onClick={() => setSelectedFilter('all')}
                   className="text-xs"
@@ -260,7 +260,7 @@ export default function ICCWallet({
                   All
                 </Button>
                 <Button
-                  variant={selectedFilter === 'earned' ? 'default' : 'ghost'}
+                  variant={selectedFilter === 'earned' ? 'primary' : 'secondary'}
                   size="sm"
                   onClick={() => setSelectedFilter('earned')}
                   className="text-xs"
