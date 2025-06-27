@@ -1,7 +1,7 @@
 /* filepath: CivicAI-Crypto_Cities_Hackathon/src/app/globals.css */
 
 /* Optional Google Fonts import with error handling */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=JetBrains+Mono:wght@300..800&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -13,20 +13,89 @@
   }
   
   body {
-    background-color: theme('colors.gray.50');
+    background-color: theme('colors.dark.bg');
+    color: theme('colors.text.primary');
+  }
+  
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: theme('colors.dark.surface');
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: theme('colors.dark.muted');
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: theme('colors.infinita.electric');
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-gradient-primary hover:bg-gradient-accent text-white font-medium py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 hover:shadow-lg;
   }
   
   .btn-secondary {
-    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors duration-200;
+    @apply bg-dark-elevated hover:bg-dark-muted text-text-primary font-medium py-2 px-4 rounded-lg transition-all duration-300 border border-dark-border hover:border-infinita-electric;
   }
   
   .card {
-    @apply bg-white rounded-lg shadow-sm border border-gray-200 p-6;
+    @apply bg-gradient-card rounded-lg shadow-xl border border-dark-border p-6 backdrop-blur-sm;
+  }
+  
+  .glow-text {
+    @apply text-transparent bg-clip-text bg-gradient-to-r from-infinita-electric to-infinita-neon;
+  }
+  
+  .cyber-border {
+    @apply border border-infinita-electric shadow-lg shadow-infinita-electric/20;
+  }
+  
+  .futuristic-input {
+    @apply bg-dark-surface border border-dark-border rounded-lg px-4 py-2 text-text-primary placeholder-text-muted focus:border-infinita-electric focus:outline-none focus:ring-1 focus:ring-infinita-electric transition-all duration-300;
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 10px currentColor;
+  }
+  
+  .box-glow {
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
+  }
+
+  /* Animation delay utilities */
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-600 { animation-delay: 0.6s; }
+  .delay-800 { animation-delay: 0.8s; }
+  .delay-1000 { animation-delay: 1s; }
+  .delay-1200 { animation-delay: 1.2s; }
+  .delay-2000 { animation-delay: 2s; }
+  .delay-4000 { animation-delay: 4s; }
+  
+  /* Logo-specific enhancements */
+  .logo-glow {
+    filter: drop-shadow(0 0 10px rgba(14, 165, 233, 0.5));
+    transition: filter 0.3s ease;
+  }
+  
+  .logo-glow:hover {
+    filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.8));
+  }
+  
+  .logo-blend {
+    mix-blend-mode: screen;
+  }
+  
+  .logo-container {
+    background: radial-gradient(circle at center, rgba(14, 165, 233, 0.1) 0%, transparent 70%);
   }
 }
