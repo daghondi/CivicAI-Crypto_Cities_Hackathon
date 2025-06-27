@@ -1,0 +1,254 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CivicAI - Infinita City Inspired Theme */
+/* Global styles for the futuristic, glassmorphic dark theme */
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-dark-bg text-text-primary;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    line-height: 1.6;
+  }
+  
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-dark-bg;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-logo-electric/30 rounded-full;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-logo-electric/50;
+  }
+
+  /* Selection styling */
+  ::selection {
+    @apply bg-logo-electric/30 text-white;
+  }
+}
+
+@layer components {
+  /* Glassmorphism card style */
+  .glass-card {
+    @apply bg-gradient-card backdrop-blur-md border border-dark-border/50 rounded-xl;
+    box-shadow: 
+      0 8px 32px 0 rgba(0, 180, 216, 0.1),
+      inset 0 1px 0 0 rgba(255, 255, 255, 0.05);
+  }
+
+  /* Electric glow effect */
+  .electric-glow {
+    @apply shadow-electric;
+    transition: all 0.3s ease;
+  }
+  
+  .electric-glow:hover {
+    @apply shadow-glow;
+    transform: translateY(-2px);
+  }
+
+  /* Text glow effect */
+  .text-glow {
+    text-shadow: 
+      0 0 10px currentColor,
+      0 0 20px currentColor,
+      0 0 40px currentColor;
+  }
+
+  /* Grid background pattern */
+  .grid-pattern {
+    background-image: 
+      linear-gradient(rgba(0, 255, 255, 0.1) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 255, 255, 0.1) 1px, transparent 1px);
+    background-size: 50px 50px;
+  }
+
+  /* Animated gradient background */
+  .animated-gradient {
+    background: linear-gradient(-45deg, #000000, #1a1a1a, #000000, #0a0a0a);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+  }
+
+  /* Button variants */
+  .btn-primary {
+    @apply bg-gradient-primary text-white font-semibold px-6 py-3 rounded-lg;
+    @apply hover:shadow-electric transition-all duration-300;
+    @apply border border-logo-primary/30 hover:border-logo-electric/50;
+  }
+
+  .btn-outline {
+    @apply border-2 border-logo-electric/50 text-logo-electric bg-transparent;
+    @apply hover:bg-logo-electric/10 hover:border-logo-electric transition-all duration-300;
+    @apply px-6 py-3 rounded-lg font-semibold;
+  }
+
+  .btn-ghost {
+    @apply text-logo-electric hover:bg-logo-electric/10 transition-all duration-300;
+    @apply px-4 py-2 rounded-lg;
+  }
+
+  /* Card variants */
+  .card-default {
+    @apply glass-card p-6 hover:border-logo-electric/30 transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply card-default hover:shadow-glow hover:-translate-y-1;
+  }
+
+  /* Input styling */
+  .input-primary {
+    @apply bg-dark-surface/50 border border-dark-border rounded-lg px-4 py-3;
+    @apply text-text-primary placeholder-text-muted;
+    @apply focus:border-logo-electric focus:outline-none focus:ring-2 focus:ring-logo-electric/20;
+    @apply backdrop-blur-sm transition-all duration-300;
+  }
+
+  /* Badge styling */
+  .badge {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+  }
+
+  .badge-success {
+    @apply badge bg-success/20 text-success border border-success/30;
+  }
+
+  .badge-warning {
+    @apply badge bg-warning/20 text-warning border border-warning/30;
+  }
+
+  .badge-info {
+    @apply badge bg-info/20 text-info border border-info/30;
+  }
+
+  .badge-electric {
+    @apply badge bg-logo-electric/20 text-logo-electric border border-logo-electric/30;
+  }
+
+  /* Navigation styling */
+  .nav-link {
+    @apply text-text-secondary hover:text-logo-electric transition-all duration-300;
+    @apply px-4 py-2 rounded-lg hover:bg-logo-electric/10;
+  }
+
+  .nav-link.active {
+    @apply text-logo-electric bg-logo-electric/10 border border-logo-electric/30;
+  }
+}
+
+@layer utilities {
+  /* Animation delays */
+  .delay-100 { animation-delay: 0.1s; }
+  .delay-200 { animation-delay: 0.2s; }
+  .delay-300 { animation-delay: 0.3s; }
+  .delay-400 { animation-delay: 0.4s; }
+  .delay-500 { animation-delay: 0.5s; }
+  .delay-1000 { animation-delay: 1s; }
+  .delay-1200 { animation-delay: 1.2s; }
+  .delay-1400 { animation-delay: 1.4s; }
+  .delay-2000 { animation-delay: 2s; }
+  .delay-4000 { animation-delay: 4s; }
+
+  /* Backdrop blur utilities */
+  .backdrop-blur-xs { backdrop-filter: blur(2px); }
+  .backdrop-blur-sm { backdrop-filter: blur(4px); }
+  .backdrop-blur-md { backdrop-filter: blur(8px); }
+  .backdrop-blur-lg { backdrop-filter: blur(12px); }
+
+  /* Custom spacing */
+  .space-y-8 > * + * { margin-top: 2rem; }
+  .space-y-12 > * + * { margin-top: 3rem; }
+
+  /* Infinita City specific utilities */
+  .infinita-border {
+    @apply border border-logo-electric/30 hover:border-logo-electric/60 transition-all duration-300;
+  }
+
+  .infinita-glow {
+    box-shadow: 
+      0 0 20px rgba(0, 255, 255, 0.3),
+      0 0 40px rgba(0, 255, 255, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* Custom keyframe animations */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes glow {
+  0% { text-shadow: 0 0 5px #00ffff, 0 0 10px #00ffff; }
+  100% { text-shadow: 0 0 10px #00ffff, 0 0 20px #00ffff; }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(30px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive design helpers */
+@media (max-width: 768px) {
+  .glass-card {
+    @apply p-4;
+  }
+  
+  .text-glow {
+    text-shadow: 
+      0 0 5px currentColor,
+      0 0 10px currentColor;
+  }
+}
+
+/* Dark mode specific overrides */
+@media (prefers-color-scheme: dark) {
+  body {
+    @apply bg-dark-bg text-text-primary;
+  }
+}
+
+/* Print styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    @apply bg-white text-black;
+  }
+}
