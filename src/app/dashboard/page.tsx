@@ -7,6 +7,8 @@ import { Badge } from '@/components/ui/Badge'
 import UserBadge from '@/components/wallet/UserBadge'
 import ProposalList from '@/components/proposals/ProposalList'
 import SmartContractStatus from '@/components/contracts/SmartContractStatus'
+import NetworkSelector from '@/components/web3/NetworkSelector'
+import DeploymentStatus from '@/components/web3/DeploymentStatus'
 import Link from 'next/link'
 
 export default function DashboardPage() {
@@ -149,6 +151,17 @@ export default function DashboardPage() {
 
           {/* Sidebar */}
           <div className="space-y-6">
+            {/* Network Selection */}
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-3">
+                Network Status
+              </h3>
+              <NetworkSelector />
+            </div>
+
+            {/* Deployment Status */}
+            <DeploymentStatus />
+
             {/* Achievement Badges */}
             <Card className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">

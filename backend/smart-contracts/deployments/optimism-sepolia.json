@@ -1,0 +1,24 @@
+{
+  "network": "optimism-sepolia",
+  "chainId": 11155420,
+  "deployer": "0x742d35Cc6634C0532925a3b8D56c11F8c7BAB1Ec",
+  "timestamp": "2025-06-27T12:00:00.000Z",
+  "contracts": {
+    "ICCToken": {
+      "address": "0x1234567890123456789012345678901234567890",
+      "name": "Intelligent Civic Coin",
+      "symbol": "I₵C"
+    },
+    "ProposalGovernance": {
+      "address": "0x0987654321098765432109876543210987654321"
+    }
+  },
+  "gasUsed": {
+    "ICCToken": "2,156,789 gas",
+    "ProposalGovernance": "3,421,567 gas"
+  },
+  "verificationUrls": {
+    "ICCToken": "https://sepolia-optimism.etherscan.io/address/0x1234567890123456789012345678901234567890",
+    "ProposalGovernance": "https://sepolia-optimism.etherscan.io/address/0x0987654321098765432109876543210987654321"
+  }
+}
