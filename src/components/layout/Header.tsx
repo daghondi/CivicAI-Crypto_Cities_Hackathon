@@ -47,9 +47,11 @@ export default function Header() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <WalletConnect />
-            <Button size="sm" className="bg-gradient-to-r from-logo-primary to-logo-accent hover:shadow-lg hover:shadow-logo-electric/30 transition-all duration-300 text-white font-semibold">
-              Submit Proposal
-            </Button>
+            <Link href="/proposals/create">
+              <Button size="sm" className="bg-gradient-to-r from-logo-primary to-logo-accent hover:shadow-lg hover:shadow-logo-electric/30 transition-all duration-300 text-white font-semibold">
+                Submit Proposal
+              </Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Button */}
@@ -81,9 +83,11 @@ export default function Header() {
               </Link>
               <div className="flex flex-col space-y-2 pt-4 border-t border-dark-border">
                 <WalletConnect />
-                <Button size="sm" className="bg-gradient-to-r from-logo-primary to-logo-accent hover:shadow-lg hover:shadow-logo-electric/30 transition-all duration-300 text-white font-semibold">
-                  Submit Proposal
-                </Button>
+                <Link href="/proposals/create">
+                  <Button size="sm" className="bg-gradient-to-r from-logo-primary to-logo-accent hover:shadow-lg hover:shadow-logo-electric/30 transition-all duration-300 text-white font-semibold">
+                    Submit Proposal
+                  </Button>
+                </Link>
               </div>
             </nav>
           </div>

@@ -50,9 +50,11 @@ export default function HomePage() {
             {' '}like Próspera, Network States, and emerging digital communities
           </p>
           <div className="flex justify-center gap-4 mb-8 animate-slide-up delay-200">
-            <Button size="lg" variant="glow">
-              Get Started
-            </Button>
+            <Link href="/dashboard">
+              <Button size="lg" variant="glow">
+                Get Started
+              </Button>
+            </Link>
             <Link href="/proposals">
               <Button variant="outline" size="lg">
                 View Proposals
@@ -95,9 +97,11 @@ export default function HomePage() {
                   </div>
                   <span className="text-text-primary font-semibold">1 I₵C = 1 USD</span>
                 </div>
-                <Button variant="outline" size="sm" className="border-logo-orange/50 text-logo-orange hover:bg-logo-orange/10">
-                  Get I₵C Tokens
-                </Button>
+                <Link href="/dashboard">
+                  <Button variant="outline" size="sm" className="border-logo-orange/50 text-logo-orange hover:bg-logo-orange/10">
+                    Get I₵C Tokens
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
