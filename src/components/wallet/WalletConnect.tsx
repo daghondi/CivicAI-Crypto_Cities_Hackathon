@@ -12,7 +12,7 @@ export default function WalletConnect() {
     return (
       <Button disabled size="sm">
         <div className="flex items-center">
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-logo-electric mr-2"></div>
           Connecting...
         </div>
       </Button>
@@ -23,8 +23,8 @@ export default function WalletConnect() {
     return (
       <div className="flex items-center space-x-3">
         <div className="hidden sm:flex items-center space-x-2">
-          <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-          <span className="text-sm text-gray-600">Connected</span>
+          <div className="w-2 h-2 bg-logo-electric rounded-full animate-pulse"></div>
+          <span className="text-sm text-text-secondary">Connected</span>
         </div>
         <Badge variant="primary" className="font-mono">
           {ensName || formatAddress(address)}

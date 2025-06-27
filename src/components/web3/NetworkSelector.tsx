@@ -46,8 +46,8 @@ export default function NetworkSelector() {
 
   if (!isConnected) {
     return (
-      <Card className="p-3 bg-gray-50">
-        <div className="flex items-center space-x-2 text-sm text-gray-600">
+      <Card className="p-3 bg-dark-surface/30 border-logo-dark/20">
+        <div className="flex items-center space-x-2 text-sm text-text-secondary">
           <WifiOff className="w-4 h-4" />
           <span>Connect wallet to see network</span>
         </div>
@@ -58,31 +58,31 @@ export default function NetworkSelector() {
   return (
     <div className="relative">
       <Card 
-        className={`p-3 cursor-pointer transition-colors hover:bg-gray-50 ${
-          isOpen ? 'ring-2 ring-blue-500' : ''
+        className={`p-3 cursor-pointer transition-all duration-200 hover:bg-dark-surface/50 backdrop-blur-sm ${
+          isOpen ? 'ring-2 ring-logo-electric/50' : ''
         }`}
         onClick={() => setIsOpen(!isOpen)}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <Wifi className="w-4 h-4 text-green-600" />
+            <Wifi className="w-4 h-4 text-logo-electric" />
             <div>
-              <div className="font-medium text-sm">
+              <div className="font-medium text-sm text-text-primary">
                 {currentNetwork?.[1].name || 'Unknown Network'}
               </div>
-              <div className="text-xs text-gray-500">
+              <div className="text-xs text-text-secondary">
                 Chain ID: {chainId}
               </div>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             <Badge 
-              variant={currentNetwork ? 'secondary' : 'secondary'}
+              variant={currentNetwork ? 'primary' : 'secondary'}
               className="text-xs"
             >
               {currentNetwork ? 'Supported' : 'Unsupported'}
             </Badge>
-            <ChevronDown className={`w-4 h-4 transition-transform ${
+            <ChevronDown className={`w-4 h-4 transition-transform text-text-primary ${
               isOpen ? 'rotate-180' : ''
             }`} />
           </div>
@@ -90,9 +90,9 @@ export default function NetworkSelector() {
       </Card>
 
       {isOpen && (
-        <Card className="absolute top-full left-0 right-0 mt-2 p-2 shadow-lg border z-10 bg-white">
+        <Card className="absolute top-full left-0 right-0 mt-2 p-2 shadow-lg border border-logo-dark/20 z-10 bg-dark-surface/95 backdrop-blur-md">
           <div className="space-y-2">
-            <div className="text-sm font-medium text-gray-900 p-2">
+            <div className="text-sm font-medium text-text-primary p-2">
               Available Networks
             </div>
             
@@ -102,25 +102,25 @@ export default function NetworkSelector() {
                 onClick={() => handleNetworkSwitch(network.chainId)}
                 className={`w-full p-3 rounded-lg text-left transition-colors ${
                   network.chainId === chainId
-                    ? 'bg-blue-50 border border-blue-200'
-                    : 'hover:bg-gray-50'
+                    ? 'bg-logo-electric/10 border border-logo-electric/30'
+                    : 'hover:bg-dark-surface/50'
                 }`}
               >
                 <div className="flex items-center justify-between">
                   <div>
-                    <div className="font-medium text-sm">{network.name}</div>
-                    <div className="text-xs text-gray-500">
+                    <div className="font-medium text-sm text-text-primary">{network.name}</div>
+                    <div className="text-xs text-text-secondary">
                       Chain ID: {network.chainId}
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
                     {network.chainId === chainId && (
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge variant="primary" className="text-xs">
                         Current
                       </Badge>
                     )}
                     {network.key === 'optimismSepolia' && (
-                      <ExternalLink className="w-3 h-3 text-gray-400" />
+                      <ExternalLink className="w-3 h-3 text-text-secondary" />
                     )}
                   </div>
                 </div>
@@ -128,8 +128,8 @@ export default function NetworkSelector() {
             ))}
           </div>
 
-          <div className="border-t pt-2 mt-2">
-            <div className="text-xs text-gray-500 p-2">
+          <div className="border-t border-logo-dark/20 pt-2 mt-2">
+            <div className="text-xs text-text-secondary p-2">
               💡 Tip: Make sure you have test ETH for the selected network
             </div>
           </div>

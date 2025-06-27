@@ -99,7 +99,7 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           {/* Pre-filled prompts */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
+            <label className="block text-sm font-medium text-text-primary mb-2">
               Quick Start Prompts
             </label>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
@@ -108,8 +108,9 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
                   key={index}
                   type="button"
                   onClick={() => selectPrompt(prompt)}
-                  className="text-left p-3 text-sm bg-gray-50 hover:bg-blue-50 border border-gray-200 
-                           rounded-lg transition-colors duration-200 hover:border-primary-300"
+                  className="text-left p-3 text-sm bg-dark-surface/30 hover:bg-logo-electric/10 border border-logo-dark/20 
+                           rounded-lg transition-all duration-200 hover:border-logo-electric/50 text-text-primary
+                           backdrop-blur-sm hover:shadow-lg hover:shadow-logo-electric/10"
                 >
                   {prompt}
                 </button>
@@ -119,33 +120,35 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
 
           {/* Problem description */}
           <div>
-            <label htmlFor="problem" className="block text-sm font-medium text-gray-700 mb-2">
+            <label htmlFor="problem" className="block text-sm font-medium text-text-primary mb-2">
               Describe the Problem *
             </label>
             <textarea
               {...register('problem', { required: 'Please describe the problem' })}
               id="problem"
               rows={4}
-              className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                       focus:ring-primary-500 focus:border-primary-500"
+              className="w-full px-3 py-2 bg-dark-surface/30 border border-logo-dark/20 rounded-lg 
+                       focus:ring-2 focus:ring-logo-electric/50 focus:border-logo-electric text-text-primary
+                       placeholder-text-secondary backdrop-blur-sm"
               placeholder="Describe the civic issue you'd like to address..."
             />
             {errors.problem && (
-              <p className="mt-1 text-sm text-red-600">{errors.problem.message}</p>
+              <p className="mt-1 text-sm text-red-400">{errors.problem.message}</p>
             )}
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Category */}
             <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="category" className="block text-sm font-medium text-text-primary mb-2">
                 Category *
               </label>
               <select
                 {...register('category', { required: true })}
                 id="category"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                         focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 bg-dark-surface/30 border border-logo-dark/20 rounded-lg 
+                         focus:ring-2 focus:ring-logo-electric/50 focus:border-logo-electric text-text-primary
+                         backdrop-blur-sm"
               >
                 {CATEGORIES.map(category => (
                   <option key={category} value={category}>
@@ -157,29 +160,31 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
 
             {/* Location */}
             <div>
-              <label htmlFor="location" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="location" className="block text-sm font-medium text-text-primary mb-2">
                 Location
               </label>
               <input
                 {...register('location')}
                 type="text"
                 id="location"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                         focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 bg-dark-surface/30 border border-logo-dark/20 rounded-lg 
+                         focus:ring-2 focus:ring-logo-electric/50 focus:border-logo-electric text-text-primary
+                         placeholder-text-secondary backdrop-blur-sm"
                 placeholder="e.g., Pristine Bay, Duna"
               />
             </div>
 
             {/* Urgency */}
             <div>
-              <label htmlFor="urgency" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="urgency" className="block text-sm font-medium text-text-primary mb-2">
                 Urgency
               </label>
               <select
                 {...register('urgency')}
                 id="urgency"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 
-                         focus:ring-primary-500 focus:border-primary-500"
+                className="w-full px-3 py-2 bg-dark-surface/30 border border-logo-dark/20 rounded-lg 
+                         focus:ring-2 focus:ring-logo-electric/50 focus:border-logo-electric text-text-primary
+                         backdrop-blur-sm"
               >
                 <option value="low">Low</option>
                 <option value="medium">Medium</option>
@@ -195,7 +200,7 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
           >
             {isGenerating ? (
               <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-logo-electric mr-2"></div>
                 Generating AI Proposal...
               </div>
             ) : (
@@ -205,8 +210,8 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
         </form>
 
         {error && (
-          <div className="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-            <p className="text-red-600">{error}</p>
+          <div className="mt-4 p-4 bg-red-500/10 border border-red-500/30 rounded-lg backdrop-blur-sm">
+            <p className="text-red-400">{error}</p>
           </div>
         )}
       </Card>
@@ -214,36 +219,36 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
       {/* Generated proposal preview */}
       {generatedProposal && (
         <Card className="p-6">
-          <h3 className="text-xl font-bold text-gray-900 mb-4">
+          <h3 className="text-xl font-bold text-text-primary mb-4">
             Generated Proposal Preview
           </h3>
           
           <div className="space-y-4">
             <div>
-              <h4 className="font-semibold text-gray-800">{generatedProposal.title}</h4>
-              <p className="text-gray-600 mt-2">{generatedProposal.description}</p>
+              <h4 className="font-semibold text-text-primary">{generatedProposal.title}</h4>
+              <p className="text-text-secondary mt-2">{generatedProposal.description}</p>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div>
-                <span className="font-medium text-gray-700">Impact Score:</span>
-                <div className="text-lg font-bold text-primary-600">{generatedProposal.impact_score}/100</div>
+                <span className="font-medium text-text-secondary">Impact Score:</span>
+                <div className="text-lg font-bold text-logo-electric">{generatedProposal.impact_score}/100</div>
               </div>
               <div>
-                <span className="font-medium text-gray-700">Feasibility:</span>
-                <div className="text-lg font-bold text-green-600">{generatedProposal.feasibility_score}/100</div>
+                <span className="font-medium text-text-secondary">Feasibility:</span>
+                <div className="text-lg font-bold text-logo-mint">{generatedProposal.feasibility_score}/100</div>
               </div>
               <div>
-                <span className="font-medium text-gray-700">Cost:</span>
-                <div className="text-lg font-bold text-orange-600">${generatedProposal.cost_estimate?.toLocaleString()}</div>
+                <span className="font-medium text-text-secondary">Cost:</span>
+                <div className="text-lg font-bold text-logo-gold">${generatedProposal.cost_estimate?.toLocaleString()}</div>
               </div>
               <div>
-                <span className="font-medium text-gray-700">Timeline:</span>
-                <div className="text-lg font-bold text-blue-600">{generatedProposal.timeline}</div>
+                <span className="font-medium text-text-secondary">Timeline:</span>
+                <div className="text-lg font-bold text-logo-electric">{generatedProposal.timeline}</div>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-gray-200">
+            <div className="pt-4 border-t border-logo-dark/20">
               <Button 
                 className="mr-3"
                 onClick={async () => {

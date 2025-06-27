@@ -36,24 +36,24 @@ export function Toast({
   }
 
   const styles = {
-    success: 'bg-green-50 text-green-800 border-green-200',
-    error: 'bg-red-50 text-red-800 border-red-200',
-    info: 'bg-blue-50 text-blue-800 border-blue-200',
-    warning: 'bg-yellow-50 text-yellow-800 border-yellow-200'
+    success: 'bg-dark-elevated border border-logo-accent/30 text-text-primary backdrop-blur-sm',
+    error: 'bg-dark-elevated border border-red-400/30 text-text-primary backdrop-blur-sm',
+    info: 'bg-dark-elevated border border-logo-primary/30 text-text-primary backdrop-blur-sm',
+    warning: 'bg-dark-elevated border border-accent-orange/30 text-text-primary backdrop-blur-sm'
   }
 
   const iconStyles = {
-    success: 'text-green-500 bg-green-100',
-    error: 'text-red-500 bg-red-100',
-    info: 'text-blue-500 bg-blue-100',
-    warning: 'text-yellow-500 bg-yellow-100'
+    success: 'text-logo-accent bg-logo-accent/20 border border-logo-accent/30',
+    error: 'text-red-400 bg-red-400/20 border border-red-400/30',
+    info: 'text-logo-primary bg-logo-primary/20 border border-logo-primary/30',
+    warning: 'text-accent-orange bg-accent-orange/20 border border-accent-orange/30'
   }
 
   if (!isVisible) return null
 
   return (
     <div className={cn(
-      'fixed top-4 right-4 z-50 w-96 max-w-sm bg-white border rounded-lg shadow-lg transition-transform duration-300',
+      'fixed top-4 right-4 z-50 w-96 max-w-sm rounded-lg shadow-lg transition-transform duration-300',
       isVisible ? 'translate-x-0' : 'translate-x-full',
       styles[type]
     )}>
@@ -65,14 +65,14 @@ export function Toast({
           {icons[type]}
         </div>
         <div className="flex-1 min-w-0">
-          <h4 className="text-sm font-semibold">{title}</h4>
+          <h4 className="text-sm font-semibold text-text-primary">{title}</h4>
           {message && (
-            <p className="text-sm opacity-90 mt-1">{message}</p>
+            <p className="text-sm text-text-secondary mt-1">{message}</p>
           )}
         </div>
         <button
           onClick={onClose}
-          className="flex-shrink-0 text-gray-400 hover:text-gray-600 transition-colors"
+          className="flex-shrink-0 text-text-muted hover:text-text-primary transition-colors"
         >
           <X className="w-4 h-4" />
         </button>
@@ -98,22 +98,22 @@ export function Alert({ type, title, message, className, children }: AlertProps)
   }
 
   const styles = {
-    success: 'bg-green-50 text-green-800 border-green-200',
-    error: 'bg-red-50 text-red-800 border-red-200',
-    info: 'bg-blue-50 text-blue-800 border-blue-200',
-    warning: 'bg-yellow-50 text-yellow-800 border-yellow-200'
+    success: 'bg-dark-elevated border border-logo-accent/30 text-text-primary backdrop-blur-sm',
+    error: 'bg-dark-elevated border border-red-400/30 text-text-primary backdrop-blur-sm',
+    info: 'bg-dark-elevated border border-logo-primary/30 text-text-primary backdrop-blur-sm',
+    warning: 'bg-dark-elevated border border-accent-orange/30 text-text-primary backdrop-blur-sm'
   }
 
   const iconStyles = {
-    success: 'text-green-500',
-    error: 'text-red-500',
-    info: 'text-blue-500',
-    warning: 'text-yellow-500'
+    success: 'text-logo-accent',
+    error: 'text-red-400',
+    info: 'text-logo-primary',
+    warning: 'text-accent-orange'
   }
 
   return (
     <div className={cn(
-      'border rounded-lg p-4',
+      'rounded-lg p-4',
       styles[type],
       className
     )}>
@@ -122,9 +122,9 @@ export function Alert({ type, title, message, className, children }: AlertProps)
           {icons[type]}
         </div>
         <div className="flex-1 min-w-0">
-          <h4 className="text-sm font-semibold mb-1">{title}</h4>
+          <h4 className="text-sm font-semibold mb-1 text-text-primary">{title}</h4>
           {message && (
-            <p className="text-sm opacity-90">{message}</p>
+            <p className="text-sm text-text-secondary">{message}</p>
           )}
           {children}
         </div>

@@ -1,6 +1,7 @@
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
+import { Progress } from '@/components/ui/Progress'
 import Link from 'next/link'
 import type { Proposal } from '@/types'
 
@@ -13,12 +14,13 @@ interface ProposalCardProps {
 export default function ProposalCard({ proposal, onVote, showVoting = true }: ProposalCardProps) {
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'voting': return 'bg-blue-100 text-blue-800'
-      case 'approved': return 'bg-green-100 text-green-800'
-      case 'rejected': return 'bg-red-100 text-red-800'
-      case 'implemented': return 'bg-purple-100 text-purple-800'
-      case 'draft': return 'bg-gray-100 text-gray-800'
-      default: return 'bg-gray-100 text-gray-800'
+      case 'voting': 
+      case 'active': return 'bg-logo-electric/20 text-logo-electric border-logo-electric/30'
+      case 'approved': return 'bg-logo-mint/20 text-logo-mint border-logo-mint/30'
+      case 'rejected': return 'bg-red-400/20 text-red-400 border-red-400/30'
+      case 'implemented': return 'bg-logo-gold/20 text-logo-gold border-logo-gold/30'
+      case 'draft': return 'bg-logo-dark/20 text-text-primary border-logo-dark/30'
+      default: return 'bg-logo-dark/20 text-text-primary border-logo-dark/30'
     }
   }
 
@@ -48,10 +50,10 @@ export default function ProposalCard({ proposal, onVote, showVoting = true }: Pr
         <div className="flex items-center space-x-3">
           <span className="text-2xl">{getCategoryIcon(proposal.category)}</span>
           <div>
-            <h3 className="text-lg font-semibold text-gray-900 line-clamp-2">
+            <h3 className="text-lg font-semibold text-text-primary line-clamp-2">
               {proposal.title}
             </h3>
-            <p className="text-sm text-gray-500 capitalize">
+            <p className="text-sm text-text-secondary capitalize">
               {proposal.category}
             </p>
           </div>
@@ -61,57 +63,57 @@ export default function ProposalCard({ proposal, onVote, showVoting = true }: Pr
         </Badge>
       </div>
 
-      <p className="text-gray-600 mb-4 line-clamp-3">
+      <p className="text-text-secondary mb-4 line-clamp-3">
         {proposal.description}
       </p>
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 text-sm">
         <div className="text-center">
-          <div className="font-bold text-lg text-primary-600">
+          <div className="font-bold text-lg text-logo-electric">
             {proposal.impact_score}/100
           </div>
-          <div className="text-gray-500">Impact</div>
+          <div className="text-text-secondary">Impact</div>
         </div>
         <div className="text-center">
-          <div className="font-bold text-lg text-green-600">
+          <div className="font-bold text-lg text-logo-mint">
             {proposal.ai_analysis?.feasibility_score || 'N/A'}
           </div>
-          <div className="text-gray-500">Feasibility</div>
+          <div className="text-text-secondary">Feasibility</div>
         </div>
         <div className="text-center">
-          <div className="font-bold text-lg text-orange-600">
+          <div className="font-bold text-lg text-logo-gold">
             ${proposal.ai_analysis?.cost_estimate?.toLocaleString() || 'TBD'}
           </div>
-          <div className="text-gray-500">Cost</div>
+          <div className="text-text-secondary">Cost</div>
         </div>
         <div className="text-center">
-          <div className="font-bold text-lg text-blue-600">
+          <div className="font-bold text-lg text-logo-electric">
             {proposal.total_votes || 0}
           </div>
-          <div className="text-gray-500">Votes</div>
+          <div className="text-text-secondary">Votes</div>
         </div>
       </div>
 
       {/* Voting Progress */}
       {proposal.status === 'active' && (
         <div className="mb-4">
-          <div className="flex justify-between text-sm text-gray-600 mb-1">
+          <div className="flex justify-between text-sm text-text-secondary mb-1">
             <span>Support: {supportPercentage}%</span>
             <span>{proposal.total_votes || 0} total votes</span>
           </div>
-          <div className="w-full bg-gray-200 rounded-full h-2">
-            <div 
-              className="bg-green-500 h-2 rounded-full transition-all duration-300"
-              style={{ width: `${Math.min(supportPercentage, 100)}%` }}
-            />
-          </div>
+          <Progress 
+            value={supportPercentage} 
+            variant="success" 
+            size="sm"
+            className="h-2"
+          />
         </div>
       )}
 
       {/* Voting Ends */}
       {proposal.voting_deadline && proposal.status === 'active' && (
-        <div className="text-sm text-gray-500 mb-4">
+        <div className="text-sm text-text-secondary mb-4">
           Voting ends: {new Date(proposal.voting_deadline).toLocaleDateString()}
         </div>
       )}
@@ -146,8 +148,8 @@ export default function ProposalCard({ proposal, onVote, showVoting = true }: Pr
 
       {/* ICC Incentive Badge */}
       {proposal.ai_analysis && (
-        <div className="mt-3 pt-3 border-t border-gray-100">
-          <div className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-yellow-100 text-yellow-800">
+        <div className="mt-3 pt-3 border-t border-logo-dark/20">
+          <div className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-logo-gold/20 text-logo-gold border border-logo-gold/30">
             💰 I₵C Eligible
           </div>
         </div>

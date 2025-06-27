@@ -14,15 +14,15 @@ export function Badge({
   className, 
   ...props 
 }: BadgeProps) {
-  const baseClasses = 'inline-flex items-center font-medium rounded-full'
+  const baseClasses = 'inline-flex items-center font-medium rounded-full backdrop-blur-sm border'
   
   const variantClasses = {
-    default: 'bg-gray-100 text-gray-800',
-    primary: 'bg-primary-100 text-primary-800',
-    secondary: 'bg-gray-100 text-gray-800',
-    success: 'bg-green-100 text-green-800',
-    warning: 'bg-yellow-100 text-yellow-800',
-    danger: 'bg-red-100 text-red-800'
+    default: 'bg-dark-elevated/80 text-text-primary border-logo-primary/30',
+    primary: 'bg-gradient-to-r from-logo-primary/20 to-logo-primary/20 text-logo-primary border-logo-primary/40',
+    secondary: 'bg-gradient-to-r from-logo-accent/20 to-logo-accent/20 text-logo-accent border-logo-accent/40',
+    success: 'bg-gradient-to-r from-logo-accent/20 to-logo-accent/20 text-logo-accent border-logo-accent/40',
+    warning: 'bg-gradient-to-r from-accent-orange/20 to-accent-gold/20 text-accent-orange border-accent-orange/40',
+    danger: 'bg-gradient-to-r from-red-400/20 to-red-400/20 text-red-400 border-red-400/40'
   }
   
   const sizeClasses = {

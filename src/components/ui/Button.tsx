@@ -17,11 +17,11 @@ export function Button({
   const baseClasses = 'font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-bg transform hover:scale-105 active:scale-95'
   
   const variantClasses = {
-    primary: 'bg-gradient-primary hover:bg-gradient-accent text-white focus:ring-infinita-electric shadow-lg hover:shadow-xl',
-    secondary: 'bg-dark-elevated hover:bg-dark-muted text-text-primary border border-dark-border hover:border-infinita-electric focus:ring-infinita-electric',
-    outline: 'border border-infinita-electric text-infinita-electric hover:bg-infinita-electric hover:text-dark-bg focus:ring-infinita-electric',
-    ghost: 'text-text-secondary hover:text-infinita-electric hover:bg-dark-elevated focus:ring-infinita-electric',
-    glow: 'bg-gradient-accent text-dark-bg hover:shadow-lg hover:shadow-infinita-electric/30 focus:ring-infinita-electric animate-glow'
+    primary: 'bg-gradient-to-r from-logo-primary to-logo-accent hover:from-logo-primary/80 hover:to-logo-accent/80 text-white focus:ring-logo-primary shadow-lg hover:shadow-xl',
+    secondary: 'bg-dark-elevated hover:bg-dark-muted text-text-primary border border-logo-primary/30 hover:border-logo-primary focus:ring-logo-primary',
+    outline: 'border border-logo-accent text-logo-accent hover:bg-logo-accent/10 hover:border-logo-accent focus:ring-logo-accent backdrop-blur-sm',
+    ghost: 'text-text-secondary hover:text-logo-accent hover:bg-logo-accent/10 focus:ring-logo-accent',
+    glow: 'bg-gradient-to-r from-logo-accent to-logo-secondary text-dark-bg hover:shadow-lg hover:shadow-logo-accent/30 focus:ring-logo-accent animate-glow'
   }
   
   const sizeClasses = {

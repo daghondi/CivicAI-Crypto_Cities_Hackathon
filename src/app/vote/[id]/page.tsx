@@ -76,21 +76,32 @@ export default function VotePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-blue-600"></div>
+      <div className="min-h-screen bg-gradient-dark flex items-center justify-center relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 right-20 w-64 h-64 bg-logo-primary opacity-10 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-20 left-20 w-64 h-64 bg-logo-accent opacity-10 rounded-full blur-3xl animate-float delay-2000"></div>
+        </div>
+        <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-logo-primary relative z-10"></div>
       </div>
     )
   }
 
   if (!proposal) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-        <Card className="p-8 text-center max-w-md">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">Proposal Not Found</h2>
-          <p className="text-gray-600 mb-6">
+      <div className="min-h-screen bg-gradient-dark flex items-center justify-center p-4 relative overflow-hidden">
+        {/* Animated background elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-20 right-20 w-64 h-64 bg-logo-primary opacity-10 rounded-full blur-3xl animate-float"></div>
+          <div className="absolute bottom-20 left-20 w-64 h-64 bg-logo-accent opacity-10 rounded-full blur-3xl animate-float delay-2000"></div>
+        </div>
+        
+        <Card className="p-8 text-center max-w-md bg-dark-elevated border border-logo-primary/20 backdrop-blur-sm relative z-10">
+          <h2 className="text-2xl font-bold text-text-primary mb-2">Proposal Not Found</h2>
+          <p className="text-text-secondary mb-6">
             The proposal you're looking for doesn't exist or has been removed.
           </p>
-          <Button onClick={() => router.push('/proposals')}>
+          <Button onClick={() => router.push('/proposals')} className="bg-gradient-to-r from-logo-primary to-logo-accent hover:from-logo-primary/80 hover:to-logo-accent/80">
             View All Proposals
           </Button>
         </Card>
@@ -110,26 +121,33 @@ export default function VotePage() {
   const abstainPercentage = getVotePercentage(proposal.votes_abstain || 0, proposal.total_votes || 0)
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-dark relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-logo-primary opacity-5 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 left-20 w-64 h-64 bg-logo-accent opacity-5 rounded-full blur-3xl animate-float delay-2000"></div>
+        <div className="absolute top-1/2 right-1/3 w-48 h-48 bg-logo-secondary opacity-5 rounded-full blur-3xl animate-float delay-4000"></div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Header */}
         <div className="mb-8">
           <Button
             variant="secondary"
             onClick={() => router.back()}
-            className="mb-4"
+            className="mb-4 bg-dark-elevated border-logo-primary/30 text-text-primary hover:bg-logo-primary/10"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back
           </Button>
           
           <div className="flex items-center gap-4 mb-6">
-            <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-pink-600 rounded-full flex items-center justify-center">
+            <div className="w-12 h-12 bg-gradient-to-r from-logo-secondary to-accent-orange rounded-full flex items-center justify-center">
               <Vote className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Cast Your Vote</h1>
-              <p className="text-gray-600">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-logo-primary via-logo-accent to-logo-secondary bg-clip-text text-transparent">Cast Your Vote</h1>
+              <p className="text-text-secondary">
                 Participate in democratic decision-making for your community
               </p>
             </div>
@@ -140,37 +158,37 @@ export default function VotePage() {
           {/* Main Voting Area */}
           <div className="lg:col-span-2 space-y-6">
             {/* Proposal Overview Card */}
-            <Card className="p-6">
+            <Card className="p-6 bg-dark-elevated border border-logo-primary/20 backdrop-blur-sm">
               <div className="mb-4">
                 <div className="flex items-center justify-between mb-3">
-                  <Badge variant="secondary" className="capitalize">
+                  <Badge variant="secondary" className="capitalize bg-logo-secondary/20 text-logo-secondary border border-logo-secondary/30">
                     {proposal.category}
                   </Badge>
                   <Badge className={`${
-                    status === 'active' ? 'bg-blue-100 text-blue-800' :
-                    status === 'passed' ? 'bg-green-100 text-green-800' :
-                    status === 'failed' ? 'bg-red-100 text-red-800' :
-                    'bg-gray-100 text-gray-800'
+                    status === 'active' ? 'bg-gradient-to-r from-logo-primary/20 to-logo-accent/20 text-logo-primary border border-logo-primary/30' :
+                    status === 'passed' ? 'bg-gradient-to-r from-logo-accent/20 to-logo-accent/20 text-logo-accent border border-logo-accent/30' :
+                    status === 'failed' ? 'bg-gradient-to-r from-red-400/20 to-red-400/20 text-red-400 border border-red-400/30' :
+                    'bg-dark-elevated text-text-secondary border border-gray-600'
                   }`}>
                     {status}
                   </Badge>
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">{proposal.title}</h2>
-                <p className="text-gray-600 leading-relaxed">{proposal.description}</p>
+                <h2 className="text-2xl font-bold text-text-primary mb-2">{proposal.title}</h2>
+                <p className="text-text-secondary leading-relaxed">{proposal.description}</p>
               </div>
 
               {/* Proposal Meta */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-gray-200">
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Clock className="w-4 h-4" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4 border-t border-logo-primary/20">
+                <div className="flex items-center gap-2 text-sm text-text-secondary">
+                  <Clock className="w-4 h-4 text-logo-accent" />
                   Deadline: {formatDate(proposal.voting_deadline)}
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <Users className="w-4 h-4" />
+                <div className="flex items-center gap-2 text-sm text-text-secondary">
+                  <Users className="w-4 h-4 text-logo-primary" />
                   Total Votes: {proposal.total_votes}
                 </div>
-                <div className="flex items-center gap-2 text-sm text-gray-600">
-                  <TrendingUp className="w-4 h-4" />
+                <div className="flex items-center gap-2 text-sm text-text-secondary">
+                  <TrendingUp className="w-4 h-4 text-accent-orange" />
                   Support: {forPercentage}%
                 </div>
               </div>
@@ -178,20 +196,20 @@ export default function VotePage() {
 
             {/* Voting Interface */}
             {isConnected ? (
-              <Card className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-4">Cast Your Vote</h3>
+              <Card className="p-6 bg-dark-elevated border border-logo-accent/20 backdrop-blur-sm">
+                <h3 className="text-xl font-bold text-text-primary mb-4">Cast Your Vote</h3>
                 {hasVoted ? (
                   <div className="text-center py-8">
-                    <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Vote className="w-8 h-8 text-green-600" />
+                    <div className="w-16 h-16 bg-gradient-to-r from-logo-accent/20 to-logo-accent/20 border border-logo-accent/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Vote className="w-8 h-8 text-logo-accent" />
                     </div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h4 className="text-lg font-semibold text-text-primary mb-2">
                       You've Already Voted
                     </h4>
-                    <p className="text-gray-600 mb-4">
-                      Your vote: <span className="font-medium capitalize">{userVote}</span>
+                    <p className="text-text-secondary mb-4">
+                      Your vote: <span className="font-medium capitalize text-logo-accent">{userVote}</span>
                     </p>
-                    <p className="text-sm text-gray-500">
+                    <p className="text-sm text-text-muted">
                       You can only vote once per proposal. Thank you for participating!
                     </p>
                   </div>
@@ -202,27 +220,27 @@ export default function VotePage() {
                   />
                 ) : (
                   <div className="text-center py-8">
-                    <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Clock className="w-8 h-8 text-gray-600" />
+                    <div className="w-16 h-16 bg-dark-surface border border-gray-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Clock className="w-8 h-8 text-text-muted" />
                     </div>
-                    <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                    <h4 className="text-lg font-semibold text-text-primary mb-2">
                       Voting Period Ended
                     </h4>
-                    <p className="text-gray-600">
+                    <p className="text-text-secondary">
                       This proposal is no longer accepting votes.
                     </p>
                   </div>
                 )}
               </Card>
             ) : (
-              <Card className="p-6 text-center">
-                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Vote className="w-8 h-8 text-blue-600" />
+              <Card className="p-6 text-center bg-dark-elevated border border-logo-primary/20 backdrop-blur-sm">
+                <div className="w-16 h-16 bg-gradient-to-r from-logo-primary/20 to-logo-accent/20 border border-logo-primary/30 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Vote className="w-8 h-8 text-logo-primary" />
                 </div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                <h4 className="text-lg font-semibold text-text-primary mb-2">
                   Connect Wallet to Vote
                 </h4>
-                <p className="text-gray-600 mb-4">
+                <p className="text-text-secondary mb-4">
                   You need to connect your wallet to participate in governance.
                 </p>
               </Card>
@@ -232,17 +250,17 @@ export default function VotePage() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Vote Results */}
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Results</h3>
+            <Card className="p-6 bg-dark-elevated border border-logo-secondary/20 backdrop-blur-sm">
+              <h3 className="text-lg font-semibold text-text-primary mb-4">Current Results</h3>
               <div className="space-y-3">
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-medium text-green-600">For</span>
-                    <span className="text-sm text-gray-600">{proposal.votes_for} ({forPercentage}%)</span>
+                    <span className="text-sm font-medium text-logo-accent">For</span>
+                    <span className="text-sm text-text-secondary">{proposal.votes_for} ({forPercentage}%)</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-dark-bg/50 rounded-full h-2">
                     <div 
-                      className="bg-green-500 h-2 rounded-full transition-all duration-300"
+                      className="bg-gradient-to-r from-logo-accent to-logo-primary h-2 rounded-full transition-all duration-300"
                       style={{ width: `${forPercentage}%` }}
                     ></div>
                   </div>
@@ -250,12 +268,12 @@ export default function VotePage() {
 
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-medium text-red-600">Against</span>
-                    <span className="text-sm text-gray-600">{proposal.votes_against} ({againstPercentage}%)</span>
+                    <span className="text-sm font-medium text-red-400">Against</span>
+                    <span className="text-sm text-text-secondary">{proposal.votes_against} ({againstPercentage}%)</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-dark-bg/50 rounded-full h-2">
                     <div 
-                      className="bg-red-500 h-2 rounded-full transition-all duration-300"
+                      className="bg-gradient-to-r from-red-400 to-red-500 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${againstPercentage}%` }}
                     ></div>
                   </div>
@@ -263,12 +281,12 @@ export default function VotePage() {
 
                 <div>
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-sm font-medium text-gray-600">Abstain</span>
-                    <span className="text-sm text-gray-600">{proposal.votes_abstain} ({abstainPercentage}%)</span>
+                    <span className="text-sm font-medium text-text-muted">Abstain</span>
+                    <span className="text-sm text-text-secondary">{proposal.votes_abstain} ({abstainPercentage}%)</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-2">
+                  <div className="w-full bg-dark-bg/50 rounded-full h-2">
                     <div 
-                      className="bg-gray-400 h-2 rounded-full transition-all duration-300"
+                      className="bg-gray-500 h-2 rounded-full transition-all duration-300"
                       style={{ width: `${abstainPercentage}%` }}
                     ></div>
                   </div>
@@ -277,8 +295,8 @@ export default function VotePage() {
             </Card>
 
             {/* Proposal Creator */}
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">Proposal Creator</h3>
+            <Card className="p-6 bg-dark-elevated border border-logo-primary/20 backdrop-blur-sm">
+              <h3 className="text-lg font-semibold text-text-primary mb-4">Proposal Creator</h3>
               <UserBadge address={proposal.creator_address} />
             </Card>
 
@@ -289,9 +307,9 @@ export default function VotePage() {
             />
 
             {/* Voting Info */}
-            <Card className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">How Voting Works</h3>
-              <div className="text-sm text-gray-700 space-y-2">
+            <Card className="p-6 bg-gradient-to-r from-logo-primary/10 to-logo-accent/10 border border-logo-primary/20 backdrop-blur-sm">
+              <h3 className="text-lg font-semibold text-text-primary mb-3">How Voting Works</h3>
+              <div className="text-sm text-text-secondary space-y-2">
                 <p>• Each wallet can vote once per proposal</p>
                 <p>• Votes are cryptographically signed for security</p>
                 <p>• Results are updated in real-time</p>

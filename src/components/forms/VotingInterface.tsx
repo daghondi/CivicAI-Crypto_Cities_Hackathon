@@ -128,21 +128,21 @@ export default function VotingInterface({ proposal, onVoteSubmitted }: VotingInt
   const getVoteColor = (voteType: VoteType) => {
     switch (voteType) {
       case 'for':
-        return 'border-green-500 bg-green-50 text-green-700'
+        return 'border-logo-electric bg-logo-electric/10 text-logo-electric'
       case 'against':
-        return 'border-red-500 bg-red-50 text-red-700'
+        return 'border-red-400 bg-red-400/10 text-red-400'
       case 'abstain':
-        return 'border-gray-500 bg-gray-50 text-gray-700'
+        return 'border-logo-dark bg-logo-dark/10 text-text-primary'
     }
   }
 
   if (!isConnected) {
     return (
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Cast Your Vote</h3>
+        <h3 className="text-lg font-semibold mb-4 text-text-primary">Cast Your Vote</h3>
         <div className="text-center">
-          <p className="text-gray-600 mb-4">Connect your wallet to participate in voting</p>
-          <Button onClick={connect} className="bg-blue-600 hover:bg-blue-700">
+          <p className="text-text-secondary mb-4">Connect your wallet to participate in voting</p>
+          <Button onClick={connect}>
             Connect Wallet
           </Button>
         </div>
@@ -153,18 +153,18 @@ export default function VotingInterface({ proposal, onVoteSubmitted }: VotingInt
   if (hasVoted && userVote) {
     return (
       <Card className="p-6">
-        <h3 className="text-lg font-semibold mb-4">Your Vote</h3>
+        <h3 className="text-lg font-semibold mb-4 text-text-primary">Your Vote</h3>
         <div className="flex items-center space-x-2 mb-4">
           <span className="text-2xl">{getVoteIcon(userVote.vote_type)}</span>
-          <span className="font-medium capitalize">{userVote.vote_type}</span>
+          <span className="font-medium capitalize text-text-primary">{userVote.vote_type}</span>
         </div>
         {userVote.reasoning && (
-          <div className="bg-gray-50 p-3 rounded-lg">
-            <p className="text-sm text-gray-600 mb-1">Your reasoning:</p>
-            <p className="text-gray-800">{userVote.reasoning}</p>
+          <div className="bg-dark-surface/30 p-3 rounded-lg border border-logo-dark/20 backdrop-blur-sm">
+            <p className="text-sm text-text-secondary mb-1">Your reasoning:</p>
+            <p className="text-text-primary">{userVote.reasoning}</p>
           </div>
         )}
-        <p className="text-sm text-gray-500 mt-4">
+        <p className="text-sm text-text-secondary mt-4">
           Voted on {new Date(userVote.created_at).toLocaleDateString()}
         </p>
       </Card>
@@ -173,11 +173,11 @@ export default function VotingInterface({ proposal, onVoteSubmitted }: VotingInt
 
   return (
     <Card className="p-6">
-      <h3 className="text-lg font-semibold mb-4">Cast Your Vote</h3>
+      <h3 className="text-lg font-semibold mb-4 text-text-primary">Cast Your Vote</h3>
       
       {/* Wallet Info */}
-      <div className="bg-blue-50 p-3 rounded-lg mb-4">
-        <p className="text-sm text-blue-600">
+      <div className="bg-logo-electric/10 border border-logo-electric/30 p-3 rounded-lg mb-4 backdrop-blur-sm">
+        <p className="text-sm text-logo-electric">
           Voting as: {address ? `${address.slice(0, 6)}...${address.slice(-4)}` : 'Loading...'}
         </p>
       </div>
@@ -188,17 +188,17 @@ export default function VotingInterface({ proposal, onVoteSubmitted }: VotingInt
           <button
             key={voteType}
             onClick={() => setSelectedVote(voteType)}
-            className={`w-full p-4 border-2 rounded-lg text-left transition-colors ${
+            className={`w-full p-4 border-2 rounded-lg text-left transition-all duration-200 ${
               selectedVote === voteType
                 ? getVoteColor(voteType)
-                : 'border-gray-200 hover:border-gray-300 bg-white'
+                : 'border-logo-dark/20 hover:border-logo-dark/40 bg-dark-surface/30 backdrop-blur-sm'
             }`}
           >
             <div className="flex items-center space-x-3">
               <span className="text-2xl">{getVoteIcon(voteType)}</span>
               <div>
-                <div className="font-medium capitalize">{voteType}</div>
-                <div className="text-sm text-gray-600">
+                <div className={`font-medium capitalize ${selectedVote === voteType ? '' : 'text-text-primary'}`}>{voteType}</div>
+                <div className={`text-sm ${selectedVote === voteType ? '' : 'text-text-secondary'}`}>
                   {voteType === 'for' && 'Support this proposal'}
                   {voteType === 'against' && 'Oppose this proposal'}
                   {voteType === 'abstain' && 'Neither support nor oppose'}
@@ -211,7 +211,7 @@ export default function VotingInterface({ proposal, onVoteSubmitted }: VotingInt
 
       {/* Reasoning */}
       <div className="mb-4">
-        <label htmlFor="reasoning" className="block text-sm font-medium text-gray-700 mb-2">
+        <label htmlFor="reasoning" className="block text-sm font-medium text-text-primary mb-2">
           Reasoning (optional)
         </label>
         <textarea
@@ -219,22 +219,24 @@ export default function VotingInterface({ proposal, onVoteSubmitted }: VotingInt
           value={reasoning}
           onChange={(e) => setReasoning(e.target.value)}
           placeholder="Why are you voting this way? (optional)"
-          className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+          className="w-full p-3 bg-dark-surface/30 border border-logo-dark/20 rounded-lg 
+                   focus:ring-2 focus:ring-logo-electric/50 focus:border-logo-electric 
+                   text-text-primary placeholder-text-secondary backdrop-blur-sm resize-none"
           rows={3}
           maxLength={500}
         />
-        <p className="text-xs text-gray-500 mt-1">{reasoning.length}/500 characters</p>
+        <p className="text-xs text-text-secondary mt-1">{reasoning.length}/500 characters</p>
       </div>
 
       {/* Error/Success Messages */}
       {error && (
-        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg mb-4">
+        <div className="bg-red-500/10 border border-red-500/30 text-red-400 px-4 py-3 rounded-lg mb-4 backdrop-blur-sm">
           {error}
         </div>
       )}
       
       {success && (
-        <div className="bg-green-50 border border-green-200 text-green-700 px-4 py-3 rounded-lg mb-4">
+        <div className="bg-logo-electric/10 border border-logo-electric/30 text-logo-electric px-4 py-3 rounded-lg mb-4 backdrop-blur-sm">
           {success}
         </div>
       )}
@@ -243,11 +245,8 @@ export default function VotingInterface({ proposal, onVoteSubmitted }: VotingInt
       <Button
         onClick={handleVoteSubmit}
         disabled={!selectedVote || isSubmitting}
-        className={`w-full ${
-          selectedVote 
-            ? 'bg-blue-600 hover:bg-blue-700' 
-            : 'bg-gray-300 cursor-not-allowed'
-        }`}
+        variant={selectedVote ? "primary" : "secondary"}
+        className="w-full"
       >
         {isSubmitting ? (
           <>
@@ -260,8 +259,8 @@ export default function VotingInterface({ proposal, onVoteSubmitted }: VotingInt
       </Button>
 
       {/* Voting Info */}
-      <div className="mt-4 p-3 bg-gray-50 rounded-lg">
-        <p className="text-xs text-gray-600">
+      <div className="mt-4 p-3 bg-dark-surface/30 border border-logo-dark/20 rounded-lg backdrop-blur-sm">
+        <p className="text-xs text-text-secondary">
           🔒 Your vote will be cryptographically signed with your wallet to ensure authenticity.
           One vote per wallet address is allowed per proposal.
         </p>

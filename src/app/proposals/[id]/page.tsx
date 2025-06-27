@@ -118,30 +118,36 @@ export default async function ProposalPage({ params }: PageProps) {
     : 0
 
   return (
-    <main className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
+    <main className="min-h-screen bg-gradient-dark relative overflow-hidden">
+      {/* Animated background elements */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-logo-primary opacity-5 rounded-full blur-3xl animate-float"></div>
+        <div className="absolute bottom-20 left-20 w-64 h-64 bg-logo-accent opacity-5 rounded-full blur-3xl animate-float delay-2000"></div>
+      </div>
+
+      <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Header */}
         <div className="mb-8">
-          <div className="flex items-center space-x-2 text-sm text-gray-500 mb-4">
+          <div className="flex items-center space-x-2 text-sm text-text-secondary mb-4">
             <span>Proposals</span>
             <span>›</span>
-            <span className="text-gray-900">{proposal.title}</span>
+            <span className="text-text-primary">{proposal.title}</span>
           </div>
           
           <div className="flex items-start justify-between mb-6">
             <div className="flex items-center space-x-4">
               <span className="text-3xl">{getCategoryIcon(proposal.category)}</span>
               <div>
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">
+                <h1 className="text-3xl font-bold bg-gradient-to-r from-logo-primary via-logo-accent to-logo-secondary bg-clip-text text-transparent mb-2">
                   {proposal.title}
                 </h1>
                 <div className="flex items-center space-x-4">
-                  <Badge className={getStatusColor(proposal.status)}>
+                  <Badge className="bg-gradient-to-r from-logo-accent to-logo-accent/80 text-dark-bg">
                     {proposal.status.replace('_', ' ').toUpperCase()}
                   </Badge>
-                  <span className="text-gray-500 capitalize">{proposal.category}</span>
-                  <span className="text-gray-500">•</span>
-                  <span className="text-gray-500">
+                  <span className="text-text-secondary capitalize">{proposal.category}</span>
+                  <span className="text-text-secondary">•</span>
+                  <span className="text-text-secondary">
                     {new Date(proposal.created_at).toLocaleDateString()}
                   </span>
                 </div>
@@ -154,13 +160,13 @@ export default async function ProposalPage({ params }: PageProps) {
           {/* Main Content */}
           <div className="lg:col-span-2 space-y-6">
             {/* Description */}
-            <Card className="p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            <Card className="p-6 bg-dark-elevated border border-logo-primary/20 backdrop-blur-sm">
+              <h2 className="text-xl font-semibold text-text-primary mb-4">
                 Proposal Details
               </h2>
               <div className="prose prose-gray max-w-none">
                 {proposal.description.split('\n\n').map((paragraph, index) => (
-                  <p key={index} className="mb-4 text-gray-700 leading-relaxed">
+                  <p key={index} className="mb-4 text-text-secondary leading-relaxed">
                     {paragraph}
                   </p>
                 ))}
@@ -169,45 +175,45 @@ export default async function ProposalPage({ params }: PageProps) {
 
             {/* AI Analysis */}
             {proposal.ai_analysis && (
-              <Card className="p-6">
-                <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              <Card className="p-6 bg-dark-elevated border border-logo-accent/20 backdrop-blur-sm">
+                <h2 className="text-xl font-semibold text-text-primary mb-4">
                   🤖 AI Analysis
                 </h2>
                 
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-green-600">
+                    <div className="text-2xl font-bold text-logo-accent">
                       {proposal.ai_analysis.feasibility_score}/100
                     </div>
-                    <div className="text-sm text-gray-600">Feasibility</div>
+                    <div className="text-sm text-text-secondary">Feasibility</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-blue-600">
+                    <div className="text-2xl font-bold text-logo-primary">
                       {proposal.ai_analysis.impact_prediction}/100
                     </div>
-                    <div className="text-sm text-gray-600">Impact</div>
+                    <div className="text-sm text-text-secondary">Impact</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-orange-600">
+                    <div className="text-2xl font-bold text-accent-orange">
                       ${proposal.ai_analysis.cost_estimate?.toLocaleString()}
                     </div>
-                    <div className="text-sm text-gray-600">Est. Cost</div>
+                    <div className="text-sm text-text-secondary">Est. Cost</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-2xl font-bold text-purple-600">
+                    <div className="text-2xl font-bold text-logo-secondary">
                       {proposal.ai_analysis.implementation_timeline}
                     </div>
-                    <div className="text-sm text-gray-600">Timeline</div>
+                    <div className="text-sm text-text-secondary">Timeline</div>
                   </div>
                 </div>
 
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Potential Risks</h3>
+                    <h3 className="font-semibold text-text-primary mb-2">Potential Risks</h3>
                     <ul className="space-y-1">
                       {proposal.ai_analysis.potential_risks.map((risk, index) => (
-                        <li key={index} className="text-sm text-gray-600 flex items-start">
-                          <span className="text-red-500 mr-2">⚠️</span>
+                        <li key={index} className="text-sm text-text-secondary flex items-start">
+                          <span className="text-red-400 mr-2">⚠️</span>
                           {risk}
                         </li>
                       ))}
@@ -215,11 +221,11 @@ export default async function ProposalPage({ params }: PageProps) {
                   </div>
                   
                   <div>
-                    <h3 className="font-semibold text-gray-900 mb-2">Recommendations</h3>
+                    <h3 className="font-semibold text-text-primary mb-2">Recommendations</h3>
                     <ul className="space-y-1">
                       {proposal.ai_analysis.recommendations.map((rec, index) => (
-                        <li key={index} className="text-sm text-gray-600 flex items-start">
-                          <span className="text-green-500 mr-2">✅</span>
+                        <li key={index} className="text-sm text-text-secondary flex items-start">
+                          <span className="text-logo-accent mr-2">✅</span>
                           {rec}
                         </li>
                       ))}
@@ -249,40 +255,40 @@ export default async function ProposalPage({ params }: PageProps) {
           <div className="space-y-6">
             {/* Voting Card */}
             {proposal.status === 'active' && (
-              <Card className="p-6">
-                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+              <Card className="p-6 bg-dark-elevated border border-logo-accent/30 backdrop-blur-sm">
+                <h3 className="text-lg font-semibold text-text-primary mb-4">
                   Cast Your Vote
                 </h3>
                 
                 <div className="mb-4">
-                  <div className="flex justify-between text-sm text-gray-600 mb-2">
+                  <div className="flex justify-between text-sm text-text-secondary mb-2">
                     <span>Support: {supportPercentage}%</span>
                     <span>{proposal.total_votes || 0} total votes</span>
                   </div>
-                  <div className="w-full bg-gray-200 rounded-full h-3">
+                  <div className="w-full bg-dark-bg/50 rounded-full h-3">
                     <div 
-                      className="bg-green-500 h-3 rounded-full transition-all duration-300"
+                      className="bg-gradient-to-r from-logo-accent to-logo-primary h-3 rounded-full transition-all duration-300"
                       style={{ width: `${Math.min(supportPercentage, 100)}%` }}
                     />
                   </div>
                 </div>
 
                 <div className="mb-4 text-center">
-                  <div className="text-2xl font-bold text-gray-900">{votingDaysLeft}</div>
-                  <div className="text-sm text-gray-600">days left to vote</div>
+                  <div className="text-2xl font-bold text-text-primary">{votingDaysLeft}</div>
+                  <div className="text-sm text-text-secondary">days left to vote</div>
                 </div>
 
                 <div className="space-y-3">
-                  <Button className="w-full" size="lg">
+                  <Button className="w-full bg-gradient-to-r from-logo-accent to-logo-primary hover:from-logo-accent/80 hover:to-logo-primary/80" size="lg">
                     👍 Support Proposal
                   </Button>
-                  <Button variant="outline" className="w-full" size="lg">
+                  <Button variant="outline" className="w-full border-logo-secondary text-logo-secondary hover:bg-logo-secondary/10" size="lg">
                     👎 Oppose Proposal
                   </Button>
                 </div>
 
-                <div className="mt-4 pt-4 border-t border-gray-200">
-                  <div className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-yellow-100 text-yellow-800">
+                <div className="mt-4 pt-4 border-t border-logo-primary/20">
+                  <div className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-gradient-to-r from-accent-gold/20 to-accent-orange/20 text-accent-gold border border-accent-gold/30">
                     💰 I₵C Rewards Eligible
                   </div>
                 </div>
@@ -290,34 +296,34 @@ export default async function ProposalPage({ params }: PageProps) {
             )}
 
             {/* Stats Card */}
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <Card className="p-6 bg-dark-elevated border border-logo-primary/20 backdrop-blur-sm">
+              <h3 className="text-lg font-semibold text-text-primary mb-4">
                 Proposal Stats
               </h3>
               
               <div className="space-y-3">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Created</span>
-                  <span className="font-medium">
+                  <span className="text-text-secondary">Created</span>
+                  <span className="font-medium text-text-primary">
                     {new Date(proposal.created_at).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Category</span>
-                  <span className="font-medium capitalize">{proposal.category}</span>
+                  <span className="text-text-secondary">Category</span>
+                  <span className="font-medium text-text-primary capitalize">{proposal.category}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Impact Score</span>
-                  <span className="font-medium">{proposal.impact_score}/100</span>
+                  <span className="text-text-secondary">Impact Score</span>
+                  <span className="font-medium text-logo-accent">{proposal.impact_score}/100</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Total Votes</span>
-                  <span className="font-medium">{proposal.total_votes || 0}</span>
+                  <span className="text-text-secondary">Total Votes</span>
+                  <span className="font-medium text-text-primary">{proposal.total_votes || 0}</span>
                 </div>
                 {proposal.voting_deadline && (
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Voting Ends</span>
-                    <span className="font-medium">
+                    <span className="text-text-secondary">Voting Ends</span>
+                    <span className="font-medium text-text-primary">
                       {new Date(proposal.voting_deadline).toLocaleDateString()}
                     </span>
                   </div>
@@ -326,8 +332,8 @@ export default async function ProposalPage({ params }: PageProps) {
             </Card>
 
             {/* Created By */}
-            <Card className="p-6">
-              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+            <Card className="p-6 bg-dark-elevated border border-logo-secondary/20 backdrop-blur-sm">
+              <h3 className="text-lg font-semibold text-text-primary mb-4">
                 Created By
               </h3>
               <UserBadge address="0x1234567890123456789012345678901234567890" />

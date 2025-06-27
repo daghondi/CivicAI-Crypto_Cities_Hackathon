@@ -17,15 +17,15 @@ export function Card({
   const baseClasses = 'rounded-lg transition-all duration-300 backdrop-blur-sm'
   
   const variantClasses = {
-    default: 'bg-gradient-card border border-dark-border shadow-xl',
-    elevated: 'bg-gradient-card border border-dark-border shadow-2xl',
-    outlined: 'bg-dark-surface border-2 border-infinita-electric shadow-lg shadow-infinita-electric/20',
-    glow: 'bg-gradient-card border border-infinita-electric shadow-lg shadow-infinita-electric/30 animate-glow',
-    gradient: 'bg-gradient-primary border border-primary-500 text-white shadow-xl'
+    default: 'bg-dark-elevated border border-logo-primary/20 shadow-xl',
+    elevated: 'bg-dark-elevated border border-logo-accent/30 shadow-2xl',
+    outlined: 'bg-dark-surface border-2 border-logo-accent shadow-lg shadow-logo-accent/20',
+    glow: 'bg-dark-elevated border border-logo-accent shadow-lg shadow-logo-accent/30 animate-glow',
+    gradient: 'bg-gradient-to-br from-logo-primary/20 to-logo-accent/20 border border-logo-primary/30 text-text-primary shadow-xl'
   }
 
   const hoverClasses = hover 
-    ? 'hover:scale-105 hover:shadow-2xl hover:border-infinita-electric cursor-pointer' 
+    ? 'hover:scale-105 hover:shadow-2xl hover:border-logo-accent cursor-pointer' 
     : ''
 
   return (

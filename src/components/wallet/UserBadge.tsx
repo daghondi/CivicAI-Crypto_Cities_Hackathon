@@ -48,10 +48,10 @@ export default function UserBadge({
   }
 
   const getReputationColor = (score: number) => {
-    if (score >= 80) return 'text-green-600'
-    if (score >= 60) return 'text-blue-600'
-    if (score >= 40) return 'text-yellow-600'
-    return 'text-gray-600'
+    if (score >= 80) return 'text-logo-electric'
+    if (score >= 60) return 'text-logo-mint'
+    if (score >= 40) return 'text-logo-gold'
+    return 'text-text-secondary'
   }
 
   const getReputationBadge = (score: number) => {
@@ -67,11 +67,11 @@ export default function UserBadge({
         <span className="text-lg">
           {getReputationBadge(userProfile.reputation)}
         </span>
-        <span className="font-medium text-gray-900">
+        <span className="font-medium text-text-primary">
           {userProfile.username}
         </span>
         {showVerified && userProfile.isVerified && (
-          <span className="text-blue-500 text-sm">✓</span>
+          <span className="text-logo-electric text-sm">✓</span>
         )}
       </div>
       

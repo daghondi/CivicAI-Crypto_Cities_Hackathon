@@ -128,6 +128,23 @@ export default function CreateProposalPage() {
             </div>
           </div>
         </div>
+                </div>
+                <span className="ml-2 font-medium">Generate Solution</span>
+              </div>
+              
+              <div className={`w-8 h-1 ${step === 'review' ? 'bg-green-200' : 'bg-gray-200'}`} />
+              
+              <div className={`flex items-center ${step === 'review' ? 'text-blue-600' : 'text-gray-400'}`}>
+                <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium ${
+                  step === 'review' ? 'bg-blue-100 text-blue-600' : 'bg-gray-100 text-gray-400'
+                }`}>
+                  3
+                </div>
+                <span className="ml-2 font-medium">Review & Submit</span>
+              </div>
+            </div>
+          </div>
+        </div>
 
         {/* Step Content */}
         <div className="max-w-4xl mx-auto">
