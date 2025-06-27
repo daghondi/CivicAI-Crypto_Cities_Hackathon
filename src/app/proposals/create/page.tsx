@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useWeb3 } from '@/components/providers/Web3Provider'
 import ProblemSubmissionForm from '@/components/forms/ProblemSubmissionForm'
-import { ProposalGenerator } from '@/components/proposals/ProposalGenerator'
+import ProposalGenerator from '@/components/proposals/ProposalGenerator'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
 import { ArrowLeft, Lightbulb, FileText, Zap } from 'lucide-react'
@@ -150,7 +150,9 @@ export default function CreateProposalPage() {
               </div>
               <ProposalGenerator
                 problemData={problemData}
+                userAddress={address || undefined}
                 onProposalGenerated={handleProposalGenerated}
+                onProposalSaved={handleProposalCreated}
               />
             </Card>
           )}
