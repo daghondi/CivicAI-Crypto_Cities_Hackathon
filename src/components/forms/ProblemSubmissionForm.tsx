@@ -196,11 +196,11 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
           <Button
             type="submit"
             disabled={isGenerating || !watchedProblem}
-            className="w-full"
+            className="w-full bg-gradient-warm hover:bg-gradient-to-r hover:from-logo-orange-bright hover:to-logo-orange text-white font-semibold shadow-warm-glow hover:shadow-sunset-glow transition-all duration-300"
           >
             {isGenerating ? (
               <div className="flex items-center justify-center">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-logo-electric mr-2"></div>
+                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-logo-orange mr-2"></div>
                 Generating AI Proposal...
               </div>
             ) : (

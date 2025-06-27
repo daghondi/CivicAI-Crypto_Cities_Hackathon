@@ -11,6 +11,7 @@ export default function HomePage() {
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-logo-primary opacity-10 rounded-full blur-3xl animate-float"></div>
         <div className="absolute top-1/3 -left-40 w-80 h-80 bg-logo-secondary opacity-10 rounded-full blur-3xl animate-float delay-2000"></div>
         <div className="absolute bottom-0 right-1/3 w-80 h-80 bg-logo-accent opacity-10 rounded-full blur-3xl animate-float delay-4000"></div>
+        <div className="absolute top-1/4 right-1/4 w-60 h-60 bg-logo-orange opacity-8 rounded-full blur-3xl animate-float delay-6000"></div>
         
         {/* Electric grid lines - subtle background pattern */}
         <div className="absolute inset-0 opacity-5">
@@ -26,9 +27,20 @@ export default function HomePage() {
       {/* Hero Section */}
       <div className="container mx-auto px-4 py-16 relative z-10">
         <div className="text-center mb-12">
+          {/* Featured Logo */}
+          <div className="flex justify-center mb-8 animate-fade-in">
+            <div className="relative p-4 rounded-2xl bg-gradient-to-br from-logo-electric/20 via-logo-orange/10 to-logo-primary/20 border border-logo-electric/40 backdrop-blur-sm shadow-2xl shadow-logo-electric/20 hover:shadow-sunset-glow transition-all duration-500">
+              <img 
+                src="/images/1002271631-removebg-preview.png" 
+                alt="CivicAI Logo" 
+                className="w-20 h-20 md:w-24 md:h-24 object-contain animate-float drop-shadow-[0_0_15px_rgba(0,255,255,0.6)] hover:drop-shadow-[0_0_20px_rgba(255,140,66,0.5)]"
+              />
+            </div>
+          </div>
+          
           <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fade-in">
             Welcome to{' '}
-            <span className="bg-gradient-to-r from-logo-primary via-logo-accent to-logo-secondary bg-clip-text text-transparent text-glow animate-glow">
+            <span className="bg-gradient-to-r from-logo-primary via-logo-accent to-logo-secondary bg-clip-text text-transparent text-glow animate-glow hover:from-logo-orange hover:via-logo-electric hover:to-logo-primary transition-all duration-700 cursor-default">
               CivicAI
             </span>
           </h1>
@@ -58,7 +70,7 @@ export default function HomePage() {
           <div className="text-center p-6 bg-gradient-card rounded-lg border border-dark-border backdrop-blur-sm animate-slide-up delay-600 hover:border-logo-electric/50 transition-all duration-300">
             <div className="text-3xl font-bold text-logo-accent mb-2 animate-pulse-slow">5.2K</div>
             <div className="text-text-secondary">Community Members</div>
-            <div className="w-8 h-1 bg-gradient-to-r from-logo-accent to-infinita-neon mx-auto mt-2 rounded-full"></div>
+            <div className="w-8 h-1 bg-gradient-to-r from-logo-accent via-logo-orange to-infinita-neon mx-auto mt-2 rounded-full"></div>
           </div>
           <div className="text-center p-6 bg-gradient-card rounded-lg border border-dark-border backdrop-blur-sm animate-slide-up delay-800 hover:border-logo-electric/50 transition-all duration-300">
             <div className="text-3xl font-bold text-logo-secondary mb-2 animate-pulse-slow">98%</div>
@@ -69,7 +81,7 @@ export default function HomePage() {
 
         {/* I₵C Token Info - matching Infinita City's currency */}
         <div className="max-w-4xl mx-auto mb-16 animate-slide-up delay-900">
-          <div className="bg-gradient-to-r from-logo-electric/10 to-infinita-neon/10 border border-logo-electric/30 rounded-xl p-6 backdrop-blur-sm">
+          <div className="bg-gradient-to-r from-logo-electric/10 via-logo-orange/5 to-infinita-neon/10 border border-logo-electric/30 hover:border-logo-orange/40 rounded-xl p-6 backdrop-blur-sm transition-all duration-500">
             <div className="text-center">
               <h3 className="text-xl font-bold text-logo-electric mb-2">Pay with I₵C Tokens</h3>
               <p className="text-text-secondary mb-4">
@@ -77,12 +89,12 @@ export default function HomePage() {
               </p>
               <div className="flex items-center justify-center gap-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 bg-gradient-to-r from-logo-electric to-infinita-neon rounded-full flex items-center justify-center">
-                    <span className="text-dark-bg font-bold text-sm">I₵</span>
+                  <div className="w-8 h-8 bg-gradient-warm rounded-full flex items-center justify-center shadow-lg shadow-logo-orange/30">
+                    <span className="text-white font-bold text-sm">I₵</span>
                   </div>
                   <span className="text-text-primary font-semibold">1 I₵C = 1 USD</span>
                 </div>
-                <Button variant="outline" size="sm">
+                <Button variant="outline" size="sm" className="border-logo-orange/50 text-logo-orange hover:bg-logo-orange/10">
                   Get I₵C Tokens
                 </Button>
               </div>

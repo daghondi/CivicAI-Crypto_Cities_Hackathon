@@ -294,27 +294,27 @@ export default function ProposalGenerator({
   return (
     <Card className="p-6">
       <div className="text-center">
-        <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <Zap className="w-8 h-8 text-blue-600" />
+        <div className="w-16 h-16 bg-gradient-to-br from-logo-orange/20 to-logo-orange-bright/20 border border-logo-orange/30 rounded-full flex items-center justify-center mx-auto mb-4 shadow-warm-glow">
+          <Zap className="w-8 h-8 text-logo-orange" />
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">
+        <h3 className="text-lg font-semibold text-text-primary mb-2">
           Generate AI Proposal
         </h3>
-        <p className="text-gray-600 mb-6">
+        <p className="text-text-secondary mb-6">
           Transform your problem into a structured, actionable proposal using AI
         </p>
 
         {error && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 mb-4 flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 text-red-600" />
-            <p className="text-red-600 text-sm">{error}</p>
+          <div className="bg-danger/10 border border-danger/30 rounded-lg p-4 mb-4 flex items-center gap-2 backdrop-blur-sm">
+            <AlertCircle className="w-4 h-4 text-danger" />
+            <p className="text-danger text-sm">{error}</p>
           </div>
         )}
 
         <Button
           onClick={generateProposal}
           disabled={isGenerating}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 bg-gradient-warm hover:bg-gradient-to-r hover:from-logo-orange-bright hover:to-logo-orange text-white font-semibold shadow-warm-glow hover:shadow-sunset-glow transition-all duration-300"
         >
           {isGenerating ? (
             <>

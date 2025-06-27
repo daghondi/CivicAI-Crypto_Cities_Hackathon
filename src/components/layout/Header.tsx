@@ -14,11 +14,11 @@ export default function Header() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative p-2 rounded-xl bg-gradient-to-br from-logo-electric/20 to-logo-primary/20 border border-logo-electric/30 backdrop-blur-sm hover:border-logo-electric/60 transition-all duration-300 group-hover:shadow-glow">
+            <div className="relative p-2 rounded-xl bg-gradient-to-br from-logo-electric/20 via-logo-orange/5 to-logo-primary/20 border border-logo-electric/30 backdrop-blur-sm hover:border-logo-orange/40 transition-all duration-300 group-hover:shadow-glow">
               <img 
-                src="/images/logo.svg" 
+                src="/images/1002271631-removebg-preview.png" 
                 alt="CivicAI Logo" 
-                className="w-10 h-10 transition-all duration-300 group-hover:scale-110 filter brightness-0 invert group-hover:drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]"
+                className="w-10 h-10 transition-all duration-300 group-hover:scale-110 object-contain group-hover:drop-shadow-[0_0_8px_rgba(255,140,66,0.6)]"
               />
             </div>
             <div className="flex flex-col">

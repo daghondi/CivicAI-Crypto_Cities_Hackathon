@@ -16,6 +16,8 @@ module.exports = {
         'logo-dark': '#003054',         // Dark blue from logo
         'logo-mint': '#7fffd4',         // Mint complement
         'logo-gold': '#ffd700',         // Gold accent for highlights
+        'logo-orange': '#ff8c42',       // Sunny orange from logo (warm accent)
+        'logo-orange-bright': '#ff6b1a', // Brighter orange variant
 
         // Infinita City Inspired Colors
         'infinita-neon': '#39ff14',     // Bright neon green
@@ -48,6 +50,8 @@ module.exports = {
         'gradient-card': 'linear-gradient(135deg, rgba(10,10,10,0.8) 0%, rgba(26,26,26,0.9) 100%)',
         'gradient-primary': 'linear-gradient(135deg, #00b4d8 0%, #00f5ff 100%)',
         'gradient-accent': 'linear-gradient(135deg, #00ffff 0%, #39ff14 100%)',
+        'gradient-warm': 'linear-gradient(135deg, #ff8c42 0%, #ff6b1a 100%)',
+        'gradient-sunset': 'linear-gradient(135deg, #00b4d8 0%, #ff8c42 50%, #00f5ff 100%)',
       },
 
       animation: {
@@ -80,6 +84,8 @@ module.exports = {
       boxShadow: {
         'glow': '0 0 20px rgba(0, 255, 255, 0.3)',
         'electric': '0 0 30px rgba(0, 245, 255, 0.5)',
+        'warm-glow': '0 0 25px rgba(255, 140, 66, 0.4)',
+        'sunset-glow': '0 0 35px rgba(255, 140, 66, 0.3), 0 0 60px rgba(0, 255, 255, 0.2)',
       },
     },
   },

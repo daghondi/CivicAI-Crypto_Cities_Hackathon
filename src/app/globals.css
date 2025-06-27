@@ -152,6 +152,10 @@
     @apply badge bg-logo-electric/20 text-logo-electric border border-logo-electric/30;
   }
 
+  .badge-warm {
+    @apply badge bg-logo-orange/20 text-logo-orange border border-logo-orange/30;
+  }
+
   /* Navigation styling */
   .nav-link {
     @apply text-text-secondary hover:text-logo-electric transition-all duration-300;
