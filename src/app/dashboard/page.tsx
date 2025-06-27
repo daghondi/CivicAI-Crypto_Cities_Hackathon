@@ -9,7 +9,21 @@ import ProposalList from '@/components/proposals/ProposalList'
 import SmartContractStatus from '@/components/contracts/SmartContractStatus'
 import NetworkSelector from '@/components/web3/NetworkSelector'
 import DeploymentStatus from '@/components/web3/DeploymentStatus'
+import AchievementBadges from '@/components/achievements/AchievementBadges'
+import Leaderboard from '@/components/leaderboard/Leaderboard'
+import ICCWallet from '@/components/wallet/ICCWallet'
 import Link from 'next/link'
+import { 
+  Trophy, 
+  Zap, 
+  TrendingUp, 
+  Users,
+  Plus,
+  Vote,
+  Award,
+  Calendar,
+  MessageSquare
+} from 'lucide-react'
 
 export default function DashboardPage() {
   const { address, isConnected } = useWeb3()
@@ -23,7 +37,7 @@ export default function DashboardPage() {
               Connect Your Wallet
             </h1>
             <p className="text-gray-600 mb-8">
-              Connect your wallet to access your personalized dashboard
+              Connect your wallet to access your personalized dashboard and start earning I₵C rewards
             </p>
             <Button size="lg">
               Connect Wallet
@@ -34,13 +48,18 @@ export default function DashboardPage() {
     )
   }
 
-  // Mock user data
+  // Mock user data with enhanced I₵C stats
   const userStats = {
-    proposalsCreated: 3,
-    votesSubmitted: 12,
-    reputation: 85,
-    iccEarned: 150,
-    achievementBadges: ['Early Adopter', 'Active Voter', 'Community Builder']
+    proposalsCreated: 7,
+    votesSubmitted: 23,
+    reputation: 92,
+    iccEarned: 1850,
+    achievementBadges: ['Early Adopter', 'Active Voter', 'Community Builder', 'Policy Architect'],
+    weeklyICC: 285,
+    monthlyICC: 950,
+    currentRank: 3,
+    discussionsStarted: 5,
+    commentsPosted: 18
   }
 
   return (
@@ -49,39 +68,65 @@ export default function DashboardPage() {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
-            Welcome to Your Dashboard
+            Welcome Back, Civic Champion! 🏛️
           </h1>
           <UserBadge address={address || undefined} showReputation={true} showVerified={true} />
+          
+          {/* Current Rank Badge */}
+          <div className="mt-4 flex items-center gap-2">
+            <Badge className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white">
+              <Trophy className="w-4 h-4 mr-1" />
+              Ranked #{userStats.currentRank} in Community
+            </Badge>
+            <Badge variant="secondary" className="bg-blue-100 text-blue-800">
+              <Zap className="w-4 h-4 mr-1" />
+              +{userStats.weeklyICC} I₵C this week
+            </Badge>
+          </div>
         </div>
 
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-blue-600 mb-2">
+        {/* Enhanced Stats Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-8">
+          <Card className="p-4 text-center bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200">
+            <div className="text-2xl font-bold text-yellow-600 mb-1">
+              {userStats.iccEarned}
+            </div>
+            <div className="text-yellow-700 text-sm font-medium">I₵C Earned</div>
+          </Card>
+          
+          <Card className="p-4 text-center">
+            <div className="text-2xl font-bold text-blue-600 mb-1">
               {userStats.proposalsCreated}
             </div>
-            <div className="text-gray-600">Proposals Created</div>
+            <div className="text-gray-600 text-sm">Proposals</div>
           </Card>
           
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-green-600 mb-2">
+          <Card className="p-4 text-center">
+            <div className="text-2xl font-bold text-green-600 mb-1">
               {userStats.votesSubmitted}
             </div>
-            <div className="text-gray-600">Votes Submitted</div>
+            <div className="text-gray-600 text-sm">Votes</div>
           </Card>
           
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-purple-600 mb-2">
+          <Card className="p-4 text-center">
+            <div className="text-2xl font-bold text-purple-600 mb-1">
               {userStats.reputation}
             </div>
-            <div className="text-gray-600">Reputation Score</div>
+            <div className="text-gray-600 text-sm">Reputation</div>
           </Card>
           
-          <Card className="p-6 text-center">
-            <div className="text-3xl font-bold text-yellow-600 mb-2">
-              {userStats.iccEarned} I₵C
+          <Card className="p-4 text-center">
+            <div className="text-2xl font-bold text-indigo-600 mb-1">
+              {userStats.discussionsStarted}
             </div>
-            <div className="text-gray-600">Credits Earned</div>
+            <div className="text-gray-600 text-sm">Discussions</div>
+          </Card>
+          
+          <Card className="p-4 text-center">
+            <div className="text-2xl font-bold text-orange-600 mb-1">
+              {userStats.achievementBadges.length}
+            </div>
+            <div className="text-gray-600 text-sm">Achievements</div>
           </Card>
         </div>
 
@@ -90,16 +135,33 @@ export default function DashboardPage() {
           <div className="lg:col-span-2 space-y-8">
             {/* Quick Actions */}
             <Card className="p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">
-                Quick Actions
+              <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Zap className="w-5 h-5 text-yellow-500" />
+                Quick Actions & Earning Opportunities
               </h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <Button className="w-full" size="lg">
-                  📝 Submit New Proposal
-                </Button>
+                <Link href="/proposals/create">
+                  <Button className="w-full" size="lg" variant="default">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create Proposal (+50 I₵C)
+                  </Button>
+                </Link>
                 <Link href="/proposals">
                   <Button variant="outline" className="w-full" size="lg">
-                    🗳️ Vote on Proposals
+                    <Vote className="w-4 h-4 mr-2" />
+                    Vote on Proposals (+10 I₵C)
+                  </Button>
+                </Link>
+                <Link href="/community">
+                  <Button variant="outline" className="w-full" size="lg">
+                    <MessageSquare className="w-4 h-4 mr-2" />
+                    Join Discussions (+5 I₵C)
+                  </Button>
+                </Link>
+                <Link href="/leaderboard">
+                  <Button variant="outline" className="w-full" size="lg">
+                    <Trophy className="w-4 h-4 mr-2" />
+                    View Leaderboard
                   </Button>
                 </Link>
               </div>
@@ -107,30 +169,45 @@ export default function DashboardPage() {
 
             {/* Recent Activity */}
             <Card className="p-6">
-              <h2 className="text-xl font-semibold text-gray-900 mb-4">
+              <h2 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
+                <Calendar className="w-5 h-5 text-blue-500" />
                 Recent Activity
               </h2>
               <div className="space-y-4">
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <span className="text-2xl">👍</span>
-                  <div>
+                <div className="flex items-center space-x-3 p-3 bg-green-50 rounded-lg">
+                  <span className="text-2xl">�️</span>
+                  <div className="flex-1">
                     <div className="font-medium">Voted on "Improve Road Between Pristine Bay and Duna"</div>
                     <div className="text-sm text-gray-500">2 hours ago</div>
                   </div>
+                  <Badge className="bg-green-100 text-green-700">+10 I₵C</Badge>
                 </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                
+                <div className="flex items-center space-x-3 p-3 bg-blue-50 rounded-lg">
                   <span className="text-2xl">📝</span>
-                  <div>
+                  <div className="flex-1">
                     <div className="font-medium">Created proposal "Community Waste Management System"</div>
                     <div className="text-sm text-gray-500">1 day ago</div>
                   </div>
+                  <Badge className="bg-blue-100 text-blue-700">+50 I₵C</Badge>
                 </div>
-                <div className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                
+                <div className="flex items-center space-x-3 p-3 bg-yellow-50 rounded-lg">
                   <span className="text-2xl">🏆</span>
-                  <div>
-                    <div className="font-medium">Earned "Active Voter" badge</div>
+                  <div className="flex-1">
+                    <div className="font-medium">Unlocked "Policy Architect" achievement</div>
                     <div className="text-sm text-gray-500">3 days ago</div>
                   </div>
+                  <Badge className="bg-yellow-100 text-yellow-700">+300 I₵C</Badge>
+                </div>
+                
+                <div className="flex items-center space-x-3 p-3 bg-purple-50 rounded-lg">
+                  <span className="text-2xl">💬</span>
+                  <div className="flex-1">
+                    <div className="font-medium">Posted thoughtful comment on infrastructure proposal</div>
+                    <div className="text-sm text-gray-500">4 days ago</div>
+                  </div>
+                  <Badge className="bg-purple-100 text-purple-700">+5 I₵C</Badge>
                 </div>
               </div>
             </Card>
@@ -141,11 +218,13 @@ export default function DashboardPage() {
                 <h2 className="text-xl font-semibold text-gray-900">
                   My Proposals
                 </h2>
-                <Button variant="outline">
-                  View All
-                </Button>
+                <Link href="/proposals?filter=my-proposals">
+                  <Button variant="outline">
+                    View All
+                  </Button>
+                </Link>
               </div>
-              <ProposalList showFilters={false} limit={2} />
+              <ProposalList showFilters={false} limit={3} />
             </div>
           </div>
 
