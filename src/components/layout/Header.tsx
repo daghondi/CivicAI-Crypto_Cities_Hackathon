@@ -18,7 +18,7 @@ export default function Header() {
               <img 
                 src="/images/1002271631-removebg-preview.png" 
                 alt="CivicAI Logo" 
-                className="w-10 h-10 transition-all duration-300 group-hover:scale-110 object-contain group-hover:drop-shadow-[0_0_8px_rgba(255,140,66,0.6)]"
+                className="w-10 h-10 transition-all duration-300 group-hover:scale-110 object-contain group-hover:drop-shadow-[0_0_8px_rgba(255,107,26,0.8)]"
               />
             </div>
             <div className="flex flex-col">

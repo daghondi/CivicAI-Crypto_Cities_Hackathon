@@ -33,7 +33,7 @@ export default function HomePage() {
               <img 
                 src="/images/1002271631-removebg-preview.png" 
                 alt="CivicAI Logo" 
-                className="w-20 h-20 md:w-24 md:h-24 object-contain animate-float drop-shadow-[0_0_15px_rgba(0,255,255,0.6)] hover:drop-shadow-[0_0_20px_rgba(255,140,66,0.5)]"
+                className="w-20 h-20 md:w-24 md:h-24 object-contain animate-float drop-shadow-[0_0_15px_rgba(0,255,255,0.6)] hover:drop-shadow-[0_0_20px_rgba(255,107,26,0.7)]"
               />
             </div>
           </div>
@@ -45,8 +45,9 @@ export default function HomePage() {
             </span>
           </h1>
           <p className="text-xl text-text-secondary mb-8 max-w-2xl mx-auto animate-slide-up">
-            Empowering communities through AI-driven governance and civic participation in{' '}
-            <span className="text-logo-electric font-semibold">Infinita City</span>
+            Empowering communities through AI-driven governance and civic participation for{' '}
+            <span className="text-logo-electric font-semibold">Network States</span>
+            {' '}like Próspera, Infinita City, and emerging digital communities
           </p>
           <div className="flex justify-center gap-4 mb-8 animate-slide-up delay-200">
             <Button size="lg" variant="glow">
