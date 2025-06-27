@@ -36,7 +36,7 @@ async function main() {
   await iccToken.setGovernanceContract(proposalGovernance.target);
   console.log("✅ Governance contract authorized in ICC token");
 
-  // Optional: Set the governance as reward distributor as well
+  // Set the governance as reward distributor
   console.log("Setting governance contract as reward distributor...");
   await iccToken.setRewardDistributor(proposalGovernance.target);
   console.log("✅ Governance contract set as reward distributor");
@@ -47,14 +47,11 @@ async function main() {
   const proposalCount = await proposalGovernance.getProposalCount();
   console.log(`Initial ICC total supply: ${ethers.formatEther(iccTotalSupply)} I₵C`);
   console.log(`Initial proposal count: ${proposalCount}`);
-  
-  console.log(`ICC Token total supply: ${ethers.formatEther(iccTotalSupply)} I₵C`);
-  console.log(`Initial proposal count: ${proposalCount.toString()}`);
 
-  // Save deployment addresses and ABI
+  // Save deployment addresses
   const deploymentInfo = {
     network: hre.network.name,
-    chainId: hre.network.config.chainId,
+    chainId: hre.network.config.chainId || 31337,
     contracts: {
       ICCToken: {
         address: iccToken.target,
@@ -69,59 +66,26 @@ async function main() {
     timestamp: new Date().toISOString()
   };
 
-  // Create deployments directory
-  const deploymentsDir = path.join(__dirname, "..", "deployments");
-  if (!fs.existsSync(deploymentsDir)) {
-    fs.mkdirSync(deploymentsDir, { recursive: true });
-  }
-
-  // Save deployment info
-  const deploymentFile = path.join(deploymentsDir, `${hre.network.name}.json`);
+  const deploymentFile = path.join(__dirname, "..", "deployments", `${hre.network.name}.json`);
   fs.writeFileSync(deploymentFile, JSON.stringify(deploymentInfo, null, 2));
 
-  // Copy ABI files for frontend integration
-  const artifactsDir = path.join(__dirname, "..", "artifacts", "contracts");
-  const frontendAbiDir = path.join(__dirname, "..", "..", "..", "src", "contracts", "abi");
-  
-  if (!fs.existsSync(frontendAbiDir)) {
-    fs.mkdirSync(frontendAbiDir, { recursive: true });
-  }
-
-  // Copy ICC Token ABI
-  const iccTokenArtifact = require(path.join(artifactsDir, "ICCToken.sol", "ICCToken.json"));
-  fs.writeFileSync(
-    path.join(frontendAbiDir, "ICCToken.json"),
-    JSON.stringify({
-      abi: iccTokenArtifact.abi,
-      address: iccToken.target,
-      contractName: "ICCToken"
-    }, null, 2)
-  );
-
-  // Copy ProposalGovernance ABI
-  const proposalGovernanceArtifact = require(path.join(artifactsDir, "ProposalGovernance.sol", "ProposalGovernance.json"));
-  fs.writeFileSync(
-    path.join(frontendAbiDir, "ProposalGovernance.json"),
-    JSON.stringify({
-      abi: proposalGovernanceArtifact.abi,
-      address: proposalGovernance.target,
-      contractName: "ProposalGovernance"
-    }, null, 2)
-  );
-
   console.log(`\n💾 Deployment info saved to: ${deploymentFile}`);
-  console.log(`📁 Contract ABIs copied to: ${frontendAbiDir}`);
   console.log("\n🎉 Deployment completed successfully!");
 
   // Display summary
   console.log("\n📊 Deployment Summary:");
   console.log("========================");
   console.log(`Network: ${hre.network.name}`);
-  console.log(`Chain ID: ${hre.network.config.chainId || 'localhost'}`);
+  console.log(`Chain ID: ${deploymentInfo.chainId}`);
   console.log(`I₵CToken: ${iccToken.target}`);
   console.log(`ProposalGovernance: ${proposalGovernance.target}`);
   console.log(`Deployer: ${deployer.address}`);
   console.log(`ICC Total Supply: ${ethers.formatEther(iccTotalSupply)} ICC`);
+
+  console.log("\n🔗 Next Steps:");
+  console.log("1. Update your .env.local file with these contract addresses");
+  console.log("2. Test the contracts in your frontend application");
+  console.log("3. Deploy to testnet when ready");
 }
 
 main()
