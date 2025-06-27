@@ -7,14 +7,15 @@ import { Card } from '@/components/ui/Card'
 
 const PRE_FILLED_PROMPTS = [
   "What's a low-cost transport fix?",
-  "What challenges do you face traveling between Pristine Bay and Duna?",
+  "How can we improve connectivity between districts?",
   "Would a connecting road between Pristine Bay and Duna improve your daily commute?",
-  "How can we fix traffic on Main Street?",
+  "How can we fix traffic congestion in our community?",
   "What can we do about waste management in our district?",
   "How can we improve public safety in residential areas?",
-  "How can we reduce unintentional misuse while keeping the store accessible and welcoming?",
+  "How can digital governance improve citizen participation?",
   "How can we encourage honesty and responsibility when using shared community resources?",
-  "Would a community tagging or borrowing log help track shared items more transparently?"
+  "What infrastructure improvements would benefit Próspera residents?",
+  "How can we enhance sustainability in Network State communities?"
 ]
 
 const CATEGORIES = [
@@ -170,7 +171,7 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
                 className="w-full px-3 py-2 bg-dark-surface/30 border border-logo-dark/20 rounded-lg 
                          focus:ring-2 focus:ring-logo-electric/50 focus:border-logo-electric text-text-primary
                          placeholder-text-secondary backdrop-blur-sm"
-                placeholder="e.g., Pristine Bay, Duna"
+                placeholder="e.g., Próspera, Pristine Bay, Network State District"
               />
             </div>
 

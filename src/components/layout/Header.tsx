@@ -25,9 +25,6 @@ export default function Header() {
               <span className="text-xl font-bold bg-gradient-to-r from-logo-primary via-logo-accent to-logo-secondary bg-clip-text text-transparent text-glow">
                 CivicAI
               </span>
-              <span className="text-xs text-logo-electric/80 font-medium">
-                Infinita City
-              </span>
             </div>
           </Link>
 

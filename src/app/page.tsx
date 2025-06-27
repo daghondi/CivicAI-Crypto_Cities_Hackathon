@@ -45,9 +45,9 @@ export default function HomePage() {
             </span>
           </h1>
           <p className="text-xl text-text-secondary mb-8 max-w-2xl mx-auto animate-slide-up">
-            Empowering communities through AI-driven governance and civic participation for{' '}
-            <span className="text-logo-electric font-semibold">Network States</span>
-            {' '}like Próspera, Infinita City, and emerging digital communities
+            Empowering communities through AI-driven governance and civic participation in{' '}
+            <span className="text-logo-electric font-semibold">Island communities</span>
+            {' '}like Próspera, Network States, and emerging digital communities
           </p>
           <div className="flex justify-center gap-4 mb-8 animate-slide-up delay-200">
             <Button size="lg" variant="glow">
@@ -80,13 +80,13 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* I₵C Token Info - matching Infinita City's currency */}
+        {/* I₵C Token Info - matching Network State currencies */}
         <div className="max-w-4xl mx-auto mb-16 animate-slide-up delay-900">
           <div className="bg-gradient-to-r from-logo-electric/10 via-logo-orange/5 to-infinita-neon/10 border border-logo-electric/30 hover:border-logo-orange/40 rounded-xl p-6 backdrop-blur-sm transition-all duration-500">
             <div className="text-center">
-              <h3 className="text-xl font-bold text-logo-electric mb-2">Pay with I₵C Tokens</h3>
+              <h3 className="text-xl font-bold text-logo-electric mb-2">Pay with Community Tokens</h3>
               <p className="text-text-secondary mb-4">
-                Use Infinita City Credits (I₵C) to participate in governance and earn rewards
+                Use community currencies (I₵C, Próspera Dollars, etc.) to participate in governance and earn rewards
               </p>
               <div className="flex items-center justify-center gap-4">
                 <div className="flex items-center gap-2">
