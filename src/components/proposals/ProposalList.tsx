@@ -192,7 +192,7 @@ export default function ProposalList({
     return (
       <div className="text-center py-8">
         <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-600 mx-auto"></div>
-        <p className="mt-2 text-gray-600">Loading proposals...</p>
+        <p className="mt-2 text-text-secondary">Loading proposals...</p>
       </div>
     )
   }
@@ -204,14 +204,14 @@ export default function ProposalList({
         <div className="bg-white p-4 rounded-lg border border-gray-200">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-text-primary mb-1">
                 Status
               </label>
               <select
                 value={statusFilter}
                 onChange={(e) => setStatusFilter(e.target.value)}
                 aria-label="Filter proposals by status"
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500"
+                className="w-full px-3 py-2 border border-dark-border bg-dark-surface text-text-primary rounded-lg focus:ring-2 focus:ring-logo-electric focus:border-logo-electric"
               >
                 {FILTER_OPTIONS.map(option => (
                   <option key={option.value} value={option.value}>
@@ -266,10 +266,10 @@ export default function ProposalList({
 
       {/* Results Summary */}
       <div className="flex justify-between items-center">
-        <h2 className="text-xl font-semibold text-gray-900">
+        <h2 className="text-xl font-semibold text-text-primary bg-gradient-to-r from-logo-primary to-logo-electric bg-clip-text text-transparent">
           {limit ? `Latest ${limit} Proposals` : 'All Proposals'}
         </h2>
-        <span className="text-gray-500">
+        <span className="text-text-secondary">
           {filteredProposals.length} proposal{filteredProposals.length !== 1 ? 's' : ''}
         </span>
       </div>
@@ -287,7 +287,7 @@ export default function ProposalList({
         </div>
       ) : (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No proposals found matching your criteria.</p>
+          <p className="text-text-secondary text-lg">No proposals found matching your criteria.</p>
           <Button className="mt-4">
             Submit New Proposal
           </Button>

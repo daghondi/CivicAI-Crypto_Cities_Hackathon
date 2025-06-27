@@ -92,7 +92,7 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
   return (
     <div className="max-w-4xl mx-auto space-y-6">
       <Card className="p-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-6">
+        <h2 className="text-2xl font-bold text-text-primary mb-6 bg-gradient-to-r from-logo-electric to-logo-primary bg-clip-text text-transparent">
           Submit a Civic Issue
         </h2>
         
