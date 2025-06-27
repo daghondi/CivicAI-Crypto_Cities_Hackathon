@@ -3,6 +3,8 @@ import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
 import UserBadge from '@/components/wallet/UserBadge'
+import ProposalAmendmentForm from '@/components/proposals/ProposalAmendmentForm'
+import ProposalAmendmentList from '@/components/proposals/ProposalAmendmentList'
 import type { Proposal } from '@/types'
 
 // Mock data - in a real app, this would fetch from API/database
@@ -226,6 +228,21 @@ export default async function ProposalPage({ params }: PageProps) {
                 </div>
               </Card>
             )}
+
+            {/* Proposal Amendments */}
+            <ProposalAmendmentForm 
+              proposalId={params.id}
+              onAmendmentProposed={() => {
+                // Force re-render or refresh amendments
+              }}
+            />
+
+            <ProposalAmendmentList 
+              proposalId={params.id}
+              onAmendmentUpdate={() => {
+                // Handle amendment updates
+              }}
+            />
           </div>
 
           {/* Sidebar */}

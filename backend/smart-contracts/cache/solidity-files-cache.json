@@ -420,6 +420,48 @@
       "artifacts": [
         "Counters"
       ]
+    },
+    "D:\\CivicAI_Projects\\CivicAI_Hackathon_Project\\CivicAI-Crypto_Cities_Hackathon\\backend\\smart-contracts\\contracts\\EnhancedProposalGovernance.sol": {
+      "lastModificationDate": 1750988356175,
+      "contentHash": "82afd28fdd8f628bf1ba6772468a192d",
+      "sourceName": "contracts/EnhancedProposalGovernance.sol",
+      "solcConfig": {
+        "version": "0.8.19",
+        "settings": {
+          "optimizer": {
+            "enabled": true,
+            "runs": 200
+          },
+          "viaIR": true,
+          "outputSelection": {
+            "*": {
+              "*": [
+                "abi",
+                "evm.bytecode",
+                "evm.deployedBytecode",
+                "evm.methodIdentifiers",
+                "metadata"
+              ],
+              "": [
+                "ast"
+              ]
+            }
+          }
+        }
+      },
+      "imports": [
+        "@openzeppelin/contracts/security/ReentrancyGuard.sol",
+        "@openzeppelin/contracts/security/Pausable.sol",
+        "@openzeppelin/contracts/access/Ownable.sol",
+        "@openzeppelin/contracts/utils/Counters.sol",
+        "./ICCToken.sol"
+      ],
+      "versionPragmas": [
+        "^0.8.19"
+      ],
+      "artifacts": [
+        "EnhancedProposalGovernance"
+      ]
     }
   }
 }
