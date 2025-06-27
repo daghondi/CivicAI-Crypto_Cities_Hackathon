@@ -4,7 +4,12 @@ import { useState } from 'react'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
 import { Badge } from '@/components/ui/Badge'
-import { Loader2, Zap, CheckCircle, FileText, Save, AlertCircle, TrendingUp, Clock, DollarSign } from 'lucide-react'
+import { Loader2, Zap, Ch                    <DollarSign className="w-4 h-4 text-logo-orange" />
+                    <h4 className="font-medium text-text-primary">Estimated Cost</h4>
+                  </div>
+                  <p className="text-logo-orange font-semibold text-lg">
+                    ${generatedProposal.cost_estimate?.toLocaleString() || 'TBD'}
+                  </p>cle, FileText, Save, AlertCircle, TrendingUp, Clock, DollarSign } from 'lucide-react'
 
 interface ProposalGeneratorProps {
   problemData: any

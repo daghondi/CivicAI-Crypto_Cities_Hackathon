@@ -240,7 +240,7 @@ export default function ProblemSubmissionForm({ onProposalGenerated }: ProblemSu
               </div>
               <div>
                 <span className="font-medium text-text-secondary">Cost:</span>
-                <div className="text-lg font-bold text-logo-gold">${generatedProposal.cost_estimate?.toLocaleString()}</div>
+                <div className="text-lg font-bold text-logo-orange">${generatedProposal.cost_estimate?.toLocaleString()}</div>
               </div>
               <div>
                 <span className="font-medium text-text-secondary">Timeline:</span>

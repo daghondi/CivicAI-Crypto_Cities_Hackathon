@@ -18,7 +18,7 @@ export default function ProposalCard({ proposal, onVote, showVoting = true }: Pr
       case 'active': return 'bg-logo-electric/20 text-logo-electric border-logo-electric/30'
       case 'approved': return 'bg-logo-mint/20 text-logo-mint border-logo-mint/30'
       case 'rejected': return 'bg-red-400/20 text-red-400 border-red-400/30'
-      case 'implemented': return 'bg-logo-gold/20 text-logo-gold border-logo-gold/30'
+      case 'implemented': return 'bg-logo-orange/20 text-logo-orange border-logo-orange/30'
       case 'draft': return 'bg-logo-dark/20 text-text-primary border-logo-dark/30'
       default: return 'bg-logo-dark/20 text-text-primary border-logo-dark/30'
     }
@@ -82,7 +82,7 @@ export default function ProposalCard({ proposal, onVote, showVoting = true }: Pr
           <div className="text-text-secondary">Feasibility</div>
         </div>
         <div className="text-center">
-          <div className="font-bold text-lg text-logo-gold">
+          <div className="font-bold text-lg text-logo-orange">
             ${proposal.ai_analysis?.cost_estimate?.toLocaleString() || 'TBD'}
           </div>
           <div className="text-text-secondary">Cost</div>
@@ -149,7 +149,7 @@ export default function ProposalCard({ proposal, onVote, showVoting = true }: Pr
       {/* ICC Incentive Badge */}
       {proposal.ai_analysis && (
         <div className="mt-3 pt-3 border-t border-logo-dark/20">
-          <div className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-logo-gold/20 text-logo-gold border border-logo-gold/30">
+          <div className="inline-flex items-center px-2 py-1 rounded-full text-xs bg-logo-orange/20 text-logo-orange border border-logo-orange/30">
             💰 I₵C Eligible
           </div>
         </div>

@@ -58,7 +58,7 @@ export default function ICCWallet({
     if (action.includes('VOTE')) return 'text-blue-600 bg-blue-50'
     if (action.includes('PROPOSAL')) return 'text-green-600 bg-green-50'
     if (action.includes('COMMENT')) return 'text-purple-600 bg-purple-50'
-    if (action.includes('ACHIEVEMENT')) return 'text-yellow-600 bg-yellow-50'
+    if (action.includes('ACHIEVEMENT')) return 'text-logo-orange bg-logo-orange/10'
     return 'text-gray-600 bg-gray-50'
   }
 
@@ -121,10 +121,10 @@ export default function ICCWallet({
       <Card className="p-4">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Wallet className="w-5 h-5 text-yellow-500" />
-            <h3 className="font-semibold text-gray-900">I₵C Wallet</h3>
+            <Wallet className="w-5 h-5 text-logo-orange" />
+            <h3 className="font-semibold text-text-primary">I₵C Wallet</h3>
           </div>
-          <Badge variant="secondary" className="bg-yellow-100 text-yellow-800">
+          <Badge variant="secondary" className="bg-logo-orange/20 text-logo-orange border border-logo-orange/30">
             {formatICC(totalBalance)}
           </Badge>
         </div>
@@ -163,14 +163,14 @@ export default function ICCWallet({
   return (
     <div className="space-y-6">
       {/* Balance Header */}
-      <Card className="p-6 bg-gradient-to-r from-yellow-50 to-orange-50 border-yellow-200">
+      <Card className="p-6 bg-gradient-to-r from-logo-orange/10 to-logo-orange/5 border-logo-orange/30">
         <div className="text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
-            <Wallet className="w-8 h-8 text-yellow-600" />
-            <h2 className="text-2xl font-bold text-gray-900">I₵C Wallet</h2>
+            <Wallet className="w-8 h-8 text-logo-orange" />
+            <h2 className="text-2xl font-bold text-text-primary">I₵C Wallet</h2>
           </div>
           
-          <div className="text-4xl font-bold text-yellow-600 mb-2">
+          <div className="text-4xl font-bold text-logo-orange mb-2">
             {formatICC(totalBalance)}
           </div>
           
@@ -213,8 +213,8 @@ export default function ICCWallet({
 
       {/* Earning Opportunities */}
       <Card className="p-6">
-        <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-          <Zap className="w-5 h-5 text-yellow-500" />
+        <h3 className="text-lg font-semibold text-text-primary mb-4 flex items-center gap-2">
+          <Zap className="w-5 h-5 text-logo-orange" />
           Earning Opportunities
         </h3>
         

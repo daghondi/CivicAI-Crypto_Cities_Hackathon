@@ -50,7 +50,7 @@ export default function UserBadge({
   const getReputationColor = (score: number) => {
     if (score >= 80) return 'text-logo-electric'
     if (score >= 60) return 'text-logo-mint'
-    if (score >= 40) return 'text-logo-gold'
+    if (score >= 40) return 'text-logo-orange'
     return 'text-text-secondary'
   }
 
