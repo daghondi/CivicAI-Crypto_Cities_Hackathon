@@ -17,6 +17,12 @@ module.exports = {
         'logo-mint': '#7fffd4',         // Mint complement
         'logo-gold': '#ffd700',         // Gold accent for highlights
 
+        // Infinita City Inspired Colors
+        'infinita-neon': '#39ff14',     // Bright neon green
+        'infinita-purple': '#8a2be2',   // Blue violet
+        'infinita-pink': '#ff1493',     // Deep pink
+        'infinita-orange': '#ff4500',   // Orange red
+
         // Dark Theme Base
         'dark-bg': '#000000',           // Pure black background
         'dark-surface': '#0a0a0a',      // Card/surface background

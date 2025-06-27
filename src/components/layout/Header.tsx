@@ -9,21 +9,26 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
-    <header className="bg-dark-bg border-b border-dark-border backdrop-blur-sm">
+    <header className="bg-gradient-to-r from-dark-bg via-dark-surface to-dark-bg border-b border-logo-electric/20 backdrop-blur-md shadow-lg shadow-logo-electric/10 sticky top-0 z-50">
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative logo-container p-1 rounded-lg">
+            <div className="relative p-2 rounded-xl bg-gradient-to-br from-logo-electric/20 to-logo-primary/20 border border-logo-electric/30 backdrop-blur-sm hover:border-logo-electric/60 transition-all duration-300 group-hover:shadow-glow">
               <img 
                 src="/images/logo.svg" 
                 alt="CivicAI Logo" 
-                className="w-12 h-12 transition-all duration-300 group-hover:scale-110 logo-glow"
+                className="w-10 h-10 transition-all duration-300 group-hover:scale-110 filter brightness-0 invert group-hover:drop-shadow-[0_0_8px_rgba(0,255,255,0.8)]"
               />
             </div>
-            <span className="text-xl font-bold bg-gradient-to-r from-logo-primary via-logo-accent to-logo-secondary bg-clip-text text-transparent">
-              CivicAI
-            </span>
+            <div className="flex flex-col">
+              <span className="text-xl font-bold bg-gradient-to-r from-logo-primary via-logo-accent to-logo-secondary bg-clip-text text-transparent text-glow">
+                CivicAI
+              </span>
+              <span className="text-xs text-logo-electric/80 font-medium">
+                Infinita City
+              </span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -45,7 +50,7 @@ export default function Header() {
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
             <WalletConnect />
-            <Button size="sm" className="bg-gradient-logo hover:shadow-lg hover:shadow-logo-accent/30 transition-all duration-300">
+            <Button size="sm" className="bg-gradient-to-r from-logo-primary to-logo-accent hover:shadow-lg hover:shadow-logo-electric/30 transition-all duration-300 text-white font-semibold">
               Submit Proposal
             </Button>
           </div>
@@ -79,7 +84,7 @@ export default function Header() {
               </Link>
               <div className="flex flex-col space-y-2 pt-4 border-t border-dark-border">
                 <WalletConnect />
-                <Button size="sm" className="bg-gradient-logo hover:shadow-lg hover:shadow-logo-accent/30 transition-all duration-300">
+                <Button size="sm" className="bg-gradient-to-r from-logo-primary to-logo-accent hover:shadow-lg hover:shadow-logo-electric/30 transition-all duration-300 text-white font-semibold">
                   Submit Proposal
                 </Button>
               </div>
