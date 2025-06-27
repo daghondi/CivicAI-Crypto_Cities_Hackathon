@@ -5,6 +5,7 @@ import { useParams, useRouter } from 'next/navigation'
 import { useWeb3 } from '@/components/providers/Web3Provider'
 import EnhancedVotingInterface from '@/components/forms/EnhancedVotingInterface'
 import { ProposalDetails } from '@/components/proposals/ProposalDetails'
+import ProposalLifecycle from '@/components/proposals/ProposalLifecycle'
 import UserBadge from '@/components/wallet/UserBadge'
 import { Button } from '@/components/ui/Button'
 import { Card } from '@/components/ui/Card'
@@ -280,6 +281,12 @@ export default function VotePage() {
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Proposal Creator</h3>
               <UserBadge address={proposal.creator_address} />
             </Card>
+
+            {/* Proposal Lifecycle */}
+            <ProposalLifecycle 
+              proposal={proposal} 
+              onProposalUpdate={fetchProposal}
+            />
 
             {/* Voting Info */}
             <Card className="p-6 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-200">

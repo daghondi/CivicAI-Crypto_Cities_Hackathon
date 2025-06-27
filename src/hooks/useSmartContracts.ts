@@ -98,6 +98,54 @@ export function useSmartContracts() {
     return ContractUtils.hasUserVoted(provider, proposalId, address)
   }
 
+  const executeProposal = async (proposalId: number) => {
+    if (!signer) {
+      throw new Error('Wallet not connected')
+    }
+    
+    setLoading(true)
+    try {
+      const result = await ContractUtils.executeProposal(signer, proposalId)
+      
+      if (result.success) {
+        // Refresh user data after successful execution
+        await fetchUserData()
+      }
+      
+      return result
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const cancelProposal = async (proposalId: number) => {
+    if (!signer) {
+      throw new Error('Wallet not connected')
+    }
+    
+    setLoading(true)
+    try {
+      const result = await ContractUtils.cancelProposal(signer, proposalId)
+      
+      if (result.success) {
+        // Refresh user data after successful cancellation
+        await fetchUserData()
+      }
+      
+      return result
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const getProposalState = async (proposalId: number) => {
+    if (!provider) {
+      throw new Error('Provider not available')
+    }
+    
+    return ContractUtils.getProposalState(provider, proposalId)
+  }
+
   return {
     // User data
     iccBalance,
@@ -109,6 +157,9 @@ export function useSmartContracts() {
     castVote,
     getProposal,
     hasUserVoted,
+    executeProposal,
+    cancelProposal,
+    getProposalState,
     refreshUserData: fetchUserData,
     
     // Wallet state
