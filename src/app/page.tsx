@@ -50,15 +50,11 @@ export default function HomePage() {
             {' '}like Próspera, Network States, and emerging digital communities
           </p>
           <div className="flex justify-center gap-4 mb-8 animate-slide-up delay-200">
-            <Link href="/dashboard">
-              <Button size="lg" variant="glow">
-                Get Started
-              </Button>
+            <Link href="/dashboard" className="font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-bg transform hover:scale-105 active:scale-95 px-6 py-3 text-lg bg-gradient-to-r from-logo-accent to-logo-secondary text-dark-bg hover:shadow-lg hover:shadow-logo-accent/30 focus:ring-logo-accent animate-glow">
+              Get Started
             </Link>
-            <Link href="/proposals">
-              <Button variant="outline" size="lg">
-                View Proposals
-              </Button>
+            <Link href="/proposals" className="font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-bg transform hover:scale-105 active:scale-95 px-6 py-3 text-lg border border-logo-accent text-logo-accent hover:bg-logo-accent/10 hover:border-logo-accent focus:ring-logo-accent backdrop-blur-sm">
+              View Proposals
             </Link>
           </div>
         </div>
@@ -97,10 +93,8 @@ export default function HomePage() {
                   </div>
                   <span className="text-text-primary font-semibold">1 I₵C = 1 USD</span>
                 </div>
-                <Link href="/dashboard">
-                  <Button variant="outline" size="sm" className="border-logo-orange/50 text-logo-orange hover:bg-logo-orange/10">
-                    Get I₵C Tokens
-                  </Button>
+                <Link href="/dashboard" className="font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-bg transform hover:scale-105 active:scale-95 px-3 py-1.5 text-sm border border-logo-orange/50 text-logo-orange hover:bg-logo-orange/10">
+                  Get I₵C Tokens
                 </Link>
               </div>
             </div>
@@ -117,10 +111,8 @@ export default function HomePage() {
           <div className="bg-gradient-card rounded-xl shadow-2xl p-8 border border-dark-border backdrop-blur-sm hover:border-logo-electric/30 transition-all duration-300">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-2xl font-bold text-text-primary">Recent Proposals</h2>
-              <Link href="/proposals">
-                <Button variant="outline">
-                  View All Proposals
-                </Button>
+              <Link href="/proposals" className="font-medium rounded-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-dark-bg transform hover:scale-105 active:scale-95 px-4 py-2 border border-logo-accent text-logo-accent hover:bg-logo-accent/10 hover:border-logo-accent focus:ring-logo-accent backdrop-blur-sm">
+                View All Proposals
               </Link>
             </div>
             <ProposalList showFilters={false} limit={3} />
